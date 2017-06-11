@@ -1,0 +1,30 @@
+{
+  "projectileName" : "slimehand",
+  "image" : "slimehand.png",
+  "animationCycle" : 1.0,
+  "frameNumber" : 1,
+  "pointLight" : false,
+  "flippable" : false,
+  "actionOnReap" : [ ],
+  "statusEffects" : [ ],
+  "power" : 0.0,
+  "speed" : 40,
+  "damageKind" : "default",
+  "physics" : "slimehand",
+  "bounces" : -1,
+  "piercing" : true,
+  "timeToLive" : 5,
+
+  "onlyHitTerrain" : true,
+
+  "scripts" : [ "/projectiles/activeitems/grapplehook/grapplehook.lua" ],
+  
+  "actionOnCollide" : [
+    {
+      "action" : "sound",
+      "options" : [
+        "/sfx/blocks/footstep_mud.ogg"
+      ]
+    }
+  ]
+}
