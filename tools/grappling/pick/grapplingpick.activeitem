@@ -1,0 +1,44 @@
+{
+  "itemName" : "climbingpick",
+  "price" : 3000,
+  "inventoryIcon" : "grapplepickicon.png",
+  "rarity" : "Legendary",
+  "maxStack" : 1,
+  "description" : "Oh my god, whee! This is so fun!",
+  "shortdescription" : "Climbing Pick",
+  "largeImage" : "grapplepickbig.png",
+  "category" : "Tool",
+  "fireTime" : 0,
+  "twoHanded" : false,
+
+  "scripts" : ["/items/active/grapplinghooks/grapplinghook.lua"],
+  "animationScripts" : ["/items/active/effects/renderrope.lua"],
+
+  "animation" : "grapplingpick.animation",
+
+  "fireOffset" : [0, 0.3],
+  "ropeOffset" : [-1.75, 0.3],
+  "ropeVisualOffset" : [0.75, 0.3],
+
+  "consumeOnUse" : false,
+
+  "projectileType" : "grapplepick",
+  "projectileParameters" : {
+    "speed" : 200,
+    "timeToLive" : 0.02
+  },
+
+  "ropeWidth" : 0.0,
+  "ropeColor" : [120, 80, 30, 255],
+
+  "reelInDistance" : 1.0,
+  "reelOutLength" : 3.0,
+  "breakLength" : 10,
+
+  "minSwingDistance" : 0.2,
+
+  "reelSpeed" : 0,
+  "controlForce" : 1000,
+
+  "groundLagTime" : 0.2
+}
