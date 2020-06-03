@@ -15,8 +15,11 @@ function GunFire:init()
 	
 	
 	self.rounds = config.getParameter("rounds", 6)
-	--self.cursor = config.getParameter("cursor", "/cursors/100/azreticle")
-	--self.cursorDir = config.getParameter("cursorDir")
+	
+	self.maxRounds = config.getParameter("maxRounds", 3)
+	self.cursorAmmo = config.getParameter("cursorAmmo", false)
+	self.cursorDir = config.getParameter("cursorDir", "/cursors/12/azreticle")
+	
 	self:cursorUpdate()
 
 end
@@ -36,9 +39,10 @@ function GunFire:update(dt, fireMode, shiftHeld)
             and not status.resourceLocked("energy")
             and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
 			
-		if shiftHeld then
-			self:setState(self.reload)
-		elseif self.rounds <= 0 then
+		--if shiftHeld then
+		--	self:setState(self.reload)
+		--else
+		if self.rounds <= 0 then
 			self:setState(self.click)
         elseif self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
             self:setState(self.auto)
@@ -46,6 +50,12 @@ function GunFire:update(dt, fireMode, shiftHeld)
             self:setState(self.burst)
         end
     end
+end
+
+function GunFire:ammoCall()
+	--sb.logInfo("ammocall received by primary")
+	self.rounds = config.getParameter("rounds", 6)
+	self:cursorUpdate()
 end
 
 function GunFire:auto()

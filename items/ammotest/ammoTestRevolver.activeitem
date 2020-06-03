@@ -34,18 +34,18 @@
   "scripts" : ["/scripts/weapon/gun.lua"],
   "scale" : [1, 1],
   "recoilToggle" : false,
-  "abilityPrimaryInternalShift" : true,
+  "abilityPrimaryInternalShift" : false,
 
   "elementalType" : "physical",
+  
+  "maxRounds" : 6,
+  "cursorAmmo" : true,
+  "cursorDir" : "/cursors/12/azreticle",
 
   "primaryAbility" : {
     "scripts" : ["/scripts/weapon/gunfireammo.lua"],
     "class" : "GunFire",
 
-	"maxRounds" : 6,
-	"cursorAmmo" : true,
-	"cursorDir" : "/cursors/12/azreticle",
-	
     "fireTime" : 0.6,
     "baseDps" : 6.25,
     "energyUsage" : 18.75,
@@ -53,6 +53,46 @@
 
     "projectileCount" : 1,
     "fireType" : "auto",
+
+    "projectileType" : "standardbullet",
+    "projectileParameters" : {
+      "knockback" : 6
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  },
+  
+  "shiftPrimaryAbility" : {
+    "scripts" : ["/scripts/weapon/ammoreload.lua"],
+    "class" : "Reload",
+	
+    "fireTime" : 0.6,
 
     "projectileType" : "standardbullet",
     "projectileParameters" : {

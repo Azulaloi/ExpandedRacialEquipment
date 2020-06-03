@@ -98,7 +98,8 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
     if fireMode == "primary" then
         if shiftHeld then
 			-- kind of a bandaid
-            if self.primaryInternalShift then select = 1 else select = 3 end
+            --if self.primaryInternalShift then select = 1 else select = 3 end
+			select = 3
         else
             select = 1
         end
@@ -498,4 +499,17 @@ function dwDisallowFlip()
     end
 
     return false
+end
+
+
+-- ammo functionality
+
+function Weapon:ammoCall(select)
+    for _,ability in pairs(self.abilities) do
+        if ability then
+            if ability.select == select then
+                ability:ammoCall()
+			end
+        end
+    end
 end
