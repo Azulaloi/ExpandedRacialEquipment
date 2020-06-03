@@ -1,0 +1,27 @@
+{
+  "projectileName" : "action_executor",
+  "image" : "none.png",
+  "animationCycle" : 0.25,
+  "frameNumber" : 1,
+  "damageKind" : "standardbullet",
+  "pointLight" : false,
+  "timeToLive" : 0.0,
+
+  "actionOnReap" : [
+    {
+      "action" : "projectile",
+      "type" : "action_bullet",
+      "directional" : true
+    },
+    {
+      "action" : "projectile",
+      "type" : "action_case",
+      "directional" : true,
+      "fuzzAngle" : 90
+    }
+  ],
+
+  "power" : 0,
+  "speed" : 0,
+  "knockback" : 0
+}

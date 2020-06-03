@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9a3e0924-1c87-4221-8e28-1e55688903d3" name="Default" comment="Nova T1, T2, T3 secondaries">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/glitch/glitchPrimaryT0.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/glitch/glitchPrimaryT2.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/glitch/glitchPrimaryT3.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/glitch/glitchPrimaryT4.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/human/humanPrimaryT1.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/human/humanPrimaryT2.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/human/humanPrimaryT2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/human/humanPrimaryT2g.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/hylotl/hylotlPrimaryT0.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/hylotl/hylotlPrimaryT1-.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/hylotl/hylotlPrimaryT1.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/hylotl/hylotlPrimaryT2.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT2-long.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT2.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT3.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT4.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT5a.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT5m.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT5s.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT5s.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT6a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT6m.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidPrimaryT6s.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidSecondaryT1--.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidSecondaryT1.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidSecondaryT3.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/weapons/novakid/novakidSecondaryT4.pdn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interface/windowconfig/craftingazvil.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/interface/windowconfig/craftinggear.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/testitem/claw/clawglove.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/testitem/claw/clawglove.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/testitem/claw/clawglove.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/capturepodphasic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/capturepodphasic.thrownitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/filled/filledcapturepod.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/filled/filledcapturepod.animation" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/filled/filledcapturepod.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/throwables/capture/phasic/filled/filledcapturepod.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/tools/mininglantern.flashlight.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/abilities/azbowshot.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/abilities/azbowshot.weaponability" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2g.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6a.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6m.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6s.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/hyperbolicblast/default.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/hyperbolicblast/hyperbolicblast.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/hyperbolicblast/hyperbolicblast.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/hyperbolicblast/miniwobbleshot.projectile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/muzzleflash.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/muzzleflash.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/raygun.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/raygun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/raygun_l6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bow.activeitem" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bowfull.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bowfull.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bowicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghost/azerchiusghost.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghost/erchiusghost.monstertype.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghostcaptured/body.monsterpart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghostcaptured/erchiusghostcaptured.animation" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghostcaptured/erchiusghostcaptured.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghostcaptured/erchiusghostcaptured.monstertype" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monsters/ghosts/erchiusghostcaptured/erchiusghostcaptured.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinganvil/craftinganvil.object.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear.animation" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear.object" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear2.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear2icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear2lit.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggear2lit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/craftinggearicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/crafting/upgradeablecraftingobjects/craftinggear/default.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighth.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighth.object" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighth.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighthicon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighthlit.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/objects/devlight/stationlighthlit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/racial/action_bullet.projectile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/racial/action_case.projectile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/racial/action_executor.projectile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/racial/case.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumbullet.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumbullet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/ranged/recoil/recoil1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/violiumbullet.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/throwable/capturepodphasic/capturepodphasic.frames" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/throwable/capturepodphasic/capturepodphasic.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/throwable/capturepodphasic/capturepodphasic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/projectiles/throwable/capturepodphasic/capturepodphasic.projectile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/capturephasic.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/recoil/azrecoilgun.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/recoil/recoilgunfire.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/recoilgunfireold.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/abilities.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/build.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/gun.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/gunfire.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/gunfiredraw.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/weapon/weapon.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/sfx/slimeslap.ogg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tech/dash/dodge.animation" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tech/dash/dodge.lua" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tech/dash/dodge.tech" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_metadata" beforeDir="false" afterPath="$PROJECT_DIR$/_metadata" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/buildscripts/weaponabilities.config.patch" beforeDir="false" afterPath="$PROJECT_DIR$/items/buildscripts/weaponabilities.config.patch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/inject.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/inject.statuseffect" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novainject.statuseffect" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novastim.animation" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novastim.consumable" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novastim.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novastim.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/racialbooster/novakid/novastim.statuseffect" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/aegisaltpistol.activeitem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/beam.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/beamend.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/voice.animation" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/voice.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/chain/voicefullbright.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/feroziumbullet.frames" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/racial/bullet.frames" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/feroziumbullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/racial/bullet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/feroziumbullet.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumbullet.projectile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/feroziumtrail1.particle" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumtrail1.particle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/feroziumtrail2.particle" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumtrail2.particle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/piercingferoziumbullet.frames" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/piercingferoziumbullet.frames" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/piercingferoziumbullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/piercingferoziumbullet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/feroziumbullet/piercingferoziumbullet.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/feroziumbullet/piercingferoziumbullet.projectile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/violiumbullet.frames" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/racial/case.frames" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/violiumbullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/violiumbullet.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/violiumbullet.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/violiumbullet.projectile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/violiumtrail1.particle" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/violiumtrail1.particle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/violiumbullet/violiumtrail2.particle" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/ranged/violiumbullet/violiumtrail2.particle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/colorutil.lua" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ranged/azgun.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ranged/azgun.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ranged/azgunfire.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ranged/azgunfire.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/ranged/azweapon.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/ranged/azweapon.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/abilities/flurrycombo.lua" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/abilities/flurrycombo.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/abilities/flurrycombo.weaponability" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/abilities/flurrycombo.weaponability" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/barrel/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/barrel/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/barrel/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/barrel/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/barrel/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/barrel/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/barrel/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/barrel/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/butt/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/butt/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/butt/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/butt/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/butt/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/butt/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/butt/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/butt/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/floranassaultnames.config" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/floranassaultnames.config" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/floranassaultrifle.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/floranassaultrifle.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/middle/1.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/middle/1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/middle/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/middle/2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/middle/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/middle/3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/generated/floranassaultrifle/middle/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/middle/4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/glitch/primary/glitchPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/glitch/primary/glitchPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/glitch/primary/glitchPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/glitch/primary/glitchPrimaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/glitch/primary/glitchPrimaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/human/primary/humanPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/human/primary/humanPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/human/secondary/humanSecondaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/hylotl/primary/hylotlPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/hylotl/primary/hylotlPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/hylotl/primary/hylotlPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT5a.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5a.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT5m.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5m.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/primary/novaPrimaryT5s.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5s.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT5a.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5a.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT5m.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5m.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/weapons/novakid/secondary/novaSecondaryT5s.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5s.activeitem" afterDir="false" />
+    </list>
+    <ignored path="az-expandedracialequipment.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="az-expandedracialequipment" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/action_executor.projectile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="209">
+              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/action_bullet.projectile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/action_case.projectile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="132">
+              <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/case.frames">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="66">
+              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/case.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/racial/bullet.frames">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumbullet.projectile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/weapon/gunfire.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="77">
+              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+              <folding>
+                <element signature="n#GunFire:update#0" />
+                <element signature="n#GunFire:auto#0" />
+                <element signature="n#GunFire:burst#0" />
+                <element signature="n#GunFire:cooldown#0" />
+                <element signature="n#GunFire:muzzleFlash#0" />
+                <element signature="n#GunFire:fireProjectile#0" />
+                <element signature="n#GunFire:firePosition#0" />
+                <element signature="n#GunFire:aimVector#0" />
+                <element signature="n#GunFire:energyPerShot#0" />
+                <element signature="n#GunFire:damagePerShot#0" />
+                <element signature="n#GunFire:uninit#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/scripts/weapon/gunfiredraw.lua">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2607">
+              <caret line="296" column="95" selection-start-line="296" selection-start-column="95" selection-end-line="296" selection-end-column="95" />
+              <folding>
+                <element signature="n#GunFire:muzzleFlash#0" />
+                <element signature="n#GunFire:fireProjectile#0" />
+                <element signature="n#GunFire:firePosition#0" />
+                <element signature="n#GunFire:aimVector#0" />
+                <element signature="n#GunFire:energyPerShot#0" />
+                <element signature="n#GunFire:damagePerShot#0" />
+                <element signature="n#GunFire:uninit#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/robotchest.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/robothead.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/robotlegs.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/screws.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/seaweed.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/sulphur.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/thread.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/triangliumore.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/uraniumore.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingunused/uraniumrod.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/consumables/rawham.consumable" />
+        <option value="$PROJECT_DIR$/../az-restoration/consumables/cookedham.consumable" />
+        <option value="$PROJECT_DIR$/../az-restoration/craftingancient/gnome.item" />
+        <option value="$PROJECT_DIR$/../az-restoration/farmables/crystal/wildcrystalplantseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoration/farmables/crystal/crystalplantseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoration/farmables/mushroom/mushroomseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoration/treasure/cropharvest.treasurepools" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/_metadata" />
+        <option value="$PROJECT_DIR$/../az-restorationholding/_metadata" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/objects/farmables/mushroom/mushroomseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/farmables/domesticmushroom/domesticmushroomseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/farmables/crystal/crystalplantseed.object" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/treasure/cropharvest.treasurepools.patch" />
+        <option value="$PROJECT_DIR$/../az-restoredconsumables/content/produce/crystalplant.item" />
+        <option value="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/something.activeitem" />
+        <option value="$PROJECT_DIR$/projectiles/other/echo.projectile" />
+        <option value="$PROJECT_DIR$/items/testitem/wavegun/chain/azchain.activeitem" />
+        <option value="$PROJECT_DIR$/items/testitem/wavegun/chain/voices.activeitem" />
+        <option value="$PROJECT_DIR$/scripts/ranged/azrecoilproj.lua" />
+        <option value="$PROJECT_DIR$/items/testitem/recoil/recoilgunfire.lua" />
+        <option value="$PROJECT_DIR$/scripts/ranged/azrecoilgun.lua" />
+        <option value="$PROJECT_DIR$/items/testitem/recoil/ironrevolver.activeitem" />
+        <option value="$PROJECT_DIR$/projectiles/ranged/recoil/recoil.projectile" />
+        <option value="$PROJECT_DIR$/scripts/ranged/azgun.lua" />
+        <option value="$PROJECT_DIR$/scripts/recoil/recoilgunfire.lua" />
+        <option value="$PROJECT_DIR$/scripts/recoil/azrecoilgun.lua" />
+        <option value="$PROJECT_DIR$/scripts/ranged/azweapon.lua" />
+        <option value="$PROJECT_DIR$/scripts/recoil/azrecoilproj.lua" />
+        <option value="$PROJECT_DIR$/scripts/recoil/recoilgun.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/gun.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/build.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/abilities.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/weapon.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/gunfire.lua" />
+        <option value="$PROJECT_DIR$/scripts/weapon/gunfiredraw.lua" />
+        <option value="$PROJECT_DIR$/projectiles/racial/bullet_executor.projectile" />
+        <option value="$PROJECT_DIR$/projectiles/racial/action_bullet.projectile" />
+        <option value="$PROJECT_DIR$/projectiles/racial/action_executor.projectile" />
+        <option value="$PROJECT_DIR$/projectiles/racial/action_case.projectile" />
+        <option value="$PROJECT_DIR$/projectiles/racial/case.frames" />
+        <option value="$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="88" />
+    <option name="y" value="-16" />
+    <option name="width" value="1697" />
+    <option name="height" value="1026" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547876178233" />
+    <property name="ignore_missing_gitignore" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../az-playablefenerox" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.tabs" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\projectiles\racial" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\scripts\weapon" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\scripts\recoil" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\projectiles\ranged\recoil" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\projectiles\other" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\scripts" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\scripts\recoil" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\scripts\ranged" />
+      <recent name="E:\SteamASSD\steamapps\common\Starbound\mods\az-expandedracialequipment\items\weapons\unrand" />
+      <recent name="C:\Program Files (x86)\Steam\steamapps\common\Starbound\mods\az-restoredconsumables\content" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet">
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a3e0924-1c87-4221-8e28-1e55688903d3" name="Default" comment="" />
+      <created>1496351683242</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1496351683242</updated>
+    </task>
+    <task id="LOCAL-00001" summary="5 Glitch primary weapons">
+      <created>1496359390774</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1496359390774</updated>
+    </task>
+    <task id="LOCAL-00002" summary="3 Hylotl primary weapons">
+      <created>1496366826219</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1496366826219</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Reformat first 2 extant novakid primaries">
+      <created>1496378147050</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1496378147050</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Categories patch to add &quot;rifle&quot; category">
+      <created>1496378197436</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1496378197436</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add Novakid T2 and T3 primaries">
+      <created>1496378258004</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1496378258004</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add repeater sounds">
+      <created>1496378323014</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1496378323014</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Begin reimplementing Floran rand rifles">
+      <created>1496378362793</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1496378362793</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Begin implementing &quot;flurrycombo&quot; ability">
+      <created>1496440222329</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1496440222329</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Begin implementing racial booster functionality">
+      <created>1496565287886</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1496565287886</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Category additions">
+      <created>1496691329111</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1496691329111</updated>
+    </task>
+    <task id="LOCAL-00011" summary="WIP nova T4 primary">
+      <created>1496691382018</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1496691382018</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Nova T1, T2, T3 secondaries">
+      <created>1496695677344</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1496695677345</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Nova T5m projectile and SFX">
+      <created>1496700016058</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1496700016058</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Nova T5s projectiles and SFX">
+      <created>1496703982332</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1496703982332</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Nova T5m alt ability">
+      <created>1496711036258</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1496711036258</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Nova T4 secondary">
+      <created>1496711103972</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1496711103972</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Nova T5a Primary (WIP)">
+      <created>1496711186142</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1496711186142</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Nova T4 icon">
+      <created>1496711398982</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1496711398982</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Nova T5a, T5m, T5s secondaries">
+      <created>1496717386216</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1496717386216</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Human T0 (temp?), T1 primary, T1 secondary">
+      <created>1496717738411</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1496717738411</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Capture Tool" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Palette&#9;" order="3" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.21215352" />
+      <window_info id="Structure" order="5" weight="0.25" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="bottom" id="Event Log" order="0" side_tool="true" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Message" order="3" />
+      <window_info anchor="bottom" id="Find" order="4" weight="0.32980973" />
+      <window_info anchor="bottom" id="Run" order="5" />
+      <window_info anchor="bottom" id="Debug" order="6" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="7" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="9" />
+      <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="right" id="Capture Analysis" order="0" />
+      <window_info anchor="right" id="Maven Projects" order="1" />
+      <window_info anchor="right" id="Designer" order="2" />
+      <window_info anchor="right" id="LuaJ" order="3" />
+      <window_info anchor="right" id="Palette" order="4" />
+      <window_info anchor="right" id="Commander" order="5" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="6" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
+      <window_info anchor="right" id="Maven" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="5 Glitch primary weapons" />
+    <MESSAGE value="3 Hylotl primary weapons" />
+    <MESSAGE value="Reformat first 2 extant novakid primaries" />
+    <MESSAGE value="Categories patch to add &quot;rifle&quot; category" />
+    <MESSAGE value="Add Novakid T2 and T3 primaries" />
+    <MESSAGE value="Add repeater sounds" />
+    <MESSAGE value="Begin reimplementing Floran rand rifles" />
+    <MESSAGE value="Begin implementing &quot;flurrycombo&quot; ability" />
+    <MESSAGE value="Begin implementing racial booster functionality" />
+    <MESSAGE value="Category additions" />
+    <MESSAGE value="WIP nova T4 primary" />
+    <MESSAGE value="Nova T1, T2, T3 secondaries" />
+    <MESSAGE value="Nova T5m projectile and SFX" />
+    <MESSAGE value="Nova T5s projectiles and SFX" />
+    <MESSAGE value="Nova T5m alt ability" />
+    <MESSAGE value="Nova T4 secondary" />
+    <MESSAGE value="Nova T5a Primary (WIP)" />
+    <MESSAGE value="Nova T4 icon" />
+    <MESSAGE value="Nova T5a, T5m, T5s secondaries" />
+    <MESSAGE value="Human T0 (temp?), T1 primary, T1 secondary" />
+    <option name="LAST_COMMIT_MESSAGE" value="Human T0 (temp?), T1 primary, T1 secondary" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="lua-line">
+          <url>file://$PROJECT_DIR$/scripts/weapon/gunfiredraw.lua</url>
+          <line>90</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/_metadata">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="119" selection-start-line="3" selection-start-column="119" selection-end-line="3" selection-end-column="119" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/farmables/crystal/crystalplantseed.frames">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/farmables/domesticmushroom/domesticmushroomseed.frames">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/farmables/domesticmushroom/domesticmushroomseed.object">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="3" column="52" selection-start-line="3" selection-start-column="52" selection-end-line="3" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/produce/crystalplant.item">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="55">
+          <caret line="5" column="21" selection-start-line="5" selection-start-column="21" selection-end-line="5" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/produce/crystalplant.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/treasure/cropharvest.treasurepools.patch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="46" column="25" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_metadata">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../az-restoredconsumables/content/farmables/crystal/crystalplantseed.object">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bowicon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/testitem/recoil/ironrevolver.png" />
+    <entry file="file://$PROJECT_DIR$/items/testitem/aztesticon.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/other/supergiantspawner.frames" />
+    <entry file="file://$PROJECT_DIR$/items/weapons/unrand/something.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1562">
+          <caret line="871" column="22" selection-start-line="871" selection-start-column="22" selection-end-line="871" selection-end-column="22" />
+          <folding>
+            <element signature="e#275#600#0" />
+            <element signature="n#!!block;n#animationParts#0;n#!!top" />
+            <element signature="n#!!block;n#blade#0;n#!!block;n#stateTypes#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#blade#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#handle#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#handleFullbright#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire2#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire3#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire4#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire5#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire6#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire7#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire8#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire9#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire10#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#fire11#0;n#!!block;n#swoosh#0;n#!!block;n#partStates#0;n#!!block;n#swoosh#0;n#!!block;n#parts#0;n#!!block;n#animatedParts#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#transformationGroups#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#particleEmitters#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="n#!!block;n#lights#0;n#!!block;n#animationCustom#0;n#!!top" />
+            <element signature="e#22773#23422#0" />
+            <element signature="e#23722#24839#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT1.activeitem">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT0.activeitem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="10" column="21" selection-start-line="10" selection-end-line="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/testitem/aztest.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/other/echo.png" />
+    <entry file="file://$PROJECT_DIR$/projectiles/other/echo.projectile" />
+    <entry file="file://$PROJECT_DIR$/items/testitem/claw/clawglove.activeitem">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/testitem/wavegun/chain/voices.activeitem" />
+    <entry file="file://$PROJECT_DIR$/scripts/recoilgunfireold.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1507">
+          <caret line="137" column="95" selection-start-line="137" selection-start-column="95" selection-end-line="137" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ranged/azgunfire.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1210">
+          <caret line="110" column="24" lean-forward="true" selection-start-line="110" selection-start-column="24" selection-end-line="110" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/azrecoilgun.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/testitem/recoil/ironrevolver.activeitem" />
+    <entry file="file://$PROJECT_DIR$/scripts/ranged/azweapon.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1078">
+          <caret line="104" column="6" selection-start-line="104" selection-start-column="6" selection-end-line="104" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tech/dash/dodge.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="66" column="33" selection-start-line="66" selection-start-column="33" selection-end-line="66" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/ranged/recoil/recoil.projectile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bow.activeitem">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/ranged/azgun.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="26" column="52" lean-forward="true" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/recoilgunfire.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/recoilgun.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/ranged/recoil/recoilProj.projectile">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/azrecoilproj.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/recoilcam.lua">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/recoil/recoilweapon.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="750">
+          <caret line="124" column="82" lean-forward="true" selection-start-line="124" selection-start-column="22" selection-end-line="124" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/gun.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/weapon.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1936">
+          <caret line="228" column="8" selection-start-line="228" selection-start-column="8" selection-end-line="228" selection-end-column="8" />
+          <folding>
+            <element signature="n#Weapon:createRecoil#0" />
+            <element signature="n#Weapon:updateCamera#0" />
+            <element signature="n#Weapon:lerp#0" />
+            <element signature="n#Weapon:recoil#0" />
+            <element signature="n#Weapon:recoilManual#0" />
+            <element signature="n#Weapon:uninitCamera#0" />
+            <element signature="n#Weapon:clearDamageSources#0" />
+            <element signature="n#Weapon:addTransformationGroup#0" />
+            <element signature="n#Weapon:updateAim#0" />
+            <element signature="n#Weapon:setOwnerDamage#0" />
+            <element signature="n#Weapon:setOwnerDamageAreas#0" />
+            <element signature="n#Weapon:setDamage#0" />
+            <element signature="n#Weapon:setDamageAreas#0" />
+            <element signature="n#Weapon:damageSource#0" />
+            <element signature="n#Weapon:setStance#0" />
+            <element signature="n#Weapon:isFrontHand#0" />
+            <element signature="n#Weapon:faceVector#0" />
+            <element signature="n#WeaponAbility:update#0" />
+            <element signature="n#WeaponAbility:setState#0" />
+            <element signature="n#partDamageArea#0" />
+            <element signature="n#damageRepeatGroup#0" />
+            <element signature="n#knockbackMomentum#0" />
+            <element signature="n#dwAimDirection#0" />
+            <element signature="n#dwDisallowFlip#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/build.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="20" column="24" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/abilities.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/action_executor.projectile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/action_bullet.projectile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/action_case.projectile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/case.frames">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="66">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/case.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/racial/bullet.frames">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/projectiles/ranged/feroziumbullet/feroziumbullet.projectile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/gunfire.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <folding>
+            <element signature="n#GunFire:update#0" />
+            <element signature="n#GunFire:auto#0" />
+            <element signature="n#GunFire:burst#0" />
+            <element signature="n#GunFire:cooldown#0" />
+            <element signature="n#GunFire:muzzleFlash#0" />
+            <element signature="n#GunFire:fireProjectile#0" />
+            <element signature="n#GunFire:firePosition#0" />
+            <element signature="n#GunFire:aimVector#0" />
+            <element signature="n#GunFire:energyPerShot#0" />
+            <element signature="n#GunFire:damagePerShot#0" />
+            <element signature="n#GunFire:uninit#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/weapon/gunfiredraw.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2607">
+          <caret line="296" column="95" selection-start-line="296" selection-start-column="95" selection-end-line="296" selection-end-column="95" />
+          <folding>
+            <element signature="n#GunFire:muzzleFlash#0" />
+            <element signature="n#GunFire:fireProjectile#0" />
+            <element signature="n#GunFire:firePosition#0" />
+            <element signature="n#GunFire:aimVector#0" />
+            <element signature="n#GunFire:energyPerShot#0" />
+            <element signature="n#GunFire:damagePerShot#0" />
+            <element signature="n#GunFire:uninit#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Lua</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Lua Library</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>az-crossbows</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

@@ -1,0 +1,173 @@
+{
+  "itemName" : "novakidPrimaryT6a",
+  "price" : 960,
+  "maxStack" : 1,
+  "rarity" : "Legendary",
+  "description" : "A powerful aegisalt rapid repeater.", //The real deal when it comes to delivering justice
+  "shortdescription" : "Aegisalt Rapid Repeater", //Lawmaker
+  "tooltipKind" : "gun",
+  "category" : "repeater",
+  "itemTags" : ["weapon","ranged","rifle"],
+  "twoHanded" : true,
+  "level" : 6,
+
+  "inventoryIcon" : "/assets/weapons/novakid/novakidPrimaryT6a.png",
+
+  "animation" : "/assets/weapons/genranged/azgun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "/assets/weapons/novakid/novakidPrimaryT6a.png",
+    "barrel" : "",
+    "muzzleFlash" : "/assets/weapons/genranged/defaultmuzzleflash.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : [ "/sfx/rep1.ogg", "/sfx/rep2.ogg" ],
+      "fireStart" : [ "/sfx/gun/aegisaltpistol_start.ogg" ],
+      "fireLoop" : [ "/sfx/gun/aegisaltpistol_loop2.ogg" ],
+      "fireEnd" : [],
+      "beamImpact" : []
+    },
+    "transformationGroups" : {
+      "weapon" : {},
+      "muzzle" : {},
+      "beamEnd" : {}
+    },
+    "particleEmitters" : {
+      "muzzleFlash" : {
+        "transformationGroups" : ["muzzle"],
+        "offsetRegion" : [0, 0, 0, 0],
+        "particles" : [ ]
+      },
+      "beamCollision" : {
+        "active" : false,
+        "transformationGroups" : ["muzzle", "beamEnd"],
+        "emissionRate" : 20,
+        "particles" : [
+          {"particle" : "energyblade"},
+          {"particle" : "energyblade2"},
+          {"particle" : "energybeamimpact"}
+        ]
+      }
+    }
+  },
+  "animationScripts" : ["/items/active/effects/chain.lua"],
+
+  "baseOffset" : [1.08, 0.10],
+  "muzzleOffset" : [2.5, 0.320],
+
+  "scripts" : ["/scripts/ranged/azgun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.7,
+    "baseDps" : 8.5,
+    "energyUsage" : 25.5,
+    "inaccuracy" : 0.008,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "standardbullet",
+    "projectileParameters" : { 
+      "knockback" : 16
+    },
+
+   "stances" : {
+     "idle" : {
+       "armRotation" : 0,
+       "weaponRotation" : 0,
+       "twoHanded" : true,
+
+       "allowRotate" : true,
+       "allowFlip" : true
+     },
+     "fire" : {
+       "duration" : 0,
+       "armRotation" : 5,
+       "weaponRotation" : 5,
+       "twoHanded" : true,
+
+       "allowRotate" : false,
+       "allowFlip" : false
+     },
+     "cooldown" : {
+       "duration" : 0.25,
+       "armRotation" : 5,
+       "weaponRotation" : 5,
+       "twoHanded" : true,
+
+       "allowRotate" : false,
+       "allowFlip" : false
+     }
+   }
+  },
+
+  "altAbility" : {
+    "scripts": [
+      "/items/active/weapons/ranged/beamfire.lua"
+    ],
+    "class": "BeamFire",
+    "fireTime": 0.2,
+    "baseDps": 6.5,
+    "energyUsage": 19.5,
+    "damageConfig": {
+      "statusEffects": [],
+      "damageSourceKind": "plasma",
+      "knockback": 2
+    },
+    "beamLength": 20,
+    "chain": {
+      "startOffset": [
+        0,
+        0
+      ],
+      "segmentImage": "/items/active/weapons/protectorate/aegisaltpistol/beam.png",
+      "endSegmentImage": "/items/active/weapons/protectorate/aegisaltpistol/beamend.png",
+      "segmentSize": 0.48,
+      "overdrawLength": 0.2,
+      "taper": 0,
+      "waveform": {
+        "frequency": 2.0,
+        "amplitude": 0.125,
+        "movement": 40.0
+      },
+      "fullbright": true
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+
+        "twoHanded" : true,
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+
+        "twoHanded" : true,
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "cooldown" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+
+        "twoHanded" : true,
+        "allowRotate" : true,
+        "allowFlip" : true
+      }
+    }
+  },
+
+
+    "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

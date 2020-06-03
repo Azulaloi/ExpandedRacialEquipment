@@ -1,0 +1,60 @@
+{
+  "projectileName" : "recoilCam",
+  "clientEntityMode" : "ClientPresenceMaster",
+  "image" : "recoil1.png",
+  "physics" : "laser",
+  "animationCycle" : 1,
+  "frameNumber" : 1,
+  "power" : 0,
+  "speed" : 35,
+  "timeToLive" : 20,
+  "bounces" : -1,
+  "piercing" : true,
+  "emitters" : [ ],
+  "damagePoly" : [ ],
+  "damageKind" : "default",
+  "damageTeam" : {"type" : "ghostly"},
+  "periodicActions" : [
+
+  ],
+  "actionOnReap" : [
+    {
+      "action" : "sound",
+      "options" : [ "/sfx/blocks/footstep_mud.ogg" ]
+    },
+    {
+      "action" : "loop",
+      "count" : 6,
+      "body" : [
+        {
+          "action" : "particle",
+          "specification" : {
+            "type" : "ember",
+            "size" : 2,
+            "color" : [240, 50, 80, 200],
+            "initialVelocity" : [0.0, 4.0],
+            "finalVelocity" : [0.0, -10.0],
+            "approach" : [2.0, 25.0],
+            "timeToLive" : 0.25,
+            "fade" : 0.8,
+            "destructionAction" : "shrink",
+            "destructionTime" : 0.25,
+            "layer" : "middle",
+            "variance" : {
+              "initialVelocity" : [4.0, 2.0],
+              "size" : 1.0
+            }
+          }
+        }
+      ]
+    }
+  ],
+
+  "scripts" : ["/scripts/recoil/azrecoilproj.lua"],
+
+  "controlForce" : 80,
+  "slowDist" : 10,
+  "stillDist" : 4,
+  "killDist" : 3,
+  "rushDist" : 40
+}

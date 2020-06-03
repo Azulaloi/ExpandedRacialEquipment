@@ -1,4 +1,5 @@
 require "/scripts/util.lua"
+require "/scripts/vec2.lua"
 
 -- handles weapon stances, animations, and abilities
 Weapon = {}
@@ -26,9 +27,30 @@ function Weapon:init()
   for _,ability in pairs(self.abilities) do
     ability:init()
   end
+
+  self.recoilId = nil
+  if not self.recoilId then
+    self:createRecoil()
+  end
 end
 
-function Weapon:update(dt, fireMode, shiftHeld, moves)
+function Weapon:createRecoil()
+  local recoil = world.spawnProjectile(
+    "recoilCam",
+    mcontroller.position(),
+    activeItem.ownerEntityId(),
+    nil,
+    false,
+    nil
+  )
+
+  if recoil then
+    activeItem.setCameraFocusEntity(recoil)
+    self.recoilId = recoil
+  end
+end
+
+function Weapon:update(dt, fireMode, shiftHeld, moves, camId)
   self.time = player.playTime()
   self.attackTimer = math.max(0, self.attackTimer - dt)
 
@@ -51,11 +73,17 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
     end
   end
 
+  if config.getParameter("scale") then
+	animator.scaleTransformationGroup("weapon", config.getParameter("scale"))
+  end
+  
   if self.stance then
     self:updateAim()
     self.relativeArmRotation = self.relativeArmRotation + self.armAngularVelocity * dt
     self.relativeWeaponRotation = self.relativeWeaponRotation + self.weaponAngularVelocity * dt
   end
+  
+  
 
   if self.handGrip == "wrap" then
     activeItem.setOutsideOfHand(self:isFrontHand())
@@ -70,10 +98,27 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
   self:clearDamageSources()
 end
 
+function Weapon:recoil()
+  local id = self.recoilId
+  if id then
+    if world.entityExists(id) then
+      world.sendEntityMessage(self.recoilId, "addRecoil", vec2.withAngle(self.aimAngle), 50)
+    end
+  end
+
+end
+
 function Weapon:uninit()
   for _,ability in pairs(self.abilities) do
     if ability.uninit then
       ability:uninit(true)
+    end
+  end
+
+  local id = self.recoilId
+  if id then
+    if world.entityExists(id) then
+      world.sendEntityMessage(id, "return")
     end
   end
 end

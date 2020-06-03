@@ -2,6 +2,11 @@
   {
     "op": "add",
     "path": "/flurrycombo",
-    "value": "/weapons/abilities/flurrycombo.weaponability"
+    "value": "/items/weapons/abilities/flurrycombo.weaponability"
+  },
+  {
+    "op": "add",
+    "path": "/azbowshot",
+    "value": "/items/weapons/abilities/azbowshot.weaponability"
   }
 ]

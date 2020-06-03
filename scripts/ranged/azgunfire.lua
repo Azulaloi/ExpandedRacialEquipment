@@ -113,7 +113,6 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
     if params.timeToLive then
       params.timeToLive = util.randomInRange(params.timeToLive)
     end
-    params.globalTime = aplayer.playTime
     projectileId = world.spawnProjectile(
         projectileType,
         firePosition or self:firePosition(),

@@ -1,0 +1,50 @@
+[
+  {
+    "op": "add",
+    "path": "/spawnerParams",
+    "value": {
+      "animationCustom": {
+        "animatedParts" : {
+          "parts" : {
+            "body" : {
+              "partStates" : {
+                "body" : {
+                  "idle" : {
+                    "properties" : {
+                      "image" : "<partImage>:idle.<frame>?fade=00000000=1"
+                    }
+                  },
+                  "fly" : {
+                    "properties" : {
+                      "image" : "<partImage>:idle.<frame>?fade=00000000=1"
+                    }
+                  }
+                },
+                "damage" : {
+                  "stunned" : {
+                    "properties" : {
+                      "image" : "<partImage>:hurt.<frame>?fade=00000000=1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "lights" : {
+          "glow" : {
+            "active" : false,
+            "position" : [0, 0],
+            "color" : [140, 50, 140],
+            "pointLight" : true
+          }
+        }
+      }
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/baseParameters/scripts/0",
+    "value": "/monsters/ghosts/erchiusghost/azerchiusghost.lua"
+  }
+]

@@ -1,0 +1,90 @@
+{
+  "itemName" : "humanPrimaryT2g",
+  "price" : 960,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "An explosive-flinging tungsten grenade launcher.",
+  "shortdescription" : "Tungsten Grenade Launcher",
+  "tooltipKind" : "gun",
+  "category" : "grenadeLauncher",
+  "itemTags" : ["weapon","ranged","grenadelauncher"],
+  "twoHanded" : true,
+  "level" : 2,
+
+  "inventoryIcon" : "/assets/weapons/human/humanPrimaryT2g.png",
+
+  "animation" : "/assets/weapons/genranged/azgun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "/assets/weapons/human/humanPrimaryT2g.png",
+    "barrel" : "",
+    "muzzleFlash" : ""
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : ["/sfx/gun/grenade1.ogg", "/sfx/gun/grenade2.ogg"]
+    },
+    "particleEmitters" : {
+      "muzzleFlash" : {
+        "particles" : [
+          { "particle" : "rocketbarrelpuff", "offset" : [0.0, 0.0] },
+          { "particle" : "rocketbarrelpuff", "offset" : [0.0, 0.0] },
+          { "particle" : "rocketbarrelpuff", "offset" : [0.0, 0.0] }
+        ]
+      }
+    }
+  },
+
+  "baseOffset" : [0.6, 0.15],
+  "muzzleOffset" : [2.2, 0.125],
+
+  "scripts" : ["/scripts/ranged/azgun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 1.0,
+    "baseDps" : 6.0,
+    "energyUsage" : 24,
+    "inaccuracy" : 0.0,
+    "projectileCount" : 1,
+    "projectileType" : "grenade",
+    "projectileParameters" : {
+      "knockback" : 40
+    },
+
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : true,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 7.5,
+        "weaponRotation" : 7.5,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true
+      },
+      "cooldown" : {
+        "duration" : 0.4,
+        "armRotation" : 7.5,
+        "weaponRotation" : 7.5,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : true
+      }
+    }
+  },
+  "altAbilities" : [ ],
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

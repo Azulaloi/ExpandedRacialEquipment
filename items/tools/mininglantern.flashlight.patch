@@ -1,0 +1,17 @@
+[
+  {
+    "op": "replace",
+    "path": "/lightColor/0",
+    "value": 150
+  },
+  {
+    "op": "replace",
+    "path": "/lightColor/1",
+    "value": 110
+  },
+  {
+    "op": "replace",
+    "path": "/lightColor/2",
+    "value": 0
+  }
+]

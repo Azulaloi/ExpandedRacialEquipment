@@ -29,4 +29,7 @@ end
 
 function uninit()
   self.weapon:uninit()
+
+
 end
+

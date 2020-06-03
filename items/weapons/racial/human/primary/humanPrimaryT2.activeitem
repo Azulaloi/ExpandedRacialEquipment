@@ -1,0 +1,89 @@
+{
+  "itemName" : "humanPrimaryT2",
+  "price" : 960,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "A tungsten shotgun with a rapid rate of fire.",
+  "shortdescription" : "Tungsten Riot Shotgun",
+  "tooltipKind" : "gun",
+  "category" : "shotgun",
+  "itemTags" : ["weapon","ranged","shotgun"],
+  "twoHanded" : true,
+  "level" : 2,
+
+  "inventoryIcon" : "/assets/weapons/human/humanPrimaryT2.png",
+
+  "animation" : "/assets/weapons/genranged/azgun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "/assets/weapons/human/humanPrimaryT2.png",
+    "barrel" : "",
+    "muzzleFlash" : "/assets/weapons/genranged/defaultmuzzleflash.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : ["/sfx/gun/shotgun1.ogg"]
+    }
+  },
+
+  "baseOffset" : [0.4, 0.25],
+  "muzzleOffset" : [2.1, 0.45],
+
+  "scripts" : ["/scripts/ranged/azgun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.9,
+    "baseDps" : 10.5,
+    "energyUsage" : 31.5,
+    "inaccuracy" : 0.10,
+
+    "projectileCount" : 8,
+    "fireType" : "auto",
+
+    "projectileType" : "standardbullet",
+    "projectileParameters" : {
+      "damageKind" : "shotgunbullet",
+      "knockback" : 30
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : -15,
+        "weaponRotation" : 15,
+        "twoHanded" : true,
+        "frontArmFrame" : "swim.2",
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : -23,
+        "weaponRotation" : 23,
+        "twoHanded" : true,
+        "frontArmFrame" : "swim.2",
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : { //Need to animate a pump frame here
+        "duration" : 0.15,
+        "armRotation" : -23,
+        "weaponRotation" : 23,
+        "twoHanded" : true,
+        "frontArmFrame" : "swim.2",
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  },
+
+  "altAbilityType" : "burstshot",
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

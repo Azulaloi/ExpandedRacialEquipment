@@ -1,6 +1,6 @@
 {
-  "name" : "az-expandedracialequipment",
-  "friendlyName" : "Expanded Racial Equipment",
+  "name" : "az-expandedequipment",
+  "friendlyName" : "Expanded Equipment",
   "description" : "Overhauls the equipment progression through the game. Part of a larger project.",
   "author" : "Azulaloi",
   "version" : "0.0"

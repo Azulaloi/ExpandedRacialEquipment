@@ -1,0 +1,17 @@
+[
+  {
+    "op": "replace",
+    "path": "/upgradeStages/0/interactData/config",
+    "value": "/interface/windowconfig/craftingazvil.config"
+  },
+  {
+    "op": "replace",
+    "path": "/upgradeStages/1/interactData/config",
+    "value": "/interface/windowconfig/craftingazvil.config"
+  },
+  {
+    "op": "replace",
+    "path": "/upgradeStages/2/interactData/config",
+    "value": "/interface/windowconfig/craftingazvil.config"
+  }
+]

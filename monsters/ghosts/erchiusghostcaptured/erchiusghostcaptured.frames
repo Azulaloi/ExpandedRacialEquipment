@@ -1,0 +1,27 @@
+{
+  "frameGrid" : {
+    "size" : [96, 96],
+    "dimensions" : [13, 2],
+
+    "names" : [
+      [ null, "idle.1", "idle.2", "idle.3", "idle.4", "idle.5", "idle.6", "idle.7", "idle.8", "idle.9", "idle.10", "idle.11", "idle.12"],
+      [ null, "near.idle.1", "near.idle.2", "near.idle.3", "near.idle.4", "near.idle.5", "near.idle.6", "near.idle.7", "near.idle.8", "near.idle.9", "near.idle.10", "near.idle.11", "near.idle.12"]
+    ]
+  },
+
+  "aliases" : {
+    "hurt.1" : "idle.1",
+    "fly.1" : "idle.1",
+    "fly.2" : "idle.2",
+    "fly.3" : "idle.3",
+    "fly.4" : "idle.4",
+    "fly.5" : "idle.5",
+    "fly.6" : "idle.6",
+    "fly.7" : "idle.7",
+    "fly.8" : "idle.8",
+    "fly.9" : "idle.9",
+    "fly.10" : "idle.10",
+    "fly.11" : "idle.11",
+    "fly.12" : "idle.12"
+  }
+}

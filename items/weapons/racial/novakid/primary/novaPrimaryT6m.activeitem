@@ -1,0 +1,94 @@
+{
+  "itemName" : "novakidPrimaryT6m",
+  "price" : 960,
+  "maxStack" : 1,
+  "rarity" : "Legendary",
+  "description" : "A ferocius ferozium sniper rifle.", //No one really knows how this gun works, or why it's so pink.
+  "shortdescription" : "Ferozium Sniper", //Almighty Magnetar
+  //Past tier 4, what material weapons are from gets ambiguous, because they it's rubium/cerulium
+  //This name and description are what the sprite is based off of.
+  "tooltipKind" : "gun",
+  "category" : "sniperRifle",
+  "itemTags" : ["weapon","ranged","rifle"],
+  "twoHanded" : true,
+  "level" : 6,
+
+  "inventoryIcon" : "/assets/weapons/novakid/novakidPrimaryT6m.png",
+
+  "animation" : "/assets/weapons/genranged/azgun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "/assets/weapons/novakid/novakidPrimaryT6m.png",
+    "barrel" : "",
+    "muzzleFlash" : "/assets/weapons/genranged/defaultmuzzleflash.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : [ "/sfx/musk1.ogg", "/sfx/musk2.ogg" ]
+    }
+  },
+
+  "baseOffset" : [1.3, 0.2],
+  "muzzleOffset" : [2.875, 0.325],
+
+  "scripts" : ["/scripts/ranged/azgun.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 1.4,
+    "baseDps" : 8.2,
+    "energyUsage" : 25.5,
+    "inaccuracy" : 0.008,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "feroziumbullet",
+    "projectileParameters" : { 
+      "knockback" : 35
+    },
+
+   "stances" : {
+     "idle" : {
+       "armRotation" : 0,
+       "weaponRotation" : 0,
+       "twoHanded" : true,
+
+       "allowRotate" : true,
+       "allowFlip" : true
+     },
+     "fire" : {
+       "duration" : 0,
+       "armRotation" : 5,
+       "weaponRotation" : 5,
+       "twoHanded" : true,
+
+       "allowRotate" : false,
+       "allowFlip" : false
+     },
+     "cooldown" : {
+       "duration" : 0.25,
+       "armRotation" : 5,
+       "weaponRotation" : 5,
+       "twoHanded" : true,
+
+       "allowRotate" : false,
+       "allowFlip" : false
+     }
+   }
+  },
+
+  "altAbilityType" : "piercingshot",
+  "altAbility" : {
+    "projectileType" : "piercingferoziumbullet",
+    "projectileParameters" : {
+      "piercing" : true
+    }
+  },
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

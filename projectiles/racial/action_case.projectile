@@ -1,0 +1,16 @@
+{
+  "projectileName" : "action_case",
+  "image" : "case.png",
+  "physics" : "grenade",
+  "animationCycle" : 0.25,
+  "frameNumber" : 4,
+  "damageType" : "NoDamage",
+  "pointLight" : false,
+  "flippable" : true,
+  "bounces" : 3,
+  "timeToLive" : 3,
+  "power" : 0,
+  "speed" : -7.5,
+  "knockback" : 0,
+  "piercing" : true
+}

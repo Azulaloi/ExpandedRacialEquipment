@@ -1,0 +1,254 @@
+{
+  "itemName" : "humanSecondaryT1",
+  "price" : 640,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "A large handgun that packs a punch.",
+  "shortdescription" : "Iron Handgun",
+  "tooltipKind" : "gun",
+  "category" : "pistol",
+  "twoHanded" : false,
+  "itemTags" : ["weapon","ranged","pistol"],
+  "level" : 1,
+
+  "inventoryIcon" : "/assets/weapons/human/humanSecondaryT1.png",
+
+  "animation" : "/items/active/weapons/ranged/gun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "/assets/weapons/human/humanSecondaryT1.png",
+    "barrel" : "",
+    "muzzleFlash" : "/assets/weapons/human/muzzleflash.png"
+  },
+  "animationCustom" : {
+    "particleEmitters" : {
+      "muzzleFlash" : {
+        "transformationGroups" : ["muzzle"],
+        "offsetRegion" : [-1.0, 0.2, -1.0, 0.2],
+        "particles" : []
+      },
+      "altMuzzleFlash" : {
+        "transformationGroups" : ["muzzle"],
+        "offsetRegion" : [-1.0, 0.2, -1.0, 0.2],
+        "particles" : []
+      }
+    },
+    "sounds" : {
+      "fire" : ["/sfx/gun/revolver2.ogg"],
+      "altFire" : [ "/sfx/gun/ar4.ogg" ]
+    }
+  },
+
+  "baseOffset" : [0, 0],
+  "muzzleOffset" : [1.4, 0.3],
+
+  "scripts" : ["/scripts/weapon/gun.lua"],
+  "scale" : [0.8, 0.8],
+  "recoilToggle" : false,
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/scripts/weapon/gunfiredraw.lua"],
+    "class" : "GunFire",
+
+    "fireTime" : 0.8,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.045,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "recoilXAlpha" : 200,
+    "recoilXBeta" :  100,
+    "recoilXDividend" :  10,
+
+    "recoilYAlpha" : 200,
+    "recoilYBeta" : 100,
+    "recoilYDividend" : 10,
+
+    "projectileType" : "action_executor",
+    "projectileParameters" : {
+      "knockback" : 6
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+        "weaponOffset" : [0.7, 0.0]
+      },
+      "fire" : {
+        "duration" : 0.05,
+        "armRotation" : 15,
+        "weaponRotation" : -30,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : false,
+        "recoil": true
+      },
+      "cooldown" : {
+        "duration" : 0.07,
+        "armRotation" : -5,
+        "weaponRotation" : -12,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+        "weaponOffset" : [0.7, 0.0],
+        "recoil": true
+      },
+      "equip" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -90,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [1.5, -1.5],
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "jump.2",
+        "backArmFrame" : "jump.2"
+      },
+      "equip1" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -90,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [1.5, -1.5],
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "jump.4",
+        "backArmFrame" : "jump.4"
+      },
+      "equip2" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -90,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [1.5, -1.5],
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "walk.3",
+        "backArmFrame" : "walk.3"
+      },
+      "equip3" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -90,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [1.5, -1.5],
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : true,
+
+        "frontArmFrame" : "run.5",
+        "backArmFrame" : "run.5"
+      },
+      "equip4" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -85,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [1.0, -1.65],
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "equip5" : {
+        "duration" : 0.1,
+        "armRotation" : 0,
+        "weaponRotation" : -10,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [0.7, 0.0],
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "equip6" : {
+        "duration" : 0.1,
+        "armRotation" : 12,
+        "weaponRotation" : -5,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [0.7, 0.0],
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "kick" : {
+        "duration" : 0.1,
+        "armRotation" : 20,
+        "weaponRotation" : -15,
+        "weaponRotationCenter" : [0.0, 0.0],
+        "weaponOffset" : [0.7, 0.0],
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      }
+    }
+  },
+
+  "shiftPrimaryAbility" : {
+    "name" : "Rail Shot",
+    "scripts" : ["/items/active/weapons/ranged/abilities/altfire.lua"],
+    "class" : "AltFireAttack",
+
+    "baseDps" : 8.0,
+    "fireTime" : 0.45,
+    "energyUsage" : 35.0,
+    "inaccuracy" : 0.01,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "railgunlightning",
+    "projectileParameters" : {
+      "speed" : 100
+    },
+
+    "hidePrimaryMuzzleFlash" : false,
+    "useParticleEmitter" : true,
+    "usePrimaryFireSound" : false,
+
+    "stances" : {
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 2,
+        "weaponRotation" : 2,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : {
+        "duration" : 0.1,
+        "armRotation" : 2,
+        "weaponRotation" : 2,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  },
+
+  "builder" : "/scripts/weapon/build.lua"
+}

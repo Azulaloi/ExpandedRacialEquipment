@@ -1,0 +1,9 @@
+{
+  "name" : "erchiusghostcaptured",
+  "category" : "erchiusghostcaptured",
+  "type" : "body",
+
+  "frames" : {
+    "body" : "erchiusghostcaptured.png"
+  }
+}
