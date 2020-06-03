@@ -113,8 +113,8 @@
         "weaponRotation" : 3,
         "twoHanded" : false,
 
-        "allowRotate" : false,
-        "allowFlip" : false
+        "allowRotate" : true,
+        "allowFlip" : true
       },
       "cooldown" : {
         "duration" : 0.15,
@@ -122,8 +122,38 @@
         "weaponRotation" : 3,
         "twoHanded" : false,
 
-        "allowRotate" : false,
-        "allowFlip" : false
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+	  
+	  
+      "anim0" : {
+        "duration" : 0.5,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "anim1" : {
+        "duration" : 1.0,
+        "armRotation" : 15,
+        "weaponRotation" : 90,
+		
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "anim2" : {
+        "duration" : 0.5,
+        "armRotation" : 15,
+        "weaponRotation" : 90,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
       }
     }
   },
