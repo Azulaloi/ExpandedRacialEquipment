@@ -16,7 +16,12 @@ function Reload:init()
 	self.maxRounds = config.getParameter("maxRounds", 3)
 	self.cursorAmmo = config.getParameter("cursorAmmo", false)
 	self.cursorDir = config.getParameter("cursorDir", "/cursors/12/azreticle")
-
+	
+	--self.reloadStanceChain = config.getParameter("reloadStanceChain")
+	--self.reloadStance = self.reloadStanceChain
+	
+	self.terminateIteration = config.getParameter("terminateIteration")
+	self.reloadIteration = config.getParameter("reloadIteration")
 end
 
 function Reload:update(dt, fireMode, shiftHeld)
@@ -30,7 +35,8 @@ function Reload:update(dt, fireMode, shiftHeld)
           and not status.resourceLocked("energy") then
 		
 		--self:setState(self.reloadState)
-		self:setState(self.anim0)
+		self:setState(self.animArbitrary, 0)
+		--sb.logInfo(self.stances)
     end
 end
 
@@ -94,58 +100,37 @@ function Reload:uninit()
 
 end
 
--- anim garbage
-
-function Reload:anim0()
-    self.weapon:setStance(self.stances.anim0)
-
-    local delta = 0
-    util.wait(self.stances.anim0.duration, function()
-        local alpha = self.stances.anim0.weaponOffset or {0,0}
-        local beta = self.stances.anim1.weaponOffset or {0,0 }
-
-        self.weapon.weaponOffset = {interp.linear(delta, alpha[1], beta[1]), interp.linear(delta, alpha[2], beta[2]) }
-        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(delta, self.stances.anim0.weaponRotation, self.stances.anim1.weaponRotation))
-        self.weapon.relativeArmRotation = util.toRadians(interp.linear(delta, self.stances.anim0.armRotation, self.stances.anim1.armRotation))
-
-        delta = math.min(1.0, delta + (self.stances.anim0.duration))
-    end)
-
-    self:setState(self.anim1)
-end
-
-function Reload:anim1()
-    self.weapon:setStance(self.stances.anim1)
-
-    local delta = 0
-    util.wait(self.stances.anim1.duration, function()
-        local alpha = self.stances.anim1.weaponOffset or {0,0}
-        local beta = self.stances.anim2.weaponOffset or {0,0 }
+function Reload:animArbitrary(iter)
+	local stanceIn = "anim" .. tostring(iter)
+	
+	--local terminateFlag = self.terminateIteration == iter
+	--if self.stances[stanceIn].terminate then terminateFlag = true end
+	local terminateFlag = iter == 2
+	
+	local stanceOut
+	if not terminateFlag then
+		stanceOut = "anim" .. tostring(iter + 1)
+	else stanceOut = "idle" end
+	
+	self.weapon:setStance(self.stances[stanceIn])
+	
+	local delta = 0
+    util.wait(self.stances[stanceIn].duration, function()
+        local alpha = self.stances[stanceIn].weaponOffset or {0,0}
+        local beta = self.stances[stanceOut].weaponOffset or {0,0}
 
         self.weapon.weaponOffset = {interp.linear(delta, alpha[1], beta[1]), interp.linear(delta, alpha[2], beta[2]) }
-        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(delta, self.stances.anim1.weaponRotation, self.stances.anim2.weaponRotation))
-        self.weapon.relativeArmRotation = util.toRadians(interp.linear(delta, self.stances.anim1.armRotation, self.stances.anim2.armRotation))
+        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(delta, self.stances[stanceIn].weaponRotation, self.stances[stanceOut].weaponRotation))
+        self.weapon.relativeArmRotation = util.toRadians(interp.linear(delta, self.stances[stanceIn].armRotation, self.stances[stanceOut].armRotation))
 
-        delta = math.min(1.0, delta + (self.stances.anim1.duration))
+        delta = math.min(1.0, delta + (self.dt / self.stances[stanceIn].duration))
     end)
 	
-	self:doReload()
-
-    self:setState(self.anim2)
-end
-
-function Reload:anim2()
-    self.weapon:setStance(self.stances.anim2)
-
-    local delta = 0
-    util.wait(self.stances.anim2.duration, function()
-        local alpha = self.stances.anim2.weaponOffset or {0,0}
-        local beta = self.stances.idle.weaponOffset or {0,0 }
-
-        self.weapon.weaponOffset = {interp.linear(delta, alpha[1], beta[1]), interp.linear(delta, alpha[2], beta[2]) }
-        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(delta, self.stances.anim2.weaponRotation, self.stances.idle.weaponRotation))
-        self.weapon.relativeArmRotation = util.toRadians(interp.linear(delta, self.stances.anim2.armRotation, self.stances.idle.armRotation))
-
-        delta = math.min(1.0, delta + (self.stances.anim2.duration))
-    end)
+	if iter == self.reloadIteration then
+		self:doReload(6, true)
+	end
+	
+	if not terminateFlag then
+		self:setState(self.animArbitrary, iter + 1)
+	end
 end
