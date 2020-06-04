@@ -1,10 +1,18 @@
-/spawnitem ammorevolver 1 '
+{                    
+  "itemName" : "ammorevolver",
+  "price" : 640,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "This revolver holds six shots.",
+  "shortdescription" : "Ammo Test Revolver",
+  "tooltipKind" : "gun",
+  "category" : "revolver",
+  "twoHanded" : false,
+  "itemTags" : ["weapon","ranged","pistol"],
+  "level" : 1,
 
-{
-  "shortdescription" : "Test",
+  "inventoryIcon" : "ironrevolver.png",
 
-  "rounds" : 6,
-  
   "animation" : "/items/active/weapons/ranged/gun.animation",
   "animationParts" : {
     "butt" : "",
@@ -23,12 +31,22 @@
   "baseOffset" : [0.5, 0.25],
   "muzzleOffset" : [1.4, 0.3],
 
+  "scripts" : ["/scripts/weapon/gun.lua"],
   "scale" : [1, 1],
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
+
+  "elementalType" : "physical",
   
+  "maxRounds" : 6,
+  "rounds" : 6,
+  "cursorAmmo" : true,
+  "cursorDir" : "/cursors/12/azreticle",
 
   "primaryAbility" : {
+    "scripts" : ["/scripts/weapon/gunfireammo.lua"],
+    "class" : "GunFire",
+
     "fireTime" : 0.6,
     "baseDps" : 6.25,
     "energyUsage" : 18.75,
@@ -70,11 +88,18 @@
       }
     }
   },
-  
+
   "shiftPrimaryAbility" : {
-  
+    "scripts" : ["/scripts/weapon/ammoreload.lua"],
+    "class" : "Reload",
+	
     "fireTime" : 0.6,
 	
+	"terminateIteration" : 2,
+	"reloadIteration" : 1,
+	
+	"reloadStanceChain" : "anim",
+
     "stances" : {
       "idle" : {
         "armRotation" : 0,
@@ -103,6 +128,7 @@
         "allowFlip" : true
       },
 	  
+	  
       "anim0" : {
         "duration" : 0.2,
         "armRotation" : 0,
@@ -110,7 +136,9 @@
         "twoHanded" : false,
 
         "allowRotate" : true,
-        "allowFlip" : true
+        "allowFlip" : true,
+		
+		"followUp" : "anim1"
       },
       "anim1" : {
         "duration" : 0.1,
@@ -120,7 +148,9 @@
         "twoHanded" : false,
 
         "allowRotate" : true,
-        "allowFlip" : true
+        "allowFlip" : true,
+		
+		"followUp" : "anim2"
       },
       "anim2" : {
         "duration" : 0.2,
@@ -132,7 +162,7 @@
         "allowFlip" : true
       }
     }
-  }
-}  
-   
-'
+  },
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}
