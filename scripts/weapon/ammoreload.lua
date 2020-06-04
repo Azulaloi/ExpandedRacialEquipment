@@ -20,8 +20,8 @@ function Reload:init()
 	--self.reloadStanceChain = config.getParameter("reloadStanceChain")
 	--self.reloadStance = self.reloadStanceChain
 	
-	self.terminateIteration = config.getParameter("terminateIteration")
-	self.reloadIteration = config.getParameter("reloadIteration")
+	--self.terminateIteration = config.getParameter("terminateIteration")
+	--self.reloadIteration = config.getParameter("reloadIteration")
 end
 
 function Reload:update(dt, fireMode, shiftHeld)
@@ -36,7 +36,6 @@ function Reload:update(dt, fireMode, shiftHeld)
 		
 		--self:setState(self.reloadState)
 		self:setState(self.animArbitrary, 0)
-		--sb.logInfo(self.stances)
     end
 end
 
@@ -59,8 +58,6 @@ end
 
 function Reload:reloadState()
 	self.weapon:setStance(self.stances.fire)
-
-	--self:reloadFx()
 	
 	if self.stances.fire.duration then
         util.wait(self.stances.fire.duration)
@@ -70,10 +67,6 @@ function Reload:reloadState()
 	
 	self.cooldownTimer = self.fireTime
     self:setState(self.cooldown)
-end
-
-function Reload:reloadFx()
-	animator.playSound("reload")
 end
 
 function Reload:doReload(amount, replace)
@@ -96,16 +89,75 @@ function Reload:doReload(amount, replace)
 	self.weapon:ammoCall(1)
 end
 
+function Reload:reloadFx()
+	animator.playSound("reload")
+end
+
+function Reload:fireProjectile(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)
+    local params = sb.jsonMerge(self.projectileParameters, projectileParams or {})
+    params.power = self:damagePerShot()
+    params.powerMultiplier = activeItem.ownerPowerMultiplier()
+    params.speed = util.randomInRange(params.speed)
+
+    if not projectileType then
+        projectileType = self.projectileType
+    end
+    if type(projectileType) == "table" then
+        projectileType = projectileType[math.random(#projectileType)]
+    end
+
+    local projectileId = 0
+    for i = 1, (projectileCount or self.projectileCount) do
+        if params.timeToLive then
+            params.timeToLive = util.randomInRange(params.timeToLive)
+        end
+        projectileId = world.spawnProjectile(
+            projectileType,
+            firePosition or self:firePosition(),
+            activeItem.ownerEntityId(),
+            self:aimVector(inaccuracy or self.inaccuracy),
+            false,
+            params
+        )
+    end
+
+    return projectileId
+end
+
+function Reload:firePosition()
+    --return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleOffset))
+    
+	
+	return vec2.add(mcontroller.position(), activeItem.handPosition(self.ejectOffset))
+	
+	--animator.partPoint(string partname, string propertyname)
+	--this one applies all transforms
+	--return vec2.add(mcontroller.position(), activeItem.handPosition(animator.partPoint())
+end
+
+function Reload:aimVector(inaccuracy)
+    local aimVector = vec2.rotate({1, 0}, self.weapon.aimAngle + sb.nrand(inaccuracy, 0))
+    aimVector[1] = aimVector[1] * mcontroller.facingDirection()
+    return aimVector
+end
+
+function Reload:energyPerShot()
+    return self.energyUsage * self.fireTime * (self.energyUsageMultiplier or 1.0)
+end
+
+-- in case I want to add a gun that ejects giant shells that do damage idk lmao
+function Reload:damagePerShot()
+    return (self.baseDamage or (self.baseDps * self.fireTime)) * (self.baseDamageMultiplier or 1.0) * config.getParameter("damageLevelMultiplier") / self.projectileCount
+end
+
 function Reload:uninit()
 
 end
 
 function Reload:animArbitrary(iter)
 	local stanceIn = "anim" .. tostring(iter)
-	
-	--local terminateFlag = self.terminateIteration == iter
-	--if self.stances[stanceIn].terminate then terminateFlag = true end
-	local terminateFlag = iter == 2
+
+	local terminateFlag = iter == self.terminateIteration
 	
 	local stanceOut
 	if not terminateFlag then
@@ -128,6 +180,13 @@ function Reload:animArbitrary(iter)
 	
 	if iter == self.reloadIteration then
 		self:doReload(6, true)
+		
+		-- TODO: ejection status should be stored in weapon like rounds
+		-- such that one cannot anim cancel between ejection and reload
+		-- and just spew ejection projectiles without reloading
+		if self.eject then
+			self:fireProjectile()
+		end
 	end
 	
 	if not terminateFlag then

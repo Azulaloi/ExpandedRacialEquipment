@@ -1,0 +1,21 @@
+{
+  "projectileName" : "az_case_generic",
+  
+  "image" : "case.png",
+  "renderLayer" : "Player+1",
+  "animationCycle" : 0.25,
+  "frameNumber" : 4,
+  
+  "pointLight" : false,
+  "flippable" : true,
+  
+  "physics" : "grenade",
+  "bounces" : 3,
+  "timeToLive" : 3,
+  "speed" : 10,
+  
+  "power" : 0,
+  "knockback" : 0,
+  "piercing" : true,
+  "damageType" : "NoDamage"
+}
