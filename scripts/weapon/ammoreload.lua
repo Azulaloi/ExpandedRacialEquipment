@@ -36,7 +36,7 @@ function Reload:update(dt, fireMode, shiftHeld)
 		
 		--self:setState(self.reloadState)
 		self:setState(self.animArbitrary, 0)
-    end
+	end
 end
 
 function Reload:cooldown()
@@ -125,19 +125,22 @@ function Reload:fireProjectile(projectileType, projectileParams, inaccuracy, fir
 end
 
 function Reload:firePosition()
-    --return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleOffset))
-    
+	--return vec2.add(mcontroller.position(), activeItem.handPosition(self.ejectOffset))
 	
-	return vec2.add(mcontroller.position(), activeItem.handPosition(self.ejectOffset))
-	
-	--animator.partPoint(string partname, string propertyname)
-	--this one applies all transforms
-	--return vec2.add(mcontroller.position(), activeItem.handPosition(animator.partPoint())
+	-- in ability properties, use {"ejectPos" : partname} to specify a part with an ejectPos property
+	-- that part just have an "ejectPos" property with a vec2 like so: {"ejectPos" : [x,y]}
+	-- that position will inherit all transforms of its part
+	if self.ejectPart then
+		return vec2.add(mcontroller.position(), activeItem.handPosition(animator.partPoint(self.ejectPart, "ejectPos")))
+	else --if no part is specified, just use the muzzle. this should probably be the center instead  
+		return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleOffset))
+	end
 end
 
 function Reload:aimVector(inaccuracy)
     local aimVector = vec2.rotate({1, 0}, self.weapon.aimAngle + sb.nrand(inaccuracy, 0))
-    aimVector[1] = aimVector[1] * mcontroller.facingDirection()
+    if self.ejectRotate then aimVector = vec2.rotate(aimVector, self.ejectRotate) end
+	aimVector[1] = aimVector[1] * mcontroller.facingDirection()
     return aimVector
 end
 
