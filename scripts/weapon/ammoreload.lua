@@ -15,7 +15,7 @@ function Reload:init()
 	self.rounds = config.getParameter("rounds", 6)
 	self.maxRounds = config.getParameter("maxRounds", 3)
 	self.cursorAmmo = config.getParameter("cursorAmmo", false)
-	self.cursorDir = config.getParameter("cursorDir", "/cursors/12/azreticle")
+	self.cursorDir = config.getParameter("cursorDir", "/cursors/6/azreticle")
 	
 	--self.reloadStanceChain = config.getParameter("reloadStanceChain")
 	--self.reloadStance = self.reloadStanceChain

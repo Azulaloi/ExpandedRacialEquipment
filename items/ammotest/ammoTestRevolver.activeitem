@@ -41,7 +41,7 @@
   "maxRounds" : 6,
   "rounds" : 6,
   "cursorAmmo" : true,
-  "cursorDir" : "/cursors/12/azreticle",
+  "cursorDir" : "/cursors/6/azreticle",
 
   "primaryAbility" : {
     "scripts" : ["/scripts/weapon/gunfireammo.lua"],
