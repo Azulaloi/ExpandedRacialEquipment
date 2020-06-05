@@ -1,0 +1,91 @@
+{
+  "ability" : {
+    "type" : "azreload",
+    "class" : "Reload",
+    "name" : "Reload",
+    "scripts" : ["/items/weapons/abilities/azreload.lua"],
+
+	"fireTime" : 0.6,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.025,
+	
+	"reloadQuantity" : -1,
+	"reloadAdditive" : false,
+	
+	"eject" : true,
+	"projectileType" : "az_case_generic",
+	"projectileCount" : 1,
+	"ejectOffset" : [1.0, 0.3],
+	"ejectPart" : "middle",
+	"ejectRotate" : 180,
+	
+	"terminateIteration" : 2,
+	"reloadIteration" : 1,
+	
+	"reloadStanceChain" : "anim",
+
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+	  
+	  
+      "anim0" : {
+        "duration" : 0.2,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "anim1"
+      },
+      "anim1" : {
+        "duration" : 0.1,
+        "armRotation" : 5,
+        "weaponRotation" : 90,
+		
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "anim2"
+      },
+      "anim2" : {
+        "duration" : 0.2,
+        "armRotation" : 15,
+        "weaponRotation" : 90,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      }
+    }
+  }
+}

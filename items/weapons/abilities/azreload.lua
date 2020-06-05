@@ -5,23 +5,33 @@ require "/scripts/interp.lua"
 -- read and write parameter "rounds" as ammo
 -- use Weapon:ammoCall(x) to alert x slot ability to update ammo
 
-
+-- TODO: safety checks/helpful debug info for incorrect setups
+-- such as missing properties that gunfireammo and reload share 
+-- and are therefore not in the ability itself, specifically:
+-- maxRounds, cursorAmmo, cursorDir
 Reload = WeaponAbility:new()
 
 function Reload:init()
-	sb.logInfo("reload init")
+	
+	--if not pcall(self.checkWep()) then
+	--	sb.logWarn('Reload (ability) initialized to incorrect weapon.lua, will not function correctly')
+	--end
+	
     self.cooldownTimer = self.fireTime
 	
 	self.rounds = config.getParameter("rounds", 6)
 	self.maxRounds = config.getParameter("maxRounds", 3)
 	self.cursorAmmo = config.getParameter("cursorAmmo", false)
 	self.cursorDir = config.getParameter("cursorDir", "/cursors/6/azreticle")
-	
-	--self.reloadStanceChain = config.getParameter("reloadStanceChain")
-	--self.reloadStance = self.reloadStanceChain
-	
-	--self.terminateIteration = config.getParameter("terminateIteration")
-	--self.reloadIteration = config.getParameter("reloadIteration")
+end
+
+function GunFire:checkWep()
+	-- attempt to index nil value are you kidding me im just calling a function
+	-- attempt to index more like why is everything made of TABLES
+	-- HOW DO I CALL FUNCTIONS WITHOUT INDEXING MYSELF AAAAAAAAAA
+	if self.weapon:checkAz() then
+		return true else return false 
+	end
 end
 
 function Reload:update(dt, fireMode, shiftHeld)
@@ -56,6 +66,9 @@ function Reload:cooldown()
     end)
 end
 
+-- this is no longer called, but I'll keep it a little longer
+-- in case I need something to do a very simple reload without
+-- any animation states.
 function Reload:reloadState()
 	self.weapon:setStance(self.stances.fire)
 	
@@ -69,13 +82,21 @@ function Reload:reloadState()
     self:setState(self.cooldown)
 end
 
-function Reload:doReload(amount, replace)
+
+-- args are optional, and can overrule ability config
+function Reload:doReload(amountIn, replaceIn)
+	if amountIn then 
+		amount = amountIn 
+	else amount = self.reloadQuantity end
+	
+	if not replaceIn == nil then
+		replace = replaceIn
+	else replace = self.reloadAdditive end
+
 	local toReload
-	if amount then
-		toReload = amount 
-	else 
+	if amount == -1 then
 		toReload = self.maxRounds 
-	end
+	else toReload = amount end
 	
 	if not replace then
 		toReload = config.getParameter("rounds") + toReload
@@ -157,6 +178,7 @@ function Reload:uninit()
 
 end
 
+-- TODO: read event flags (terminate, reload, eject) from the stances themselves 
 function Reload:animArbitrary(iter)
 	local stanceIn = "anim" .. tostring(iter)
 
@@ -182,7 +204,7 @@ function Reload:animArbitrary(iter)
     end)
 	
 	if iter == self.reloadIteration then
-		self:doReload(6, true)
+		self:doReload()
 		
 		-- TODO: ejection status should be stored in weapon like rounds
 		-- such that one cannot anim cancel between ejection and reload

@@ -1,11 +1,3 @@
---
--- Created by IntelliJ IDEA.
--- User: Azulaloi
--- Date: 1/18/2019
--- Time: 4:58 PM
--- To change this template use File | Settings | File Templates.
---
-
 require "/scripts/util.lua"
 require "/scripts/staticrandom.lua"
 
@@ -51,18 +43,9 @@ end
 -- abilitySlot is either "alt" or "primary"
 -- If builderConfig is given, it will randomly choose an ability from
 -- builderConfig if the ability is not specified in the config/parameters.
+
+-- Called from build.lua 
 function setupAbility(config, parameters, abilitySlot, builderConfig, seed)
-    if abilitySlot ~= "primary" then
-        return
-    end
-
-    setup(config, parameters, "primary", builderConfig, seed)
-    setup(config, parameters, "alt", builderConfig, seed)
-    setup(config, parameters, "shiftPrimary", builderConfig, seed)
-    setup(config, parameters, "shiftAlt", builderConfig, seed)
-end
-
-function setup(config, parameters, abilitySlot, builderConfig, seed)
     seed = seed or parameters.seed or config.seed or 0
 
     local abilitySource = getAbilitySource(config, parameters, abilitySlot)

@@ -3,7 +3,7 @@
   "price" : 960,
   "maxStack" : 1,
   "rarity" : "Common",
-  "description" : "A fully automatical makeshift iron assault rifle.",
+  "description" : "This rifle takes ammo from a magazine.",
   "shortdescription" : "Ammo Test Rifle",
   "tooltipKind" : "gun",
   "category" : "assaultRifle",
@@ -13,7 +13,7 @@
 
   "inventoryIcon" : "rifle.png",
 
-  "animation" : "/assets/weapons/genranged/azgun.animation",
+  "animation" : "/items/ammotest/gun.animation",
   "animationParts" : {
     "butt" : "",
     "middle" : "rifle.png",
@@ -25,7 +25,19 @@
       "fire" : ["/sfx/gun/ar1.ogg"],
 	  "click" : ["/sfx/click1.ogg"],
 	  "reload" : ["/sfx/reload1.ogg"]
-    }
+    },
+	"parts" : {
+	  "middle" : {
+	    "properties" : {
+		  "ejectPos" : [0, 0]
+		}
+	  },
+	  "ejectLocator" : {
+	    "properties" : {
+		  "offset" : [0, 0]
+		}
+	  }
+	}
   },
 
   "baseOffset" : [0.1, 0.11],
@@ -34,18 +46,17 @@
   "scripts" : ["/scripts/weapon/gun.lua"],
   "scale" : [1, 1],
   "recoilToggle" : false,
-  "abilityPrimaryInternalShift" : true,
+  "abilityPrimaryInternalShift" : false,
 
   "elementalType" : "physical",
-
+  
+  "maxRounds" : 36,
+  "rounds" : 36,
+  "cursorAmmo" : true,
+  "cursorDir" : "/cursors/100/azreticle",
+  
+  "primaryAbilityType" : "azgunfireammo",
   "primaryAbility" : {
-    "scripts" : ["/scripts/weapon/gunfireammo.lua"],
-    "class" : "GunFire",
-
-	"maxRounds" : 36,
-	"cursorAmmo" : true,
-	"cursorDir" : "/cursors/100/azreticle",
-
     "fireTime" : 0.11,
     "baseDps" : 10.5,
     "energyUsage" : 31.5,
@@ -54,7 +65,7 @@
     "projectileCount" : 1,
     "fireType" : "auto",
 
-    "projectileType" : "standardbullet",
+    "projectileType" : "azbulletgeneric",
     "projectileParameters" : {
       "knockback" : 5
     },
@@ -93,8 +104,94 @@
       }
     }
   },
+  
+  "shiftPrimaryAbilityType" : "azreload",
+  "shiftPrimaryAbility" : {
+	"fireTime" : 0.6,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.025,
+	
+	"reloadQuantity" : 36,
+	"reloadAdditive" : false,
+	
+	"eject" : true,
+	"projectileType" : "az_case_generic",
+	"projectileCount" : 1,
+	"ejectOffset" : [1.0, 0.3],
+	"ejectPart" : "middle",
+	"ejectRotate" : 90,
+	
+	"terminateIteration" : 2,
+	"reloadIteration" : 1,
+	
+	"reloadStanceChain" : "anim",
+
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+	  
+	  
+      "anim0" : {
+        "duration" : 0.2,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "anim1"
+      },
+      "anim1" : {
+        "duration" : 0.1,
+        "armRotation" : 5,
+        "weaponRotation" : 90,
+		
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "anim2"
+      },
+      "anim2" : {
+        "duration" : 0.2,
+        "armRotation" : 15,
+        "weaponRotation" : 90,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      }
+    }
+  },
 
   "altAbilityType" : "spray",
 
-  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+  "builder" : "/scripts/weapon/build.lua"
 }

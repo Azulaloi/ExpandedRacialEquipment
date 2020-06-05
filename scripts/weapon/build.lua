@@ -20,6 +20,8 @@ function build(directory, config, parameters, level, seed)
 
     setupAbility(config, parameters, "primary")
     setupAbility(config, parameters, "alt")
+    setupAbility(config, parameters, "shiftPrimary")
+    setupAbility(config, parameters, "shiftAlt")
 
     -- elemental type and config (for alt ability)
     local elementalType = configParameter("elementalType", "physical")
@@ -76,6 +78,16 @@ function build(directory, config, parameters, level, seed)
             config.tooltipFields.altAbilityTitleLabel = "Special:"
             config.tooltipFields.altAbilityLabel = config.altAbility.name or "unknown"
         end
+		if config.shiftPrimaryAbility then
+            config.tooltipFields.shiftPrimaryAbilityTitleLabel = "Special:"
+            config.tooltipFields.shiftPrimaryAbilityLabel = config.shiftPrimaryAbility.name or "unknown"
+        end
+		if config.shiftAltAbility then
+            config.tooltipFields.shiftAltAbilityTitleLabel = "Special:"
+            config.tooltipFields.shiftAltAbilityLabel = config.shiftAltAbility.name or "unknown"
+        end
+
+		-- todo: add shift ability tooltips, pending tooltips that could display them
     end
 
     -- set price

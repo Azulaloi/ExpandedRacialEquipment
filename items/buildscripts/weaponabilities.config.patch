@@ -8,5 +8,15 @@
     "op": "add",
     "path": "/azbowshot",
     "value": "/items/weapons/abilities/azbowshot.weaponability"
+  },
+  {
+    "op": "add",
+    "path": "/azgunfireammo",
+    "value": "/items/weapons/abilities/azgunfireammo.weaponability"
+  },
+  {
+    "op": "add",
+    "path": "/azreload",
+    "value": "/items/weapons/abilities/azreload.weaponability"
   }
 ]

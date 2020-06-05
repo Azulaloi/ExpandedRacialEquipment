@@ -1,12 +1,20 @@
 require "/scripts/util.lua"
 require "/scripts/interp.lua"
 
--- Base gun fire ability
+-- TODO: safety checks/helpful debug info for incorrect setups
+-- such as missing properties that gunfireammo and reload share 
+-- and are therefore not in the ability itself, specifically:
+-- maxRounds, cursorAmmo, cursorDir
+
 GunFire = WeaponAbility:new()
 
 function GunFire:init()
     self.weapon:setStance(self.stances.idle)
 
+	--if not pcall(self.checkWep()) then
+	--	sb.logWarn('GunFireAmmo initialized to incorrect weapon.lua, will not function correctly')
+	--end
+	
     self.cooldownTimer = self.fireTime
 
     self.weapon.onLeaveAbility = function()
@@ -21,7 +29,13 @@ function GunFire:init()
 	self.cursorDir = config.getParameter("cursorDir", "/cursors/12/azreticle")
 	
 	self:cursorUpdate()
+end
 
+function GunFire:checkWep()
+	return self.weapon:checkAz()
+	--if self.weapon:checkAz() then
+	--	return true else return false 
+	--end
 end
 
 function GunFire:update(dt, fireMode, shiftHeld)

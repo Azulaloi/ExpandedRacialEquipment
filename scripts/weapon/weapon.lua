@@ -61,6 +61,11 @@ function Weapon:checkAdd(select, int)
     end
 end
 
+function Weapon:checkAz()
+	return true
+end
+
+
 function Weapon:initRecoil()
     self.cameraState = {0,0}
     self.cameraMove = {0,0}
