@@ -18,5 +18,10 @@
     "op": "add",
     "path": "/azreload",
     "value": "/items/weapons/abilities/azreload.weaponability"
+  },
+  {
+    "op": "add",
+    "path": "/azgunfireheat",
+    "value": "/items/weapons/abilities/azgunfireheat.weaponability"
   }
 ]

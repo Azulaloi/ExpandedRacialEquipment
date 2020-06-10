@@ -9,6 +9,10 @@ require "/scripts/interp.lua"
 -- such as missing properties that gunfireammo and reload share 
 -- and are therefore not in the ability itself, specifically:
 -- maxRounds, cursorAmmo, cursorDir
+
+-- TODO: ammo abilities should take name of written ammo property from ability config
+-- so that multiple gunfireammos could be used on the same weapon without conflicting 
+-- that can wait until I actually need that functionality though
 Reload = WeaponAbility:new()
 
 function Reload:init()

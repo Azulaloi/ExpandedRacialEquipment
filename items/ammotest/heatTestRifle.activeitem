@@ -1,0 +1,116 @@
+{
+  "itemName" : "heatrifle",
+  "price" : 960,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "This rifle takes ammo from a magazine.",
+  "shortdescription" : "Ammo Test Rifle",
+  "tooltipKind" : "gun",
+  "category" : "assaultRifle",
+  "itemTags" : ["weapon","ranged","rifle"],
+  "twoHanded" : true,
+  "level" : 1,
+
+  "inventoryIcon" : "rifle.png",
+
+  "animation" : "/items/ammotest/gun.animation",
+  "animationParts" : {
+    "butt" : "",
+    "middle" : "rifle.png",
+    "barrel" : "",
+    "muzzleFlash" : "/assets/weapons/genranged/defaultmuzzleflash.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : ["/sfx/gun/ar1.ogg"],
+	  "click" : ["/sfx/click1.ogg"],
+	  "reload" : ["/sfx/reload1.ogg"]
+    },
+	"parts" : {
+	  "middle" : {
+	    "properties" : {
+		  "ejectPos" : [0, 0]
+		}
+	  },
+	  "ejectLocator" : {
+	    "properties" : {
+		  "offset" : [0, 0]
+		}
+	  }
+	}
+  },
+
+  "baseOffset" : [0.1, 0.11],
+  "muzzleOffset" : [2.2, 0.125],
+
+  "scripts" : ["/scripts/weapon/gun.lua"],
+  "scale" : [1, 1],
+  "recoilToggle" : false,
+  "abilityPrimaryInternalShift" : true,
+
+  "elementalType" : "physical",
+  
+
+  "cursorAmmo" : true,
+  "cursorDir" : "/cursors/100/azreticle",
+  "heat" : 0,
+  
+  "primaryAbilityType" : "azgunfireheat",
+  "primaryAbility" : {
+    "fireTime" : 0.11,
+    "baseDps" : 10.5,
+    "energyUsage" : 31.5,
+    "inaccuracy" : 0.02,
+
+	"heatMax" : 100,
+	"heatPerShot" : 5,
+	"heatWait" : 2,
+	"heatCoolSpeed" : 35,
+	
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "azbulletgeneric",
+    "projectileParameters" : {
+      "knockback" : 5
+    },
+    "stances" : {
+      "idle" : {
+	  	"frontArmFrame" : "run.2",
+        "armRotation" : -4,
+        "weaponRotation" : 2,
+
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		"twoHanded" : true
+      },
+      "fire" : {
+        "duration" : 0,
+		
+		"frontArmFrame" : "run.2",
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+        "twoHanded" : true
+      },
+      "cooldown" : {
+        "duration" : 0.11,
+        
+	    "frontArmFrame" : "run.2",
+		"armRotation" : 3,
+        "weaponRotation" : 3,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		"twoHanded" : true
+      }
+    }
+  },
+
+  "altAbilityType" : "spray",
+
+  "builder" : "/scripts/weapon/build.lua"
+}

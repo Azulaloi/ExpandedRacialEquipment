@@ -1,0 +1,54 @@
+{
+  "ability" : {
+    "type" : "azgunfireheat",
+    "class" : "GunFire",
+    "name" : "Gunshot",
+    "scripts" : ["/items/weapons/abilities/azgunfireheat.lua"],
+
+    "fireTime" : 0.6,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.025,
+	
+	"heatMax" : 100,
+	"heatPerShot" : 5,
+	"heatWait" : 2,
+	"heatCoolSpeed" : 25,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+
+    "projectileType" : "azbulletgeneric",
+    "projectileParameters" : {
+      "knockback" : 6
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  }
+}
