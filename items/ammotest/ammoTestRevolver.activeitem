@@ -7,9 +7,10 @@
   "shortdescription" : "Ammo Test Revolver",
   "tooltipKind" : "gun",
   "category" : "revolver",
-  "twoHanded" : false,
   "itemTags" : ["weapon","ranged","pistol"],
+  "twoHanded" : false,
   "level" : 1,
+  "azAkimbo" : true,
 
   "inventoryIcon" : "ironrevolver.png",
 

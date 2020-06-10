@@ -10,7 +10,8 @@
   "itemTags" : ["weapon","ranged","rifle"],
   "twoHanded" : true,
   "level" : 1,
-
+  "azAkimbo" : false,
+  
   "inventoryIcon" : "rifle.png",
 
   "animation" : "/items/ammotest/gun.animation",

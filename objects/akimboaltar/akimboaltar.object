@@ -1,0 +1,75 @@
+{
+  "objectName" : "akimboaltar",
+  "colonyTags" : [],
+  "rarity" : "Legendary",
+  "printable" : false,
+  "description" : "Switches certain weapons between one-handed and two-handed.",
+  "shortdescription" : "^orange;Akimbo Altar^white;",
+  "race" : "generic",
+  "category" : "storage",
+  "price" : 750,
+  "health" : 1.5,
+
+  "objectType" : "container",
+  "slotCount" : 2,
+  "uiConfig" : "/interface/akimboaltar/akimboaltar.config",
+  "subtitle" : "For sad pets",
+  "frameCooldown" : 5,
+  "autoCloseCooldown" : 3600,
+  
+  "tagLocked" : true,
+  "scripts" : [ "akimboaltar.lua"],
+
+  "defaultDescription" : "This device will adjust the grip of my weapon to suit one or two-handed use.",
+  "apexDescription" : "This machine can adjust the grip of my weapon to suit one or two-handed use.",
+  "avianDescription" : "I could adjust my weapons grip with this.",
+  "floranDescription" : "Floran can ssswap weapons handedness with this.",
+  "glitchDescription" : "Intrigued. This device can adjust my weapons grip.",
+  "humanDescription" : "This can change my weapons grip from one to two-handed, or vice-versa.",
+  "hylotlDescription" : "This device is capable of adjusted my weapons grip..",
+  "novakidDescription" : "With this contraption, I could adjust my weapons to be used with two hands... or one hand.",
+  
+  "lightColor" : [38, 114, 128],
+  "lightPosition" : [0, 1],
+
+  "flickerPeriod" : 1.2,
+  "flickerMinIntensity" : 0.95,
+  "flickerMaxIntensity" : 1.00,
+  "flickerPeriodVariance" : 0.0,
+  "flickerIntensityVariance" : 0.0,
+
+  "inventoryIcon" : "akimboaltaricon.png",
+
+  "animation" : "/objects/akimboaltar/akimboaltar.animation",
+  "animationParts" : {
+    "altar" : "akimboaltar.png",
+    "altarlit" : "akimboaltarlit.png"
+  },
+  "animationPosition" : [-6, 0],
+
+  "orientations" : [
+    {
+      "imageLayers" : [ { "image" : "akimboaltar.png:off.<frame>", "fullbright" : true }, { "image" : "akimboaltarlit.png:off.<frame>" } ],
+      "imagePosition" : [-6, 0],
+
+      "direction" : "left",
+      "flipImages" : true,
+
+      "frames" : 1,
+
+      "spaceScan" : 0.1,
+      "anchors" : [ "bottom" ]
+    },
+    {
+      "imageLayers" : [ { "image" : "akimboaltar.png:off.<frame>", "fullbright" : true }, { "image" : "akimboaltarlit.png:off.<frame>" } ],
+      "imagePosition" : [-6, 0],
+
+      "direction" : "right",
+      
+      "frames" : 1,
+
+      "spaceScan" : 0.1,
+      "anchors" : [ "bottom" ]
+    }
+  ]
+}
