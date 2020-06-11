@@ -16,8 +16,17 @@ def pasterize(filename):
 		du = json.dumps(data)
 	
 	
-	sa = '/spawnitem ' + itemname + ' \'' +  du + ' \' '
+	sa = '/spawnitem ' + itemname + ' 1' + ' \'' +  du + ' \' '
 	pyperclip.copy(sa)
+	
+def altpasterize(filename):
+	f = open(filename, "r")
+	list = [line.rstrip('\n') for line in f]
+	f.close()
+
+	joined = ''.join(list)
+
+	pyperclip.copy(joined)
 
 class AzHandler(LoggingEventHandler):
 	def __init__(self):
@@ -25,7 +34,8 @@ class AzHandler(LoggingEventHandler):
 	def on_modified(self, event):
 		if event.is_directory: return
 		logging.info('pasterizing!' + event.src_path)
-		pasterize(event.src_path)
+		#pasterize(event.src_path)
+		altpasterize(event.src_path)
 		
 	def on_created(self, event):
 		super(LoggingEventHandler, self).on_created(event)

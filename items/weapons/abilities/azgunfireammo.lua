@@ -7,9 +7,53 @@ require "/scripts/interp.lua"
 -- maxRounds, cursorAmmo, cursorDir
 
 GunFire = WeaponAbility:new()
+ 
+ 
+-- don't forget to change all the stance value queries to use swapstance!
+function GunFire:swapStance(stanceName)
+	local swapFlag = false
+
+	if self.defaultHanded == nil then
+		sb.logInfo("self.defaultHanded == nil")
+		return stanceName
+	end
+	
+	local twoHanded = config.getParameter("twoHanded")
+	
+	if self.defaultHanded == "two" then
+		if twoHanded then
+			swapFlag = false
+		elseif not twoHanded then
+			swapFlag = true
+		end
+	elseif self.defaultHanded == "one" then
+		if twoHanded == true then
+			swapFlag = true
+		elseif twoHanded == false then
+			swapFlag = false
+		end
+	end
+	
+	--sb.logInfo(tostring(swapFlag) .. " | " .. tostring(twoHanded))
+	
+	if swapFlag then
+		local stanceOut = "alt-" .. stanceName
+		--sb.logInfo(tostring(stanceOut))
+		return stanceOut
+	end
+	
+	--sb.logInfo(tostring(stanceName))
+	return stanceName
+end
+
+function GunFire:setSwapStance(stanceName)
+	self.weapon:setStance(self.stances[self:swapStance(stanceName)])
+end
 
 function GunFire:init()
-    self.weapon:setStance(self.stances.idle)
+	self:setHandedAnimState()
+    self:setSwapStance("idle")
+	--self.weapon:setStance(self.stances[self:swapStance("idle")])	
 
 	--if not pcall(self.checkWep()) then
 	--	sb.logWarn('GunFireAmmo initialized to incorrect weapon.lua, will not function correctly')
@@ -18,7 +62,7 @@ function GunFire:init()
     self.cooldownTimer = self.fireTime
 
     self.weapon.onLeaveAbility = function()
-        self.weapon:setStance(self.stances.idle)
+        self:setSwapStance("idle")
     end
 	
 	
@@ -64,6 +108,13 @@ function GunFire:update(dt, fireMode, shiftHeld)
             self:setState(self.burst)
         end
     end
+	
+	world.debugText(sb.print(animator.animationState("firing")), vec2.add(mcontroller.position(), {1,2}), "green")
+	world.debugText(sb.print(animator.animationState("handed")), vec2.add(mcontroller.position(), {1,2.5}), "green")
+	world.debugText(sb.print(self.weapon:getState()), vec2.add(mcontroller.position(), {1,3}), "green")
+	
+	world.debugPoint(self:firePosition(), "red")
+
 end
 
 function GunFire:ammoCall()
@@ -73,7 +124,7 @@ function GunFire:ammoCall()
 end
 
 function GunFire:auto()
-    self.weapon:setStance(self.stances.fire)
+    self:setSwapStance("fire")
 
     self:fireProjectile()
     self:muzzleFlash()
@@ -87,7 +138,7 @@ function GunFire:auto()
 end
 
 function GunFire:burst()
-    self.weapon:setStance(self.stances.fire)
+    self:setSwapStance("fire")
 
     local shots = self.burstCount
     while shots > 0 and status.overConsumeResource("energy", self:energyPerShot()) do
@@ -105,24 +156,24 @@ function GunFire:burst()
 end
 
 function GunFire:cooldown()
-    self.weapon:setStance(self.stances.cooldown)
+    self:setSwapStance("cooldown")
     self.weapon:updateAim()
 
     local progress = 0
-    util.wait(self.stances.cooldown.duration, function()
-        local from = self.stances.cooldown.weaponOffset or {0,0}
-        local to = self.stances.idle.weaponOffset or {0,0}
+    util.wait(self.stances[self:swapStance("cooldown")].duration, function()
+        local from = self.stances[self:swapStance("cooldown")].weaponOffset or {0,0}
+        local to = self.stances[self:swapStance("idle")].weaponOffset or {0,0}
         self.weapon.weaponOffset = {interp.linear(progress, from[1], to[1]), interp.linear(progress, from[2], to[2])}
 
-        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(progress, self.stances.cooldown.weaponRotation, self.stances.idle.weaponRotation))
-        self.weapon.relativeArmRotation = util.toRadians(interp.linear(progress, self.stances.cooldown.armRotation, self.stances.idle.armRotation))
+        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(progress, self.stances[self:swapStance("cooldown")].weaponRotation, self.stances[self:swapStance("idle")].weaponRotation))
+        self.weapon.relativeArmRotation = util.toRadians(interp.linear(progress, self.stances[self:swapStance("cooldown")].armRotation, self.stances[self:swapStance("idle")].armRotation))
 
-        progress = math.min(1.0, progress + (self.dt / self.stances.cooldown.duration))
+        progress = math.min(1.0, progress + (self.dt / self.stances[self:swapStance("cooldown")].duration))
     end)
 end
 
 function GunFire:click()
-	self.weapon:setStance(self.stances.fire)
+    self:setSwapStance("fire")
 
 	self:clickFx()
 	
@@ -135,7 +186,7 @@ function GunFire:click()
 end
 
 function GunFire:reload()
-	self.weapon:setStance(self.stances.fire)
+    self:setSwapStance("fire")
 
 	self:reloadFx()
 	
@@ -160,12 +211,29 @@ function GunFire:reloadFx()
 end
 
 function GunFire:muzzleFlash()
+	local twoHanded = config.getParameter("twoHanded")
+	
+	-- this is incomplete placeholder, needs to check against default and all that
+	if twoHanded then
+		animator.setAnimationState("firing", "fire")
+	else animator.setAnimationState("firing", "fireAlt") end
+
     animator.setPartTag("muzzleFlash", "variant", math.random(1, 3))
-    animator.setAnimationState("firing", "fire")
+    --animator.setAnimationState("firing", "fire")
     animator.burstParticleEmitter("muzzleFlash")
     animator.playSound("fire")
 
     animator.setLightActive("muzzleFlash", true)
+end
+
+function GunFire:setHandedAnimState()
+	local twoHanded = config.getParameter("twoHanded")
+	
+	if twoHanded then
+		animator.setAnimationState("handed", "two")
+	  else 
+	    animator.setAnimationState("handed", "one") 
+	end
 end
 
 function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, firePosition, projectileCount)

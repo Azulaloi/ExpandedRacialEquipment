@@ -8,7 +8,14 @@ function Weapon:new(weaponConfig)
     local newWeapon = weaponConfig or {}
     newWeapon.damageLevelMultiplier = config.getParameter("damageLevelMultiplier", root.evalFunction("weaponDamageLevelMultiplier", config.getParameter("level", 1)))
     newWeapon.elementalType = config.getParameter("elementalType")
-    newWeapon.muzzleOffset = config.getParameter("muzzleOffset") or {0,0}
+	
+	--incomplete logic, needs to check against default handedness and so on
+	if config.getParameter("azSwappable") == true then
+		if config.getParameter("twoHanded") == true then
+			newWeapon.muzzleOffset = config.getParameter("muzzleOffset") or {0,0}
+		else newWeapon.muzzleOffset = config.getParameter("muzzleOffsetAlt") or {0,0} end
+	end
+	
     newWeapon.aimOffset = config.getParameter("aimOffset") or (newWeapon.muzzleOffset[2] - 0.25) -- why is it off by 0.25? nobody knows!
 
     newWeapon.abilities = {}
@@ -99,7 +106,7 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
 
     local select = 0
 	
-	
+	-- offhand items will receive right-clicks as "primary"
     if fireMode == "primary" then
         if shiftHeld then
 			-- kind of a bandaid
@@ -115,7 +122,7 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
             select = 2
         end
     end
-
+	
     for _,ability in pairs(self.abilities) do
         if ability then
             if ability.select == select then
@@ -163,6 +170,10 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
     self:clearDamageSources()
 end
 
+function Weapon:getState()
+	return self.currentState
+end
+
 function Weapon:updateCamera()
     self.cameraState = {
         self:lerp(self.cameraState[1], self.cameraMove[1], self.cushion),
@@ -179,6 +190,7 @@ end
 
 function Weapon:updateScale()
     animator.scaleTransformationGroup("weapon", self.scale)
+    animator.scaleTransformationGroup("muzzle", self.scale)
 end
 
 function Weapon:lerp(v, t, s)

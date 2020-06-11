@@ -1,0 +1,117 @@
+/spawnitem ammorevolver 1 '
+
+{
+  "azSwappable" : true,
+  "scale" : 0.9,
+  "muzzleOffset" : [1.7, 1.6],
+  "muzzleOffsetAlt" : [1.6, 0.7],
+  "twoHanded" : true, 
+  
+  "animationCustom" : { 
+    "animatedParts" : {
+	  "parts" : {
+	    "muzzleFlash" : {
+	      "properties" : {
+		    "offset" : [0.8, -1.0]
+		  },
+          "partStates" : { 
+		    "firing" : {
+		      "fireAlt" : {
+			    "properties" : {
+				  "offset" : [1, 0]
+			    }
+			  }
+		    }
+          }
+	    }
+	  } 
+	} 
+  },  
+  
+  "primaryAbilityType" : "azgunfireammo",
+  "primaryAbility" : {
+    "fireTime" : 0.6,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.025,
+
+    "projectileCount" : 1,
+    "fireType" : "auto",
+	
+	"defaultHanded" : "two",
+
+    "projectileType" : "azbulletgeneric",
+    "projectileParameters" : {
+      "knockback" : 6
+    },
+    "stances" : {
+      "idle" : {
+        "armRotation" : -10,
+        "weaponRotation" : 10,
+        "weaponOffset" : [0.4, 0.50],
+        "twoHanded" : true,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+        "frontArmFrame" : "swim.3",
+        "backArmFrame" : "jump.3"
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : -5,
+        "weaponRotation" : 15,
+        "weaponOffset" : [0.4, 0.50],
+        "twoHanded" : true,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+        "frontArmFrame" : "swim.3",
+        "backArmFrame" : "jump.3"
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : -5,
+        "weaponRotation" : 15,
+        "weaponOffset" : [0.4, 0.50],
+        "twoHanded" : true,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+        "frontArmFrame" : "swim.3",
+        "backArmFrame" : "jump.3"
+      },
+	  
+      "alt-idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "alt-fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "alt-cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  } 
+}  
+   
+'

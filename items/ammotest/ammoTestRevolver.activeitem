@@ -8,7 +8,7 @@
   "tooltipKind" : "gun",
   "category" : "revolver",
   "itemTags" : ["weapon","ranged","pistol"],
-  "twoHanded" : false,
+  "twoHanded" : true,
   "level" : 1,
   "azAkimbo" : true,
 
@@ -19,8 +19,8 @@
     "butt" : "",
     "middle" : "ironrevolver.png",
     "barrel" : "",
-    "muzzleFlash" : "/items/active/weapons/ranged/muzzleflash.png",
-	"ejectLocator" : "locator.png"
+    "muzzleFlash" : "muzzleflash.png",
+	"ejectLocator" : ""
   },
   "animationCustom" : {
     "sounds" : { 
@@ -46,7 +46,7 @@
   "muzzleOffset" : [1.4, 0.3],
 
   "scripts" : ["/scripts/weapon/gun.lua"],
-  "scale" : [1, 1],
+  "scale" : [0, 0],
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
 
@@ -57,6 +57,7 @@
   "cursorAmmo" : true,
   "cursorDir" : "/cursors/6/azreticle",
   
+  //Todo: why is the two handed stance aiming under the crosshair? 
   "primaryAbilityType" : "azgunfireammo",
   "primaryAbility" : {
     "fireTime" : 0.6,
@@ -66,6 +67,8 @@
 
     "projectileCount" : 1,
     "fireType" : "auto",
+	
+	"defaultHanded" : "two",
 
     "projectileType" : "azbulletgeneric",
     "projectileParameters" : {
@@ -90,6 +93,33 @@
         "allowFlip" : false
       },
       "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+	  
+      "alt-idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "alt-fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "alt-cooldown" : {
         "duration" : 0.15,
         "armRotation" : 3,
         "weaponRotation" : 3,
@@ -187,5 +217,7 @@
     }
   },
 
+  "altAbilityType" : "spray",
+  
   "builder" : "/scripts/weapon/build.lua"
 }

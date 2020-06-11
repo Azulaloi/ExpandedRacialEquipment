@@ -12,6 +12,8 @@
 
     "projectileCount" : 1,
     "fireType" : "auto",
+	
+	"defaultHanded" : "two",
 
     "projectileType" : "azbulletgeneric",
     "projectileParameters" : {
@@ -21,7 +23,7 @@
       "idle" : {
         "armRotation" : 0,
         "weaponRotation" : 0,
-        "twoHanded" : false,
+        "twoHanded" : true,
 
         "allowRotate" : true,
         "allowFlip" : true
@@ -30,12 +32,39 @@
         "duration" : 0,
         "armRotation" : 3,
         "weaponRotation" : 3,
-        "twoHanded" : false,
+        "twoHanded" : true,
 
         "allowRotate" : false,
         "allowFlip" : false
       },
       "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : true,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+	  
+      "alt-idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "alt-fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "alt-cooldown" : {
         "duration" : 0.15,
         "armRotation" : 3,
         "weaponRotation" : 3,
