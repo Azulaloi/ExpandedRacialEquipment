@@ -14,10 +14,15 @@ function Weapon:new(weaponConfig)
 		if config.getParameter("twoHanded") == true then
 			newWeapon.muzzleOffset = config.getParameter("muzzleOffset") or {0,0}
 		else newWeapon.muzzleOffset = config.getParameter("muzzleOffsetAlt") or {0,0} end
+	else newWeapon.muzzleOffset = config.getParameter("muzzleOffset") or {0,0} end
+	
+	
+	if config.getParameter("aimOffsetAdditive") then
+		newWeapon.aimOffset = newWeapon.muzzleOffset[2] + config.getParameter("aimOffsetAdditive")
+	else
+		newWeapon.aimOffset = config.getParameter("aimOffset") or (newWeapon.muzzleOffset[2] - 0.25) -- why is it off by 0.25? nobody knows!
 	end
 	
-    newWeapon.aimOffset = config.getParameter("aimOffset") or (newWeapon.muzzleOffset[2] - 0.25) -- why is it off by 0.25? nobody knows!
-
     newWeapon.abilities = {}
     newWeapon.shiftAbilities = {}
 	newWeapon.primaryInternalShift = config.getParameter("abilityPrimaryInternalShift", false)
@@ -71,7 +76,6 @@ end
 function Weapon:checkAz()
 	return true
 end
-
 
 function Weapon:initRecoil()
     self.cameraState = {0,0}
@@ -168,6 +172,16 @@ function Weapon:update(dt, fireMode, shiftHeld, moves)
     if self.recoilToggle then self:updateCamera() end
     self.cameraMove = {0, 0}
     self:clearDamageSources()
+	
+	self:debugDraw()
+end
+
+function Weapon:debugDraw()
+	local firePos = vec2.add(mcontroller.position(), activeItem.handPosition(self.muzzleOffset))
+	world.debugPoint(firePos, "green")
+	world.debugPoint(activeItem.ownerAimPosition(), "green")
+	world.debugLine(firePos, activeItem.ownerAimPosition(), "blue")
+
 end
 
 function Weapon:getState()
