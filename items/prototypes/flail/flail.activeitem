@@ -1,0 +1,63 @@
+{
+  "itemName" : "flail",
+  "price" : 500,
+  "level" : 1,
+  "maxStack" : 1,
+  "rarity" : "Common",
+  "description" : "Unknown prototype.",
+  "shortdescription" : "Flail",
+  "tooltipKind" : "sword",
+  "category" : "broadsword",
+  "twoHanded" : true,
+  "itemTags" : ["weapon"],
+
+  "inventoryIcon" : "flail_icon.png",
+
+  "animation" : "/items/active/weapons/melee/broadsword/combobroadsword.animation",
+  "animationParts" : {
+    "handle" : "",
+    "head" : "flail_head.png"
+  },
+  "animationCustom" : {
+    "sounds" : {
+      "fire" : [ "/sfx/melee/swing_broadsword.ogg" ]
+    }
+  },
+
+  "scripts" : ["/items/active/weapons/melee/meleeweapon.lua"],
+
+  "elementalType" : "physical",
+
+  "primaryAbility" : {
+    "scripts" : ["/items/prototypes/flail/flail.lua"],
+    "class" : "Spin",
+    "energyUsage" : 60,
+    "cooldownTime" : 0.2,
+
+    "damageConfig" : {
+      "damageSourceKind" : "spear",
+      "statusEffects" : [ ],
+    	"baseDamage" : 6,
+    	"knockbackMode" : "none",
+    	"knockback" : 30,
+    	"timeout" : 0.5,
+    	"timeoutGroup" : "alt"
+    },
+
+    "spinRate" : -1750,
+
+    "stances" : {
+      "spin" : {
+        "armRotation" : 80,
+        "weaponRotation" : -40,
+        "twoHanded" : true,
+        "weaponOffset" : [0, 0],
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      }
+    }
+  },
+
+  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+}

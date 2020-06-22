@@ -4,7 +4,7 @@ require "/scripts/interp.lua"
 -- TODO: safety checks/helpful debug info for incorrect setups
 -- such as missing properties that gunfireammo and reload share 
 -- and are therefore not in the ability itself, specifically:
--- maxRounds, cursorAmmo, cursorDir
+-- maxRounds, cursorDir
 
 GunFire = WeaponAbility:new()
  
@@ -65,13 +65,10 @@ function GunFire:init()
         self:setSwapStance("idle")
     end
 	
-	
-	self.rounds = config.getParameter("rounds", 6)
-	
 	self.maxRounds = config.getParameter("maxRounds", 3)
-	self.cursorAmmo = config.getParameter("cursorAmmo", false)
-	self.cursorDir = config.getParameter("cursorDir", "/cursors/12/azreticle")
+	self.rounds = config.getParameter("rounds", self.maxRounds)
 	
+	self:cursorInit(config.getParameter("cursorMode", "none"))
 	self:cursorUpdate()
 end
 
@@ -109,12 +106,17 @@ function GunFire:update(dt, fireMode, shiftHeld)
         end
     end
 	
-	world.debugText(sb.print(animator.animationState("firing")), vec2.add(mcontroller.position(), {1,2}), "green")
-	world.debugText(sb.print(animator.animationState("handed")), vec2.add(mcontroller.position(), {1,2.5}), "green")
-	world.debugText(sb.print(self.weapon:getState()), vec2.add(mcontroller.position(), {1,3}), "green")
-	
-	world.debugPoint(self:firePosition(), "red")
+	self:updateDebug()
+end
 
+function GunFire:updateDebug()
+	world.debugText(sb.print("Ammo: " .. self.rounds), vec2.add(mcontroller.position(), {1, 2}), "green")
+	world.debugText(sb.print("MaxAmmo: " .. self.maxRounds), vec2.add(mcontroller.position(), {1, 2.5}), "green")
+	world.debugText(sb.print("FireState: " .. animator.animationState("firing")), vec2.add(mcontroller.position(), {1, 3}), "green")
+	world.debugText(sb.print("HandedState: " .. animator.animationState("handed")), vec2.add(mcontroller.position(), {1, 3.5}), "green")
+	--world.debugText(sb.print(self.weapon:getState()), vec2.add(mcontroller.position(), {1,4}), "green")
+	
+	--world.debugPoint(self:firePosition(), "red")
 end
 
 function GunFire:ammoCall()
@@ -281,9 +283,46 @@ function GunFire:cycle()
 	activeItem.setInstanceValue("rounds", self.rounds)
 end
 
+function GunFire:cursorInit(mode)
+	local c = mode
+	if       c == "none" then self.cursorType = 0
+	  elseif c == "anim" then self.cursorType = 1
+	  elseif c == "curs" then self.cursorType = 2
+	  elseif c == 0 then self.cursorType = 0
+	  elseif c == 1 then self.cursorType = 1
+	  elseif c == 2 then self.cursorType = 2
+	end
+	
+	if self.cursorType == 0 then
+		activeItem.setScriptedAnimationParameter("doAnim", false)
+		self.cursorDir0 = config.getParameter("cursorDir0", "/cursors/azdefault.cursor")
+		activeItem.setCursor(self.cursorDir0)
+	end
+	
+	if self.cursorType == 1 then
+		self.cursorDir0 = config.getParameter("cursorDir0", "/cursors/azdefault.cursor")
+		activeItem.setCursor(self.cursorDir0)
+		
+		self.cursorDir1 = config.getParameter("cursorDir1", "/cursors/anim/100/azreticle100.png")
+		activeItem.setScriptedAnimationParameter("doAnim", true)
+		activeItem.setScriptedAnimationParameter("ammoDisplayDirectory", self.cursorDir1)
+		
+		activeItem.setScriptedAnimationParameter("ammoDisplayOffset", config.getParameter("cursorAnimOffset", {0, 0}))
+		activeItem.setScriptedAnimationParameter("ammoDisplayScale", config.getParameter("cursorAnimScale", 1))
+	end
+		
+	if self.cursorType == 2 then
+		activeItem.setScriptedAnimationParameter("doAnim", false)
+		self.cursorDir2 = config.getParameter("cursorDir2", "/cursors/12/azreticle")
+	end
+end
 function GunFire:cursorUpdate()
-	if self.cursorAmmo then
-		activeItem.setCursor(self.cursorDir .. (self.rounds) .. ".cursor")
+	if self.cursorType == 1 then
+		activeItem.setScriptedAnimationParameter("ammoDisplayQuantity", self.rounds)
+	end
+	
+	if self.cursorType == 2 then
+		activeItem.setCursor(self.cursorDir2 .. (self.rounds) .. ".cursor")
 	end
 end
 

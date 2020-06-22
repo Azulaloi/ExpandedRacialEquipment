@@ -41,12 +41,20 @@
 	  }
 	}
   },
+  
+  "animationScripts" : [ "/items/ammotest/ammoanim.lua" ],
+  "cursorMode" : "anim",
+  "cursorDir0" : "/cursors/azdefault.cursor",
+  "cursorDir1" : "/cursors/anim/rev6/azreticle.png",
+  "cursorDir2" : "/cursors/6/azreticle",
+  "cursorAnimOffset" : [0, 0],
+  "cursorAnimScale" : 0.5,
 
   "baseOffset" : [0.5, 0.25],
   "muzzleOffset" : [1.4, 0.3],
 
   "scripts" : ["/scripts/weapon/gun.lua"],
-  "scale" : [0, 0],
+  "scale" : 1,
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
 
@@ -54,8 +62,6 @@
   
   "maxRounds" : 6,
   "rounds" : 6,
-  "cursorAmmo" : true,
-  "cursorDir" : "/cursors/6/azreticle",
   
   //Todo: why is the two handed stance aiming under the crosshair? 
   "primaryAbilityType" : "azgunfireammo",
