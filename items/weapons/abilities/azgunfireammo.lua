@@ -47,11 +47,14 @@ function GunFire:swapStance(stanceName)
 end
 
 function GunFire:setSwapStance(stanceName)
+	if self.swappable then 
 	self.weapon:setStance(self.stances[self:swapStance(stanceName)])
+	else self.weapon:setStance(self.stances[stanceName]) end
 end
 
 function GunFire:init()
-	self:setHandedAnimState()
+	self.swappable = config.getParameter("azSwappable", false)
+	if self.swappable then self:setHandedAnimState() end
     self:setSwapStance("idle")
 	--self.weapon:setStance(self.stances[self:swapStance("idle")])	
 
@@ -65,8 +68,16 @@ function GunFire:init()
         self:setSwapStance("idle")
     end
 	
+	
+	self.ammoMode = config.getParameter("ammoMode", 1)
 	self.maxRounds = config.getParameter("maxRounds", 3)
 	self.rounds = config.getParameter("rounds", self.maxRounds)
+	
+	
+	-- TODO: the chambering behavior might be overly complicated. 
+	self.chamberMode = config.getParameter("chamberMode", 0)
+	self.chamberAuto = config.getParameter("chamberAuto", 0)
+	self.chamberStatus = config.getParameter("chamberStatus", 0)
 	
 	self:cursorInit(config.getParameter("cursorMode", "none"))
 	self:cursorUpdate()
@@ -94,10 +105,9 @@ function GunFire:update(dt, fireMode, shiftHeld)
             and not status.resourceLocked("energy")
             and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
 			
-		--if shiftHeld then
-		--	self:setState(self.reload)
-		--else
-		if self.rounds <= 0 then
+		if shiftHeld then
+			self:setState(self.chamberingState)
+		elseif not self:canFire() then
 			self:setState(self.click)
         elseif self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
             self:setState(self.auto)
@@ -113,10 +123,31 @@ function GunFire:updateDebug()
 	world.debugText(sb.print("Ammo: " .. self.rounds), vec2.add(mcontroller.position(), {1, 2}), "green")
 	world.debugText(sb.print("MaxAmmo: " .. self.maxRounds), vec2.add(mcontroller.position(), {1, 2.5}), "green")
 	world.debugText(sb.print("FireState: " .. animator.animationState("firing")), vec2.add(mcontroller.position(), {1, 3}), "green")
-	world.debugText(sb.print("HandedState: " .. animator.animationState("handed")), vec2.add(mcontroller.position(), {1, 3.5}), "green")
+	--world.debugText(sb.print("HandedState: " .. animator.animationState("handed")), vec2.add(mcontroller.position(), {1, 3.5}), "green")
+	world.debugText(sb.print("ChamberStatus: " .. self.chamberStatus), vec2.add(mcontroller.position(), {1, 4}), "green")
+	world.debugText(sb.print("CanFire: " .. tostring(self:canFire())), vec2.add(mcontroller.position(), {1, 4.5}), "green")
 	--world.debugText(sb.print(self.weapon:getState()), vec2.add(mcontroller.position(), {1,4}), "green")
 	
 	--world.debugPoint(self:firePosition(), "red")
+end
+
+function GunFire:canFire()
+	local flagRounds = false
+	local flagChamber = false
+	
+	if self.ammoMode == 0 then
+		flagRounds = true
+	elseif self.ammoMode == 1 then
+		flagRounds = (self.rounds <= 0)
+	end
+
+	if self.chamberMode == 0 then
+		flagChamber = true
+	elseif self.chamberMode == 1 then
+		flagChamber = (self.chamberStatus == 0)
+	end
+ 	
+	return (flagRounds and flagChamber)
 end
 
 function GunFire:ammoCall()
@@ -136,7 +167,10 @@ function GunFire:auto()
     end
 
     self.cooldownTimer = self.fireTime
-    self:setState(self.cooldown)
+	
+	if self.chamberAuto == 1 then
+		self:setState(self.chamberingState)
+	else self:setState(self.cooldown) end
 end
 
 function GunFire:burst()
@@ -172,6 +206,23 @@ function GunFire:cooldown()
 
         progress = math.min(1.0, progress + (self.dt / self.stances[self:swapStance("cooldown")].duration))
     end)
+end
+
+function GunFire:chamberingState()
+    self:setSwapStance("fire")
+
+	animator.setAnimationState("pump", "action")
+	animator.playSound("chamber")
+	
+	if self.stances.fire.duration then
+        util.wait(self.stances.fire.duration)
+    end
+	
+	self.chamberStatus = 0 
+	activeItem.setInstanceValue("chamberStatus", self.chamberStatus)
+	
+	self.cooldownTimer = self.fireTime
+    self:setState(self.cooldown)
 end
 
 function GunFire:click()
@@ -277,10 +328,17 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
     return projectileId
 end
 
-function GunFire:cycle() 
-	self.rounds = self.rounds - 1
-	self:cursorUpdate()
-	activeItem.setInstanceValue("rounds", self.rounds)
+function GunFire:cycle()
+	if self.ammoMode ~= 0 then
+		self.rounds = self.rounds - 1
+		self:cursorUpdate()
+		activeItem.setInstanceValue("rounds", self.rounds)
+	end
+	
+	if self.chamberMode == 1 then
+		self.chamberStatus = 1
+		activeItem.setInstanceValue("chamberStatus", self.chamberStatus)
+	end
 end
 
 function GunFire:cursorInit(mode)
@@ -316,6 +374,7 @@ function GunFire:cursorInit(mode)
 		self.cursorDir2 = config.getParameter("cursorDir2", "/cursors/12/azreticle")
 	end
 end
+
 function GunFire:cursorUpdate()
 	if self.cursorType == 1 then
 		activeItem.setScriptedAnimationParameter("ammoDisplayQuantity", self.rounds)
