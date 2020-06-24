@@ -36,5 +36,5 @@
 
   "altAbilityType" : "spinslash",
 
-  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+  "builder" : "/scripts/azweapon/build.lua"
 }

@@ -42,7 +42,7 @@
   "baseOffset" : [0, 0],
   "muzzleOffset" : [1.4, 0.3],
 
-  "scripts" : ["/scripts/weapon/gun.lua"],
+  "scripts" : ["/scripts/azweapon/gun.lua"],
   "scale" : [0.8, 0.8],
   "recoilToggle" : false,
 

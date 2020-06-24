@@ -38,12 +38,12 @@
   "baseOffset" : [0.6, 0.15],
   "muzzleOffset" : [2.2, 0.125],
 
-  "scripts" : ["/scripts/ranged/azgun.lua"],
+  "scripts" : ["/scripts/azweapon/gun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "scripts" : ["/scripts/azweapon/gunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 1.0,
@@ -86,5 +86,5 @@
     }
   },
   "altAbilities" : [ ],
-  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+  "builder" : "/scripts/azweapon/build.lua"
 }

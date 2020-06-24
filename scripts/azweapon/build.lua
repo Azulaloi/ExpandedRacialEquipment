@@ -1,7 +1,7 @@
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 require "/scripts/versioningutils.lua"
-require "/scripts/weapon/abilities.lua"
+require "/scripts/azweapon/abilities.lua"
 
 function build(directory, config, parameters, level, seed)
     local configParameter = function(keyName, defaultValue)

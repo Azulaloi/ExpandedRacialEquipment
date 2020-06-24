@@ -33,7 +33,7 @@
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/scripts/ranged/azgunfire.lua"],
+    "scripts" : ["/scripts/azweapon/gunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 0.2,
@@ -76,7 +76,7 @@
     }
   },
 
-  "builder" : "/items/buildscripts/buildunrandweapon.lua",
+  "builder" : "/scripts/azweapon/build.lua",
 
   "upgradeParameters" : {
     "inventoryIcon" : "raygun_l6.png",

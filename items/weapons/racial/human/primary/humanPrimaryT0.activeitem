@@ -29,7 +29,7 @@
   "baseOffset" : [0.6, 0.15],
   "muzzleOffset" : [2.2, 0.125],
 
-  "scripts" : ["/scripts/ranged/azgun.lua"],
+  "scripts" : ["/scripts/azweapon/gun.lua"],
 
   "elementalType" : "physical",
 
@@ -81,5 +81,5 @@
 
   "altAbilityType" : "spray",
 
-  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+  "builder" : "/scripts/azweapon/build.lua"
 }

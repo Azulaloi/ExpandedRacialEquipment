@@ -31,7 +31,7 @@
   "baseOffset" : [0.5, 0.25],
   "muzzleOffset" : [1.4, 0.3],
 
-  "scripts" : ["/scripts/weapon/gun.lua"],
+  "scripts" : ["/scripts/azweapon/gun.lua"],
   "scale" : [1, 1],
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
@@ -164,5 +164,5 @@
     }
   },
 
-  "builder" : "/items/buildscripts/buildunrandweapon.lua"
+  "builder" : "/scripts/azweapon/build.lua"
 }
