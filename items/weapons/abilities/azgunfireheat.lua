@@ -16,6 +16,8 @@ function GunFire:init()
         self.weapon:setStance(self.stances.idle)
     end
 	
+	self.venting = false
+	
 	self.heat = config.getParameter("heat", 0)
 	--self.heatMax = config.getParameter("heatMax", 200)
 	--self.heatPerShot = config.getParameter("heatPerShot", 5)
@@ -48,23 +50,25 @@ function GunFire:update(dt, fireMode, shiftHeld)
         animator.setLightActive("muzzleFlash", false)
     end
 	
+	local overheated = (self.heat >= self.heatMax)
+	
     if self.fireMode == (self.activatingFireMode or self.abilitySlot)
             and not self.weapon.currentAbility
             and self.cooldownTimer == 0
             and not status.resourceLocked("energy")
-            and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
-			
-		--if shiftHeld then
-		--	self:setState(self.reload)
-		--else
-		if self.heat >= self.heatMax then
-			self:setState(self.click)
-        elseif self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
-            self:setState(self.auto)
-        elseif self.fireType == "burst" then
-            self:setState(self.burst)
-        end
+            and not world.lineTileCollision(mcontroller.position(), self:firePosition()) 
+			and not overheated then
+
+		if self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
+			self:setState(self.auto)
+		elseif self.fireType == "burst" then
+			self:setState(self.burst)
+		end
     end
+	
+	if overheated then
+		self:setState(self.overheat, 0)
+	end
 	
 	self:updateDebug()
 end
@@ -73,6 +77,7 @@ function GunFire:updateDebug()
 	local heatPerc = (self.heat / self.heatMax) * 100
 	world.debugText(sb.print("Heat: " .. self.heat), vec2.add(mcontroller.position(), {1, 2}), "green")
 	world.debugText(sb.print("Perc: " .. tostring(heatPerc)), vec2.add(mcontroller.position(), {1, 2.5}), "green")
+	world.debugText(sb.print("Vent: " .. tostring(self.venting)), vec2.add(mcontroller.position(), {1, 3}), "green")
 end
 
 function GunFire:ammoCall()
@@ -141,6 +146,43 @@ function GunFire:click()
 	
 	self.cooldownTimer = self.fireTime
     self:setState(self.cooldown)
+end
+
+function GunFire:overheat(iter)
+	local stanceIn = "overheat" .. tostring(iter)
+	
+	local terminateFlag = iter == self.terminateIteration
+	
+	local stanceOut
+	if not terminateFlag then
+		stanceOut = "overheat" .. tostring(iter + 1)
+	else stanceOut = "idle" end
+	
+	self.weapon:setStance(self.stances[stanceIn])
+	
+	if iter == self.ventIteration then
+		animator.setParticleEmitterActive("vent", true)
+		self.venting = true
+	end
+	
+	local delta = 0
+    util.wait(self.stances[stanceIn].duration, function()
+        local alpha = self.stances[stanceIn].weaponOffset or {0,0}
+        local beta = self.stances[stanceOut].weaponOffset or {0,0}
+
+        self.weapon.weaponOffset = {interp.linear(delta, alpha[1], beta[1]), interp.linear(delta, alpha[2], beta[2]) }
+        self.weapon.relativeWeaponRotation = util.toRadians(interp.linear(delta, self.stances[stanceIn].weaponRotation, self.stances[stanceOut].weaponRotation))
+        self.weapon.relativeArmRotation = util.toRadians(interp.linear(delta, self.stances[stanceIn].armRotation, self.stances[stanceOut].armRotation))
+
+        delta = math.min(1.0, delta + (self.dt / self.stances[stanceIn].duration))
+    end)
+
+	animator.setParticleEmitterActive("vent", false)
+	self.venting = false
+	
+	if not terminateFlag then
+		self:setState(self.overheat, iter + 1)
+	end
 end
 
 function GunFire:reload()
@@ -246,7 +288,14 @@ function GunFire:cycle()
 end
 
 function GunFire:cycleCool(dt)
-	self.heat = math.max(0, self.heat - self.heatCoolSpeed * dt)
+	local overMult = 0.75
+	
+	if not self.venting then
+		self.heat = math.max(0, self.heat - self.heatCoolSpeed * dt)
+	else 
+		self.heat = math.max(0, self.heat - (self.heatCoolSpeed * overMult) * dt) 
+	end
+	
 	self:cursorUpdate()
 end
 
