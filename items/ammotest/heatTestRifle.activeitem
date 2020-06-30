@@ -50,9 +50,10 @@
 
   "elementalType" : "physical",
   
-
+  "cursorMode" : "curs",
+  "cursorDir0" : "/cursors/azdefault.cursor",
   "cursorAmmo" : true,
-  "cursorDir" : "/cursors/100/azreticle",
+  "cursorDir2" : "/cursors/100/azreticle",
   "heat" : 0,
   
   "primaryAbilityType" : "azgunfireheat",

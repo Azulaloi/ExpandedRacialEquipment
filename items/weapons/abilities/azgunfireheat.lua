@@ -17,15 +17,13 @@ function GunFire:init()
     end
 	
 	self.heat = config.getParameter("heat", 0)
-	self.maxHeat = config.getParameter("maxHeat", 100)
-	self.heatPerShot = config.getParameter("heatPerShot", 5)
-	self.heatWait = config.getParameter("heatWait", 2)
-	self.coolSpeed = config.getParameter("heatCoolSpeed", 35)
+	--self.heatMax = config.getParameter("heatMax", 200)
+	--self.heatPerShot = config.getParameter("heatPerShot", 5)
+	--self.heatWait = config.getParameter("heatWait", 2)
+	--self.heatCoolSpeed = config.getParameter("heatheatCoolSpeed", 35)
 	self.coolTimer = 0
 	
-	self.cursorAmmo = config.getParameter("cursorAmmo", false)
-	self.cursorDir = config.getParameter("cursorDir", "/cursors/100/azreticle")
-	
+	self:cursorInit(config.getParameter("cursorMode", "none"))
 	self:cursorUpdate()
 end
 
@@ -59,7 +57,7 @@ function GunFire:update(dt, fireMode, shiftHeld)
 		--if shiftHeld then
 		--	self:setState(self.reload)
 		--else
-		if self.heat >= self.maxHeat then
+		if self.heat >= self.heatMax then
 			self:setState(self.click)
         elseif self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
             self:setState(self.auto)
@@ -67,6 +65,14 @@ function GunFire:update(dt, fireMode, shiftHeld)
             self:setState(self.burst)
         end
     end
+	
+	self:updateDebug()
+end
+
+function GunFire:updateDebug()
+	local heatPerc = (self.heat / self.heatMax) * 100
+	world.debugText(sb.print("Heat: " .. self.heat), vec2.add(mcontroller.position(), {1, 2}), "green")
+	world.debugText(sb.print("Perc: " .. tostring(heatPerc)), vec2.add(mcontroller.position(), {1, 2.5}), "green")
 end
 
 function GunFire:ammoCall()
@@ -155,11 +161,28 @@ function GunFire:reload()
 end
 
 function GunFire:clickFx()
-	animator.playSound("click")
+	self:playSoundSafe("click")
 end
 
 function GunFire:reloadFx()
-	animator.playSound("reload")
+	self:playSoundSafe("reload")
+end
+
+function GunFire:playSoundSafe(sound, loopsIn)
+	-- why do I have to do this myself
+	-- this would still break if you pass non-string
+	
+	-- have to tostring item.name or else "attempt to concatenate function value" - but why?
+	-- what does that mean? docs says item.name is type string. what is a function value? isnt tostring a function?
+	-- lua pls
+	
+	local loops = loopsIn or 0
+	if animator.hasSound(sound) then
+		animator.playSound(sound, loops)
+	else 
+		sb.logWarn("azgunfireheat: Item <" .. tostring(item.name)
+		.. "> tried to play undefined sound <" .. sound .. ">") 
+	end
 end
 
 function GunFire:muzzleFlash()
@@ -212,8 +235,8 @@ end
 
 function GunFire:cycle() 
 	local heatIn = self.heat + self.heatPerShot
-	if heatIn > self.maxHeat then
-		heatIn = self.maxHeat end
+	if heatIn > self.heatMax then
+		heatIn = self.heatMax end
 	self.heat = heatIn
 	self.coolTimer = self.heatWait
 
@@ -223,14 +246,48 @@ function GunFire:cycle()
 end
 
 function GunFire:cycleCool(dt)
-	self.heat = math.max(0, self.heat - self.coolSpeed * dt)
+	self.heat = math.max(0, self.heat - self.heatCoolSpeed * dt)
 	self:cursorUpdate()
 end
 
+function GunFire:cursorInit(mode)
+	local c = mode
+	if       c == "none" then self.cursorType = 0
+	  elseif c == "anim" then self.cursorType = 1
+	  elseif c == "curs" then self.cursorType = 2
+	  elseif c == 0 then self.cursorType = 0
+	  elseif c == 1 then self.cursorType = 1
+	  elseif c == 2 then self.cursorType = 2
+	end
+	
+	if self.cursorType == 0 then
+		activeItem.setScriptedAnimationParameter("doAnim", false)
+		self.cursorDir0 = config.getParameter("cursorDir0", "/cursors/azdefault.cursor")
+		activeItem.setCursor(self.cursorDir0)
+	end
+	
+	if self.cursorType == 1 then
+		self.cursorDir0 = config.getParameter("cursorDir0", "/cursors/azdefault.cursor")
+		activeItem.setCursor(self.cursorDir0)
+		
+		self.cursorDir1 = config.getParameter("cursorDir1", "/cursors/anim/100/azreticle100.png")
+		activeItem.setScriptedAnimationParameter("doAnim", true)
+		activeItem.setScriptedAnimationParameter("ammoDisplayDirectory", self.cursorDir1)
+		
+		activeItem.setScriptedAnimationParameter("ammoDisplayOffset", config.getParameter("cursorAnimOffset", {0, 0}))
+		activeItem.setScriptedAnimationParameter("ammoDisplayScale", config.getParameter("cursorAnimScale", 1))
+	end
+		
+	if self.cursorType == 2 then
+		activeItem.setScriptedAnimationParameter("doAnim", false)
+		self.cursorDir2 = config.getParameter("cursorDir2", "/cursors/100/azreticle")
+	end
+end
+
 function GunFire:cursorUpdate()
-	if self.cursorAmmo then
-		--sb.logInfo("cursorUpdate: " .. tostring(self.heat))
-		activeItem.setCursor(self.cursorDir .. (math.max(0, math.ceil(self.heat))) .. ".cursor")
+	if self.cursorType == 2 then		
+		local heatPerc = (self.heat / self.heatMax) * 100
+		activeItem.setCursor(self.cursorDir2 .. (math.max(0, math.ceil(heatPerc))) .. ".cursor")
 	end
 end
 
