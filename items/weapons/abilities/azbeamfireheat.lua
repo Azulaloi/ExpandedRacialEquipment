@@ -98,6 +98,7 @@ function GunFire:fire()
 
       animator.setParticleEmitterActive("beamCollision", true)
       animator.resetTransformationGroup("beamEnd")
+	  --animator.rotateTransformationGroup("beamEnd", 50)
       animator.translateTransformationGroup("beamEnd", {beamLength, 0})
 
       if self.impactSoundTimer == 0 then
@@ -110,10 +111,24 @@ function GunFire:fire()
     end
 
     self.weapon:setDamage(self.damageConfig, {self.weapon.muzzleOffset, {self.weapon.muzzleOffset[1] + beamLength, self.weapon.muzzleOffset[2]}}, self.fireTime)
+    --self.weapon:setDamage(self.damageConfig, {self.weapon.muzzleOffset, {self.weapon.muzzleOffset[1] + beamLength, self.weapon.muzzleOffset[2] + 5}}, self.fireTime)
+    --self.weapon:setDamage(self.damageConfig, {self.weapon.muzzleOffset, vec2.sub(mcontroller.position(), beamEnd)}, self.fireTime)
 
     self:drawBeam(beamEnd, collidePoint)
 	self:cycle(self.heatGeneration * self.dt)
-
+	
+	
+	world.debugText(sb.print("End"), vec2.add(beamEnd, {0.2, 0.2}), "blue")
+	world.debugText(sb.print(vec2.print(beamEnd, 2)), vec2.add(beamEnd, {0.2, 0.7}), "blue")
+	world.debugPoint(beamEnd, "blue")	
+	
+	--local ppoint = animator.partPoint("muzzleFlash", "offset")
+	--world.debugPoint(vec2.add(mcontroller.position(), ppoint), "red")
+	--world.debugPoint(vec2.add(vec2.add(mcontroller.position(), ppoint), {self.weapon.muzzleOffset[1] + beamLength, self.weapon.muzzleOffset[2]}), "red")
+	
+	--world.debugLine(self.weapon.muzzleOffset, {self.weapon.muzzleOffset[1] + beamLength, self.weapon.muzzleOffset[2]}, "blue")
+	--world.debugPoint({self.weapon.muzzleOffset[1] + beamLength, self.weapon.muzzleOffset[2]}, "red")
+	
     coroutine.yield()
   end
 

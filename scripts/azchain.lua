@@ -100,7 +100,7 @@ function update()
           end
           if chain.waveform then
             local angle = ((i * chain.segmentSize) - (os.clock() * (chain.waveform.movement or 0))) / (chain.waveform.frequency / math.pi)
-            local sineVal = math.sin(angle) * chain.waveform.amplitude * 0.5 + weapon.time
+            local sineVal = math.sin(angle) * chain.waveform.amplitude * 0.5 -- + weapon.time
             thisOffset = vec2.add(thisOffset, {0, sineVal})
           end
 
