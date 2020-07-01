@@ -1,0 +1,102 @@
+{
+  "ability" : {
+    "type" : "azbeamfireheat",
+    "class" : "GunFire",
+    "name" : "Beam",
+    "scripts" : ["/items/weapons/abilities/azbeamfireheat.lua"],
+
+    "fireTime" : 0.6,
+    "baseDps" : 6.25,
+    "energyUsage" : 18.75,
+    "inaccuracy" : 0.025,
+	
+	"heatMax" : 100,
+	"heatGeneration" : 5,
+	"heatWait" : 0.5,
+	"heatCoolSpeed" : 30,
+	
+	"beamLength" : 20,
+	
+	"damageConfig" : {
+      "statusEffects" : [ ],
+      "damageSourceKind" : "plasma",
+      "knockback" : 2
+    },
+
+    "chain" : {
+      "startOffset" : [0, 0],
+      "segmentImage" : "/items/active/weapons/protectorate/aegisaltpistol/beam.png",
+      "endSegmentImage" : "/items/active/weapons/protectorate/aegisaltpistol/beamend.png",
+      "segmentSize" : 0.48,
+      "overdrawLength" : 0.2,
+      "taper" : 0,
+      "waveform" : {
+        "frequency" : 2.0,
+        "amplitude" : 0.125,
+        "movement" : 40.0
+      },
+      "fullbright" : true
+    },
+	
+    "stances" : {
+      "idle" : {
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      },
+      "fire" : {
+        "duration" : 0,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+      "cooldown" : {
+        "duration" : 0.15,
+        "armRotation" : 3,
+        "weaponRotation" : 3,
+        "twoHanded" : false,
+
+        "allowRotate" : false,
+        "allowFlip" : false
+      },
+	  "overheat0" : {
+        "duration" : 0.2,
+        "armRotation" : 0,
+        "weaponRotation" : 0,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "overheat1"
+      },
+      "overheat1" : {
+        "duration" : 1.5,
+        "armRotation" : 5,
+        "weaponRotation" : 90,
+		
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true,
+		
+		"followUp" : "overheat2"
+      },
+      "overheat2" : {
+        "duration" : 0.2,
+        "armRotation" : 15,
+        "weaponRotation" : 90,
+        "twoHanded" : false,
+
+        "allowRotate" : true,
+        "allowFlip" : true
+      }
+    }
+  }
+}
