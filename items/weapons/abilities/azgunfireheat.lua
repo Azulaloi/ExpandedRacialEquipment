@@ -5,6 +5,7 @@ GunFire = WeaponAbility:new()
 
 function GunFire:init()
     self.weapon:setStance(self.stances.idle)
+	animator.setParticleEmitterActive("vent", false)
 
 	--if not pcall(self.checkWep()) then
 	--	sb.logWarn('GunFireAmmo initialized to incorrect weapon.lua, will not function correctly')
