@@ -27,13 +27,16 @@ function GunFire:update(dt, fireMode, shiftHeld)
     and not self.weapon.currentAbility
     and self.cooldownTimer == 0
     and not status.resourceLocked("energy")
-    and not world.lineTileCollision(mcontroller.position(), self:firePosition()) then
+    and not world.lineTileCollision(mcontroller.position(), self:firePosition()) 
+	then
 
     if self.fireType == "auto" and status.overConsumeResource("energy", self:energyPerShot()) then
       self:setState(self.auto)
     elseif self.fireType == "burst" then
       self:setState(self.burst)
-    end
+    elseif self.fireType == "charge" then
+	  self:setState(self.charge)
+	end
   end
 end
 
@@ -67,6 +70,43 @@ function GunFire:burst()
   end
 
   self.cooldownTimer = (self.fireTime - self.burstTime) * self.burstCount
+end
+
+function GunFire:charge()
+  self.weapon:setStance(self.stances.charge)
+  
+  local chargeTimer = self.stances.charge.duration
+  
+  while chargeTimer > 0 and self.fireMode == (self.activatingFireMode or self.abilitySlot) do
+	chargeTimer = chargeTimer - self.dt
+	
+	world.debugText(sb.print("Charge: " .. chargeTimer), vec2.add(mcontroller.position(), {1, 2}), "green")
+	
+	coroutine.yield()
+  end
+  
+  if chargeTimer <= 0 then
+	self:setState(self.fire)
+  else 
+	self:setState(self.cooldown)
+  end
+ 
+end
+
+-- this is identical to auto()
+-- but will be used by other fire modes in the future
+function GunFire:fire()
+  self.weapon:setStance(self.stances.fire)
+  
+  self:fireProjectile()
+  self:muzzleFlash()
+  
+  if self.stances.fire.duration then
+	util.wait(self.stances.fire.duration)
+  end
+  
+  self.cooldownTimer = self.fireTime
+  self:setState(self.cooldown)
 end
 
 function GunFire:cooldown()
@@ -134,6 +174,7 @@ function GunFire:fireProjectile(projectileType, projectileParams, inaccuracy, fi
 end
 
 function GunFire:firePosition()
+	--return activeItem.ownerAimPosition()
   return vec2.add(mcontroller.position(), activeItem.handPosition(self.weapon.muzzleOffset))
 end
 

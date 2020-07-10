@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9a3e0924-1c87-4221-8e28-1e55688903d3" name="Default" comment="Nova T1, T2, T3 secondaries" />
+    <list default="true" id="9a3e0924-1c87-4221-8e28-1e55688903d3" name="Default" comment="Nova T1, T2, T3 secondaries">
+      <change beforePath="$PROJECT_DIR$/.idea/az-expandedracialequipment.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/az-expandedracialequipment.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/abilities/azgunfireammo.lua" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/abilities/azgunfireammo.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/azweapon/gunfire.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/azweapon/gunfire.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/azweapon/weapon.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/azweapon/weapon.lua" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,7 +30,8 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547876178233" />
     <property name="ignore_missing_gitignore" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../az-playablefenerox" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../unpackedAssets" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -417,22 +424,34 @@
     <option name="LAST_COMMIT_MESSAGE" value="Human T0 (temp?), T1 primary, T1 secondary" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="1073" y="559" key="#Scopes" timestamp="1593687558015">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1073" y="559" key="#Scopes/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1593687558015" />
     <state x="810" y="528" width="941" height="344" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog" timestamp="1592963156977">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="810" y="528" width="941" height="344" key="#com.intellij.structuralsearch.plugin.ui.StructuralSearchDialog/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592963156977" />
-    <state x="782" y="346" key="SettingsEditor" timestamp="1592960956411">
+    <state x="1082" y="513" key="FileChooserDialogImpl" timestamp="1593687697816">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="782" y="346" key="SettingsEditor/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592960956411" />
+    <state x="1082" y="513" key="FileChooserDialogImpl/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1593687697816" />
+    <state x="782" y="346" key="SettingsEditor" timestamp="1593687706510">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="782" y="346" key="SettingsEditor/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1593687706510" />
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup" timestamp="1592963080834">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592963080834" />
-    <state x="987" y="300" width="587" height="801" key="find.popup" timestamp="1592964220146">
+    <state x="423" y="415" width="871" height="801" key="find.popup" timestamp="1594337353045">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="987" y="300" width="587" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592964220146" />
+    <state x="423" y="415" width="871" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1594337353045" />
+    <state x="752" y="477" width="1099" height="673" key="new project wizard" timestamp="1593687688102">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="752" y="477" width="1099" height="673" key="new project wizard/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1593687688102" />
     <state x="937" y="354" width="672" height="676" key="search.everywhere.popup" timestamp="1592963087888">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -441,81 +460,5 @@
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="FILTER_TARGETS" value="false" />
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>Lua</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Lua Library</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>az-crossbows</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

@@ -204,7 +204,7 @@ end
 
 function Weapon:updateScale()
     animator.scaleTransformationGroup("weapon", self.scale)
-    animator.scaleTransformationGroup("muzzle", self.scale)
+    if animator.hasTransformationGroup("muzzle") then animator.scaleTransformationGroup("muzzle", self.scale) end
 end
 
 function Weapon:lerp(v, t, s)

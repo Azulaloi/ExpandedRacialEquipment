@@ -168,7 +168,7 @@ function GunFire:auto()
 
     self.cooldownTimer = self.fireTime
 	
-	if self.chamberAuto == 1 then
+	if self.chamberMode == 1 and self.chamberAuto == 1 then
 		self:setState(self.chamberingState)
 	else self:setState(self.cooldown) end
 end
