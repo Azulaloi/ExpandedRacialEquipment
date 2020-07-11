@@ -79,5 +79,5 @@
     }
   },
 
-  "builder" : "/scripts/azweapon/build.lua"
+  "builder" : "/scripts-azc/azweapon/build.lua"
 }

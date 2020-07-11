@@ -29,12 +29,12 @@
   "baseOffset" : [0.4, 0.25],
   "muzzleOffset" : [2.1, 0.45],
 
-  "scripts" : ["/scripts/azweapon/gun.lua"],
+  "scripts" : ["/scripts-azc/azweapon/gun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/scripts/azweapon/gunfire.lua"],
+    "scripts" : ["/scripts-azc/azweapon/gunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 0.9,
@@ -85,5 +85,5 @@
 
   "altAbilityType" : "burstshot",
 
-  "builder" : "/scripts/azweapon/build.lua"
+  "builder" : "/scripts-azc/azweapon/build.lua"
 }

@@ -1,32 +1,3 @@
 [
-  {
-    "op": "add",
-    "path": "/flurrycombo",
-    "value": "/items/weapons/abilities/flurrycombo.weaponability"
-  },
-  {
-    "op": "add",
-    "path": "/azbowshot",
-    "value": "/items/weapons/abilities/azbowshot.weaponability"
-  },
-  {
-    "op": "add",
-    "path": "/azgunfireammo",
-    "value": "/items/weapons/abilities/azgunfireammo.weaponability"
-  },
-  {
-    "op": "add",
-    "path": "/azreload",
-    "value": "/items/weapons/abilities/azreload.weaponability"
-  },
-  {
-    "op": "add",
-    "path": "/azgunfireheat",
-    "value": "/items/weapons/abilities/azgunfireheat.weaponability"
-  } , 
-  {
-    "op": "add",
-    "path": "/azbeamfireheat",
-    "value": "/items/weapons/abilities/azbeamfireheat.weaponability"
-  }
+
 ]

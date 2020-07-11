@@ -50,7 +50,7 @@
     }
   ],
 
-  "scripts" : ["/scripts/recoil/azrecoilproj.lua"],
+  "scripts" : ["/scripts-azc/recoil/azrecoilproj.lua"],
 
   "controlForce" : 80,
   "slowDist" : 10,

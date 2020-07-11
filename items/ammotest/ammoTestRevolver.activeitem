@@ -42,18 +42,18 @@
 	}
   },
   
-  "animationScripts" : [ "/items/ammotest/ammoanim.lua" ],
+  "animationScripts" : [ "/scripts-azc/ammoanim.lua" ],
   "cursorMode" : "anim",
-  "cursorDir0" : "/cursors/azdefault.cursor",
-  "cursorDir1" : "/cursors/anim/rev6/azreticle.png",
-  "cursorDir2" : "/cursors/6/azreticle",
+  "cursorDir0" : "/cursors-azc/azdefault.cursor",
+  "cursorDir1" : "/cursors-azc/anim/rev6/azreticle.png",
+  "cursorDir2" : "/cursors-azc/6/azreticle",
   "cursorAnimOffset" : [0, 0],
   "cursorAnimScale" : 0.5,
 
   "baseOffset" : [0.5, 0.25],
   "muzzleOffset" : [1.4, 0.3],
 
-  "scripts" : ["/scripts/azweapon/gun.lua"],
+  "scripts" : ["/scripts-azc/azweapon/gun.lua"],
   "scale" : 1,
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
