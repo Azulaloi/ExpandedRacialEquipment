@@ -32,7 +32,7 @@
 
   "scripts" : ["/items/active/weapons/bow/bow.lua"],
 
-  "primaryAbilityType" : "azbowshot",
+  "primaryAbilityType" : "azc-bowshot",
   "primaryAbility" : {
 
   },

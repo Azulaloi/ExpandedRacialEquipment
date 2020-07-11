@@ -64,7 +64,7 @@
   "rounds" : 6,
   
   //Todo: why is the two handed stance aiming under the crosshair? 
-  "primaryAbilityType" : "azgunfireammo",
+  "primaryAbilityType" : "azc-gunfireammo",
   "primaryAbility" : {
     "fireTime" : 0.6,
     "baseDps" : 6.25,
