@@ -3,5 +3,6 @@
   "friendlyName" : "Expanded Equipment",
   "description" : "Overhauls the equipment progression through the game. Part of a larger project.",
   "author" : "Azulaloi",
-  "version" : "0.0"
+  "version" : "0.0",
+  "requires" : ["az-core"]
 }

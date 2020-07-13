@@ -67,11 +67,11 @@
       }
     },
 
-  "scripts" : ["/items/active/weapons/melee/meleeweapon.lua"],
+  "scripts" : ["/scripts/az-key-core/azweapon/melee.lua"],
 
   "elementalType" : "physical",
 
-  "primaryAbilityType" : "broadswordcombo",
+  "primaryAbilityType" : "azc-meleecombo",
   "primaryAbility" : {
 //    "damageConfig": {
         // Timeout determines invuln time of struck creatures
@@ -80,6 +80,8 @@
 //    },
     "fireTime" : 0.83,
     "baseDps" : 11.5,
+	
+	"comboMode" : 1,
 
     "stances" : {
       "idle" : {
