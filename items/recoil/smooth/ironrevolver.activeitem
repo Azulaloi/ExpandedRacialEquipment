@@ -29,12 +29,12 @@
   "baseOffset" : [0.5, 0.25],
   "muzzleOffset" : [1.4, 0.3],
 
-  "scripts" : ["/scripts-azc/recoil/azrecoilgun.lua"],
+  "scripts" : ["/scripts/az-key-core/recoil/azrecoilgun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/scripts-azc/recoil/azrecoilgunfire.lua"],
+    "scripts" : ["/scripts/az-key-core/recoil/azrecoilgunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 0.6,
@@ -79,5 +79,5 @@
     }
   },
 
-  "builder" : "/scripts-azc/azweapon/build.lua"
+  "builder" : "/scripts/az-key-core/azweapon/build.lua"
 }

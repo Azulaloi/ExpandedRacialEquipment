@@ -36,5 +36,5 @@
 
   "altAbilityType" : "spinslash",
 
-  "builder" : "/scripts-azc/azweapon/build.lua"
+  "builder" : "/scripts/az-key-core/azweapon/build.lua"
 }

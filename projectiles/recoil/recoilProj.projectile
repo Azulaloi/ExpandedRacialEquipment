@@ -50,7 +50,7 @@
     }
   ],
 
-  "scripts" : ["/scripts-azc/recoil/recoilcam.lua"],
+  "scripts" : ["/scripts/az-key-core/recoil/recoilcam.lua"],
 
   "controlForce" : 80,
   "slowDist" : 10,

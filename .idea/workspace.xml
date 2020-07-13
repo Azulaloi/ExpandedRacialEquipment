@@ -6,7 +6,45 @@
       <change beforePath="$PROJECT_DIR$/items/ammotest/ammoTestRevolver.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/ammotest/ammoTestRevolver.activeitem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/items/ammotest/ammoTestRifle.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/ammotest/ammoTestRifle.activeitem" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/items/ammotest/heatTestRifle.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/ammotest/heatTestRifle.activeitem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bow.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/unrand/ranged/bow/bow.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/prototypes/flail/flail.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/prototypes/flail/flail.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/recoil/hard/recoilrevolver.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/recoil/hard/recoilrevolver.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/recoil/smooth/ironrevolver.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/recoil/smooth/ironrevolver.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/testitem/wavegun/wobble/raygun.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/testitem/wavegun/wobble/raygun.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/floranassaultrifle.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/generated/floranassaultrifle/floranassaultrifle.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/glitch/primary/glitchPrimaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2g.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/primary/humanPrimaryT2g.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/human/secondary/humanSecondaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/hylotl/primary/hylotlPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT0.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT0.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5a.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5a.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5m.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5m.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5s.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT5s.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6a.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6a.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6m.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6m.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6s.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/primary/novaPrimaryT6s.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT1.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT1.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT2.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT2.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT3.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT3.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT4.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT4.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5a.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5a.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5m.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5m.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5s.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/racial/novakid/secondary/novaSecondaryT5s.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/raygun.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/weapons/unrand/hyperbolicwavegenerator/raygun.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/recoil/recoil.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/recoil/recoil.projectile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projectiles/recoil/recoilProj.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/recoil/recoilProj.projectile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -444,10 +482,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592963080834" />
-    <state x="356" y="380" width="871" height="801" key="find.popup" timestamp="1594497701196">
+    <state x="356" y="380" width="871" height="801" key="find.popup" timestamp="1594668674581">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="356" y="380" width="871" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1594497701196" />
+    <state x="356" y="380" width="871" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1594668674581" />
     <state x="752" y="477" width="1099" height="673" key="new project wizard" timestamp="1593687688102">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

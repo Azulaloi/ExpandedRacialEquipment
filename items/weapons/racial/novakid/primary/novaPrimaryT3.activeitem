@@ -29,12 +29,12 @@
   "baseOffset" : [0.5, 0.0],
   "muzzleOffset" : [1.875, 0.125],
 
-  "scripts" : ["/scripts-azc/azweapon/gun.lua"],
+  "scripts" : ["/scripts/az-key-core/azweapon/gun.lua"],
 
   "elementalType" : "physical",
 
   "primaryAbility" : {
-    "scripts" : ["/scripts-azc/azweapon/gunfire.lua"],
+    "scripts" : ["/scripts/az-key-core/azweapon/gunfire.lua"],
     "class" : "GunFire",
 
     "fireTime" : 0.7,
@@ -82,5 +82,5 @@
 
   "altAbilityType" : "piercingshot",
 
-  "builder" : "/scripts-azc/azweapon/build.lua"
+  "builder" : "/scripts/az-key-core/azweapon/build.lua"
 }

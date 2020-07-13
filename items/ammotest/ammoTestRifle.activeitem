@@ -44,7 +44,7 @@
   "baseOffset" : [0.1, 0.11],
   "muzzleOffset" : [2.2, 0.125],
 
-  "scripts" : ["/scripts-azc/azweapon/gun.lua"],
+  "scripts" : ["/scripts/az-key-core/azweapon/gun.lua"],
   "scale" : [1, 1],
   "recoilToggle" : false,
   "abilityPrimaryInternalShift" : false,
@@ -54,7 +54,7 @@
   "maxRounds" : 36,
   "rounds" : 36,
   "cursorAmmo" : true,
-  "cursorDir" : "/cursors-azc/100/azreticle",
+  "cursorDir" : "/cursors/az-key-core/100/azreticle",
   
   "primaryAbilityType" : "azc-gunfireammo",
   "primaryAbility" : {
