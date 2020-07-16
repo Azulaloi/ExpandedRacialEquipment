@@ -225,5 +225,5 @@
 
   "altAbilityType" : "spray",
   
-  "builder" : "/scripts/weapon/build.lua"
+  "builder" : "/scripts/az-key-core/azweapon/build.lua"
 }
