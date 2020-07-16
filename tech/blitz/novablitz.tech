@@ -42,6 +42,35 @@
 	
 	"gravityMultiplier" : 0.0
   },
+  
+  "projectileParameters" : {
+	"periodicActions" : [
+		{
+			"time" : 0.015,
+			"repeat" : true,
+			"action" : "particle",
+			"rotate" : true,
+			"specification" : {
+				"type" : "ember",
+				"size" : 0.6,
+				"color" : [155, 185, 235, 255],
+				"position" : [0, 0],
+				"initialVelocity" : [0, 0],
+				//"light" : [255, 255, 180],
+				"timeToLive" : 0.15,
+				"destructionAction" : "fade",
+				"destructionTime" : 0.2,
+				"layer" : "front",
+				"fullbright" : true,
+				"burstCount" : 10,
+				"variance" : {
+					"initialVelocity" : [1.2, 1.2],
+					"size" : 0.3
+				}
+			}
+		}
+	]
+  },
 
   "ballSpeed" : 14,
 

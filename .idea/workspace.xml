@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="9a3e0924-1c87-4221-8e28-1e55688903d3" name="Default" comment="Nova T1, T2, T3 secondaries">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/items/ammotest/ammoTestRevolver.activeitem" beforeDir="false" afterPath="$PROJECT_DIR$/items/ammotest/ammoTestRevolver.activeitem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tech/blitz/novablitz.lua" beforeDir="false" afterPath="$PROJECT_DIR$/tech/blitz/novablitz.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tech/blitz/novablitz.tech" beforeDir="false" afterPath="$PROJECT_DIR$/tech/blitz/novablitz.tech" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

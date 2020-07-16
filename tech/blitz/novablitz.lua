@@ -1,12 +1,23 @@
 require "/scripts/vec2.lua"
+require "/scripts/util.lua"
 require "/scripts/colorutil.lua"
 
 function init()
-  initCommonParameters()
-  initColorator()
+	self.projectiles = self.projectiles or {}
+
+	initCommonParameters()
+	initColorator()
+	initProjectiles()
+end
+
+function initProjectiles()
+	
 end
 
 function initCommonParameters()
+  if type(self.projectiles) ~= "table" then sb.logInfo("NovaBlitz: why isn't it a TABLE") end
+
+
   self.angularVelocity = 0
   self.angle = 0
   self.transformFadeTimer = 0
@@ -26,21 +37,30 @@ function initCommonParameters()
   self.forceShakeMagnitude = config.getParameter("forceShakeMagnitude", 0.125)
   
   self.hoverDist = 4
+  
+  
+  self.projectileParameters = config.getParameter("projectileParameters") or {}
 end
 
 function initColorator()
 	local id = entity.id()
-	local bodyColors = {}
+	self.bodyColors = {0, 0, 0}
 	
 	if id then
-		bodyColors = extractTone(id)
-		dexed = hextorgb(bodyColors[2])
+		self.bodyColors = extractTone(id)
+		dexed = hextorgb(self.bodyColors[2])
 		hsl = rgbtohsl(dexed)
 		hsl[2] = 0.7
 		hsl[3] = 0.45
 		prepGlow = hsltorgb(hsl)
 		
 		sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
+		
+		
+		local extDir = extractDirectives(id)
+		--directives = string.sub(directives, 65, -1)
+		self.directives = string.sub(extDir, 1, 63)
+		sb.logInfo(tostring(self.directives))
 	end
 end
 
@@ -73,8 +93,11 @@ function update(args)
     updateRotationFrame(args.dt)
 
     checkForceDeactivate(args.dt)
+	
+	-- we don't need to update projectiles every frame
+	updateProjectiles()
   end
-
+  
   updateTransformFade(args.dt)
 
   self.lastPosition = mcontroller.position()
@@ -274,6 +297,9 @@ function activate()
   tech.setParentOffset({0, positionOffset()})
   tech.setToolUsageSuppressed(true)
   status.setPersistentEffects("movementAbility", {{stat = "activeMovementAbilities", amount = 1}})
+  
+  createProjectiles()
+  
   self.active = true
 end
 
@@ -293,6 +319,9 @@ function deactivate()
   tech.setToolUsageSuppressed(false)
   status.clearPersistentEffects("movementAbility")
   self.angle = 0
+  
+  killProjectiles()
+  
   self.active = false
 end
 
@@ -304,4 +333,64 @@ function minY(poly)
     end
   end
   return lowest
+end
+
+function createProjectiles()
+	local createPos = mcontroller.position()
+	
+	local projCount = self.projectileCount or 2
+	
+	--util.mergeTable(self.projectileParameters, { periodicActions[1].specification = { color = hextorgb(self.bodyColors[2]) } } )
+	--util.mergeTable(self.projectileParameters, { processing = "?" .. self.directives } )
+	
+	local pParams = copy(self.projectileParameters)
+	pParams.processing = "?" .. self.directives
+	pParams.periodicActions[1].specification.color = hextorgb(self.bodyColors[2])
+	
+	for i = 1, projCount do
+		local projId = world.spawnProjectile(
+			"az-novablitz_swarm",
+			createPos,
+			entity.id(),
+			{0, 0},
+			false,
+			pParams
+			)
+
+		if projId then
+			table.insert(self.projectiles, projId)
+			--world.sendEntityMessage(projId, 
+		end
+	end
+end
+
+function updateProjectiles()
+	self.projectiles = self.projectiles or {}
+
+	local newProjectiles = {}
+	for _, projId in pairs(self.projectiles) do
+		if world.entityExists(projId) then
+			local projResponse = world.sendEntityMessage(projId, "checkProjectile")
+			if projResponse:finished() then
+				local newIds = projResponse:result()
+				if type(newIds) ~= "table" then 
+					newIds = {newIds}
+				end
+				for _, newId in pairs(newIds) do
+					table.insert(newProjectiles, newId)
+				end
+			end
+		end
+	end
+	
+	self.projectiles = newProjectiles
+end
+
+function killProjectiles()
+	for _, projId in pairs(self.projectiles) do 
+		sb.logInfo("killing projectile" .. tostring(projId))
+		if world.entityExists(projId) then 
+			world.sendEntityMessage(projId, "kill")
+		end
+	end
 end
