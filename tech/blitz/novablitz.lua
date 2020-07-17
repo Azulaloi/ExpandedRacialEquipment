@@ -8,6 +8,9 @@ function init()
 	initCommonParameters()
 	initColorator()
 	initProjectiles()
+	initHandlers()
+	
+	util.setDebug(true)
 end
 
 function initProjectiles()
@@ -16,7 +19,6 @@ end
 
 function initCommonParameters()
   if type(self.projectiles) ~= "table" then sb.logInfo("NovaBlitz: why isn't it a TABLE") end
-
 
   self.angularVelocity = 0
   self.angle = 0
@@ -38,8 +40,21 @@ function initCommonParameters()
   
   self.hoverDist = 4
   
+  self.projOrbitRadius = 2.5
   
+  self.projectileCount = 5
   self.projectileParameters = config.getParameter("projectileParameters") or {}
+  
+  self.projReplaceWait = 3
+  self.projReplaceTimer = self.projReplaceWait
+end
+
+function initHandlers()
+	message.setHandler("projDead", function(_, _, timeIn)
+		ttl = timeIn or projectile.timeToLive()
+		projectile.setTimeToLive(ttl)
+		return entity.id()
+	end)
 end
 
 function initColorator()
@@ -60,6 +75,8 @@ function initColorator()
 		local extDir = extractDirectives(id)
 		--directives = string.sub(directives, 65, -1)
 		self.directives = string.sub(extDir, 1, 63)
+		
+		animator.setGlobalTag("novaTone", self.directives)
 		sb.logInfo(tostring(self.directives))
 	end
 end
@@ -95,13 +112,80 @@ function update(args)
     checkForceDeactivate(args.dt)
 	
 	-- we don't need to update projectiles every frame
-	updateProjectiles()
+	updateProjectiles(args.dt)
   end
   
   updateTransformFade(args.dt)
 
   self.lastPosition = mcontroller.position()
+  
+  drawDebug()
 end
+
+function drawDebug()
+	local q = 3
+
+	if self.active then
+		--for i = 1, q do
+			--local theta = (2 * math.pi / q) * i
+			--local pPos = { math.sin(theta + (2 * math.pi / q) / 2), 
+			--			   math.cos(theta + (2 * math.pi / q) / 2) }
+			--pPos = vec2.mul(pPos, self.projOrbitRadius)
+			
+			--local pPos = pointCircle(q, self.projOrbitRadius, i)
+					 
+			--world.debugPoint(vec2.add(mcontroller.position(), pPos), "red")
+		--end
+		
+		--local pPos = pointCircle(3, self.projOrbitRadius, 3)
+		--world.debugPoint(vec2.add(mcontroller.position(), pPos), "red")
+	
+		--local points = pointsCircle(q, self.projOrbitRadius)
+		
+		--for i = 1, #points do 
+		--	local p = vec2.add(mcontroller.position(), points[i])
+		--	world.debugPoint(p, "red")
+		--end
+		
+		world.debugText("repCool: " .. round(self.projReplaceTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
+		world.debugText("#proj: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
+		
+		util.debugCircle(mcontroller.position(), self.projOrbitRadius, "red", 8)
+	end
+end
+
+function round(num, dec)
+	return string.format("%." .. (dec or 0) .. "f", num)
+end
+
+function pointsCircle(quant, radius)
+	local points = {}
+	
+	for i = 1, quant do
+		local p = pointCircle(quant, radius, i)
+		points[i] = p
+	end
+	
+	return points
+end
+
+-- vec2 (int, float, int)
+function pointCircle(quant, radius, iter, thetaIn)
+	--local theta = (2 * math.pi / quant) * iter
+	local theta = thetaIn or (2 * math.pi / quant) * iter 
+	
+	local pPos = { math.sin(theta + (2 * math.pi / quant) / 2), 
+				   math.cos(theta + (2 * math.pi / quant) / 2) }
+				   
+	pPos = vec2.mul(pPos, radius)
+	
+	-- alternatively...
+	--pPos = vec2.rotate({0, radius}, (2 * math.pi/quant) * iter)
+	
+	return pPos
+end
+
+
 
 function doControl(args)
 	local fSpeed = 50
@@ -298,7 +382,7 @@ function activate()
   tech.setToolUsageSuppressed(true)
   status.setPersistentEffects("movementAbility", {{stat = "activeMovementAbilities", amount = 1}})
   
-  createProjectiles()
+  createProjectiles(self.projectileCount, true)
   
   self.active = true
 end
@@ -335,10 +419,12 @@ function minY(poly)
   return lowest
 end
 
-function createProjectiles()
+function createProjectiles(countIn, circleIn)
 	local createPos = mcontroller.position()
 	
-	local projCount = self.projectileCount or 2
+	local projCount = countIn or self.projectileCount or 5
+	
+	local cPoints = circleIn and pointsCircle(projCount, self.projOrbitRadius) or {0, 0}
 	
 	--util.mergeTable(self.projectileParameters, { periodicActions[1].specification = { color = hextorgb(self.bodyColors[2]) } } )
 	--util.mergeTable(self.projectileParameters, { processing = "?" .. self.directives } )
@@ -346,11 +432,15 @@ function createProjectiles()
 	local pParams = copy(self.projectileParameters)
 	pParams.processing = "?" .. self.directives
 	pParams.periodicActions[1].specification.color = hextorgb(self.bodyColors[2])
+	pParams.orbitRadius = self.projOrbitRadius
 	
 	for i = 1, projCount do
+		local p = circleIn and cPoints[i] or {0, 0}
+		pParams.orbitGuide = p
+	
 		local projId = world.spawnProjectile(
 			"az-novablitz_swarm",
-			createPos,
+			vec2.add(createPos, p),
 			entity.id(),
 			{0, 0},
 			false,
@@ -364,13 +454,20 @@ function createProjectiles()
 	end
 end
 
-function updateProjectiles()
+function spawnProjectile(countIn)
+	
+	for i = 1, countIn do
+	
+	end
+end
+
+function updateProjectiles(dt)
 	self.projectiles = self.projectiles or {}
 
 	local newProjectiles = {}
 	for _, projId in pairs(self.projectiles) do
 		if world.entityExists(projId) then
-			local projResponse = world.sendEntityMessage(projId, "checkProjectile")
+			local projResponse = world.sendEntityMessage(projId, "checkProjectile", 5)
 			if projResponse:finished() then
 				local newIds = projResponse:result()
 				if type(newIds) ~= "table" then 
@@ -380,10 +477,47 @@ function updateProjectiles()
 					table.insert(newProjectiles, newId)
 				end
 			end
+		--else table.remove(
 		end
 	end
 	
 	self.projectiles = newProjectiles
+	
+	-- todo: listen instead of polling
+	if self.active and (#self.projectiles < self.projectileCount) then
+		sb.logInfo("blitz: projectiles missing")
+		
+		if self.projReplaceTimer <= 0 then
+			replaceProjectiles()
+		end
+		
+		-- fix this being called a billion times
+		adjustProjectiles()
+	end
+	
+	self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
+end
+
+function adjustProjectiles()
+	local cPoints = pointsCircle(#self.projectiles, self.projOrbitRadius)
+	
+	for i = 1, #self.projectiles do
+		local id = self.projectiles[i]
+		sb.logInfo("blitz: adjust proj" .. tostring(id) .. " | new pos: " .. vecPrint(cPoints[i])) 
+		world.sendEntityMessage(id, "setOrbitGuide", cPoints[i])
+	end
+end
+
+function replaceProjectiles()
+	local missing = self.projectileCount - #self.projectiles
+	for i = 1, missing do 
+		sb.logInfo("blitz: replacing " .. tostring(missing) .. " projectiles")
+		createProjectiles(missing, false)
+	end
+	
+	self.projReplaceTimer = self.projReplaceWait
+	
+	--alert adjust
 end
 
 function killProjectiles()
@@ -393,4 +527,16 @@ function killProjectiles()
 			world.sendEntityMessage(projId, "kill")
 		end
 	end
+end
+
+function projDead(deadId)
+	self.projReplaceTimer = self.projReplaceWait
+	--for _, projId in pairs(self.projectiles) do
+	--	if projId == deadId then 
+end
+
+function vecPrint(vecIn, decIn)
+	local dec = decIn or 3
+	--return "x" .. tostring(vecIn[1]) .. " : " .. "y" .. tostring(vecIn[2]) 
+	return "x" .. round(vecIn[1], dec) .. " : " .. "y" .. round(vecIn[2], dec) 
 end

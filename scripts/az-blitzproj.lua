@@ -14,13 +14,25 @@ function init()
 	
 	self.entityToFollow = projectile.sourceEntity() or nil
 	
+	self.orbitRadius = config.getParameter("orbitRadius", 2.5)
+	self.orbitGuide = config.getParameter("orbitGuide", {0, self.orbitRadius})
+	
+	self.cycle = 0
+	
+	initHandlers()
+	
+	util.setDebug(true)
+end
+
+function initHandlers()
 	message.setHandler("updateProjectile", function(_, _, aimPosition)
 		self.aimPosition = aimPosition
 		return entity.id()
 	end)
 	
-	message.setHandler("checkProjectile", function(_, _)
-		projectile.setTimeToLive(5)
+	message.setHandler("checkProjectile", function(_, _, timeIn)
+		ttl = timeIn or projectile.timeToLive()
+		projectile.setTimeToLive(ttl)
 		return entity.id()
 	end)
 	
@@ -31,11 +43,19 @@ function init()
 	message.setHandler("setEntityToFollow", function(_, _, entityId)
 		self.entityToFollow = entityId
 	end)
+	
+	message.setHandler("setOrbitRadius", function(_, _, radiusIn)
+		self.orbitRadius = radiusIn
+	end)
+	
+	message.setHandler("setOrbitGuide", function(_, _, posIn)
+		self.orbitGuide = posIn
+	end)
 end
 
 function update(dt)
 	if self.seekMode == 1 and self.entityToFollow ~= nil then
-		orbitEntity(self.entityToFollow)
+		orbitEntity(self.entityToFollow, dt)
 	else
 		if self.aimPosition then
 			if self.controlMovement then
@@ -52,23 +72,36 @@ function update(dt)
 		end
 	end
 	
-	world.debugText(tostring(entity.id()), vec2.add(mcontroller.position(), {1, 1}), "green")
+	--world.debugText(tostring(entity.id()), vec2.add(mcontroller.position(), {1, 1}), "green")
 end
 
-function orbitEntity(entityId)
+function orbitEntity(entityId, dt)
 	if world.entityExists(entityId) then
 		--projectile.setTimeToLive(5)
 	
 		local targetPosition = world.entityPosition(entityId)
-		local targetDistance = 2.5
-		local targetSpeed = 50
+		local targetDistance = self.orbitRadius
+		local targetSpeed = 10
+		local seekSpeed = 50
+		
+		local currentPosition = mcontroller.position()
+		
+		local flipDir = false
+		local guidePos = self.orbitGuide --or {0, 0}
+		local cycleSpeed = 5
+		
+		self.cycle = self.cycle + ( ((dt * cycleSpeed) % 360) * (flipDir and 1 or -1) ) 
+		guidePos = vec2.add(targetPosition, vec2.rotate(guidePos, self.cycle))
+		
 		
 		-- find closest position at the edge of the orbit
-		local toCenterVector = vec2.sub(mcontroller.position(), targetPosition)
-		local edgePosition = vec2.add(targetPosition, vec2.mul(vec2.norm(toCenterVector), targetDistance))
+		local toCenterVector = vec2.sub(currentPosition, targetPosition)
+		--local edgePosition = vec2.add(targetPosition, vec2.mul(vec2.norm(toCenterVector), targetDistance))
+		local edgePosition = guidePos
+		
 		
 		-- get normalized direction to that position
-		local toEdgeVector = vec2.sub(edgePosition, mcontroller.position())
+		local toEdgeVector = vec2.sub(edgePosition, currentPosition)
 		local toEdgeDirection = vec2.norm(toEdgeVector)
 		
 		-- mix in the direction of the orbit depending on how close we are
@@ -76,8 +109,28 @@ function orbitEntity(entityId)
 		local edgeMixFactor = math.min(1, math.max(0, (vec2.mag(toEdgeVector) / targetDistance)))
 		local targetDirection = vec2.add(vec2.mul(toEdgeDirection, edgeMixFactor), vec2.mul(orbitDirection, 1 - edgeMixFactor))
 		
+		-- mix in seekspeed depending on how far we are
+		-- 0.03 is from centrifugal force (I guess) - might need testing with other orbit speeds
+		targetSpeed = targetSpeed + (seekSpeed * math.max(edgeMixFactor - 0.03, 0))
+		
 		-- move zig
 		mcontroller.approachVelocity(vec2.mul(targetDirection, math.abs(targetSpeed)), 5000)
+		
+
+		
+		
+		-- DEBUG -- 
+		
+		world.debugPoint(guidePos, "green")
+		world.debugLine(currentPosition, guidePos, "green")
+		--world.debugText(tostring(self.cycle), vec2.add(targetPosition, {4, 1}), "green")
+		
+		
+		--util.debugCircle(targetPosition, targetDistance, "red", 8)
+		world.debugLine(currentPosition, vec2.add(currentPosition, vec2.mul(targetDirection, math.abs(targetSpeed) / 3)), "blue")
+		world.debugLine(currentPosition, edgePosition, "red")
+		
+		--world.debugText(tostring(edgeMixFactor), vec2.add(mcontroller.position(), {1, 1}), "green")
 	end
 end
 
@@ -131,4 +184,8 @@ function processTimedAction(action, dt)
     projectile.processAction(action)
     action.complete = true
   end
+end
+
+function destroy()
+	sb.logInfo("die")
 end
