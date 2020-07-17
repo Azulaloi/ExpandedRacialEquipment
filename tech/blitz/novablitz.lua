@@ -47,13 +47,13 @@ function initCommonParameters()
   
   self.projReplaceWait = 3
   self.projReplaceTimer = self.projReplaceWait
+  
+  self.pDirty = false
 end
 
 function initHandlers()
-	message.setHandler("projDead", function(_, _, timeIn)
-		ttl = timeIn or projectile.timeToLive()
-		projectile.setTimeToLive(ttl)
-		return entity.id()
+	message.setHandler("projDead", function(_, _, id)
+		projDead(id)
 	end)
 end
 
@@ -147,6 +147,7 @@ function drawDebug()
 		--	world.debugPoint(p, "red")
 		--end
 		
+		world.debugText("dirty: " .. (self.dirty and "true" or "false"), vec2.add(mcontroller.position(), {4, 2}), "green")
 		world.debugText("repCool: " .. round(self.projReplaceTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
 		world.debugText("#proj: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
 		
@@ -419,15 +420,22 @@ function minY(poly)
   return lowest
 end
 
-function createProjectiles(countIn, circleIn)
+function createProjectiles(countIn, circleIn, replaceIn)
 	local createPos = mcontroller.position()
-	
 	local projCount = countIn or self.projectileCount or 5
+	local repFlag = replaceIn or false
 	
-	local cPoints = circleIn and pointsCircle(projCount, self.projOrbitRadius) or {0, 0}
+	--local cPoints = circleIn and pointsCircle(projCount, self.projOrbitRadius) or {0, 0}
+	local cPoints = pointsCircle(5, self.projOrbitRadius)
 	
 	--util.mergeTable(self.projectileParameters, { periodicActions[1].specification = { color = hextorgb(self.bodyColors[2]) } } )
 	--util.mergeTable(self.projectileParameters, { processing = "?" .. self.directives } )
+	
+	if repFlag then
+		for i = 1, #self.projectiles do 
+			world.sendEntityMessage(self.projectiles[i], "setOrbitGuide", cPoints[i])
+		end
+	end
 	
 	local pParams = copy(self.projectileParameters)
 	pParams.processing = "?" .. self.directives
@@ -435,7 +443,12 @@ function createProjectiles(countIn, circleIn)
 	pParams.orbitRadius = self.projOrbitRadius
 	
 	for i = 1, projCount do
-		local p = circleIn and cPoints[i] or {0, 0}
+		--local p = circleIn and cPoints[i] or {0, 0}
+		local iter = i
+		--if repflag then iter = #self.projectiles + i
+		local iter = repFlag and (#self.projectiles + i) or i  
+		sb.logInfo("createProj: " .. tostring(iter))
+		local p = cPoints[iter]
 		pParams.orbitGuide = p
 	
 		local projId = world.spawnProjectile(
@@ -452,16 +465,37 @@ function createProjectiles(countIn, circleIn)
 			--world.sendEntityMessage(projId, 
 		end
 	end
-end
-
-function spawnProjectile(countIn)
 	
-	for i = 1, countIn do
+	-- WHY WON'T NEW PROJECTILES ASSUME THE CORRECT POSITION AAAAAAAAAAAAA
+	-- oh I just realized it's because projectiles that spawned at the same time have the same cycle 
+	-- but new ones would of course have a different cycle. im tired but that should be easy to fix tomorrow
 	
-	end
+    --adjustProjectiles()
 end
 
 function updateProjectiles(dt)
+
+	checkProjectiles(dt)
+	
+	-- todo: listen instead of polling
+	if #self.projectiles < self.projectileCount then
+		--sb.logInfo("blitz: proj dirty")
+		--self.pDirty = true
+
+		if self.projReplaceTimer <= 0 then
+			replaceProjectiles()
+		end
+	end
+	
+	if self.pDirty then 
+		checkProjectiles()
+		adjustProjectiles()
+	end
+	
+	self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
+end
+
+function checkProjectiles(dt)
 	self.projectiles = self.projectiles or {}
 
 	local newProjectiles = {}
@@ -477,27 +511,15 @@ function updateProjectiles(dt)
 					table.insert(newProjectiles, newId)
 				end
 			end
-		--else table.remove(
 		end
 	end
 	
 	self.projectiles = newProjectiles
-	
-	-- todo: listen instead of polling
-	if self.active and (#self.projectiles < self.projectileCount) then
-		sb.logInfo("blitz: projectiles missing")
-		
-		if self.projReplaceTimer <= 0 then
-			replaceProjectiles()
-		end
-		
-		-- fix this being called a billion times
-		adjustProjectiles()
-	end
-	
-	self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
-end
+end 
 
+
+-- this doesn't work for newly added projectiles because it's messaging them before they finish initializing
+-- at least, I think that's why, because it works when a projectile was lost
 function adjustProjectiles()
 	local cPoints = pointsCircle(#self.projectiles, self.projOrbitRadius)
 	
@@ -506,18 +528,20 @@ function adjustProjectiles()
 		sb.logInfo("blitz: adjust proj" .. tostring(id) .. " | new pos: " .. vecPrint(cPoints[i])) 
 		world.sendEntityMessage(id, "setOrbitGuide", cPoints[i])
 	end
+	
+	self.pDirty = false
 end
 
 function replaceProjectiles()
 	local missing = self.projectileCount - #self.projectiles
-	for i = 1, missing do 
-		sb.logInfo("blitz: replacing " .. tostring(missing) .. " projectiles")
-		createProjectiles(missing, false)
-	end
+	
+	sb.logInfo("blitz: replacing " .. tostring(missing) .. " projectiles")
+	createProjectiles(missing, false, true)
 	
 	self.projReplaceTimer = self.projReplaceWait
 	
-	--alert adjust
+	--self.pDirty = true
+	--adjustProjectiles()
 end
 
 function killProjectiles()
@@ -530,7 +554,13 @@ function killProjectiles()
 end
 
 function projDead(deadId)
+	sb.logInfo("received death message")
 	self.projReplaceTimer = self.projReplaceWait
+	
+	--adjustProjectiles()
+	
+	self.pDirty = true
+	
 	--for _, projId in pairs(self.projectiles) do
 	--	if projId == deadId then 
 end

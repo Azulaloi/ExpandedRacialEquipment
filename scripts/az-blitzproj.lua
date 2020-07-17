@@ -90,6 +90,13 @@ function orbitEntity(entityId, dt)
 		local guidePos = self.orbitGuide --or {0, 0}
 		local cycleSpeed = 5
 		
+		local speedMult = 0.1
+		
+		seekSpeed = seekSpeed * 0.2
+		targetSpeed = targetSpeed * speedMult
+		cycleSpeed = cycleSpeed * speedMult
+		
+		
 		self.cycle = self.cycle + ( ((dt * cycleSpeed) % 360) * (flipDir and 1 or -1) ) 
 		guidePos = vec2.add(targetPosition, vec2.rotate(guidePos, self.cycle))
 		
@@ -186,6 +193,7 @@ function processTimedAction(action, dt)
   end
 end
 
-function destroy()
+function destroy()	
+	world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id())
 	sb.logInfo("die")
 end
