@@ -48,12 +48,15 @@ function initCommonParameters()
   self.projReplaceWait = 3
   self.projReplaceTimer = self.projReplaceWait
   
+  self.checkTimer = 0
+  self.checkTime = 3
+  
   self.pDirty = false
 end
 
 function initHandlers()
-	message.setHandler("projDead", function(_, _, id)
-		projDead(id)
+	message.setHandler("projDead", function(_, _, id, flag)
+		projDead(id, flag)
 	end)
 end
 
@@ -185,8 +188,6 @@ function pointCircle(quant, radius, iter, thetaIn)
 	
 	return pPos
 end
-
-
 
 function doControl(args)
 	local fSpeed = 50
@@ -446,10 +447,13 @@ function createProjectiles(countIn, circleIn, replaceIn)
 		--local p = circleIn and cPoints[i] or {0, 0}
 		local iter = i
 		--if repflag then iter = #self.projectiles + i
-		local iter = repFlag and (#self.projectiles + i) or i  
-		sb.logInfo("createProj: " .. tostring(iter))
+		local iter = repFlag and (#self.projectiles + 1) or i  
+		--sb.logInfo(tostring(repFlag)..tostring(#self.projectiles))
+		sb.logInfo("blitz: creating proj #" .. tostring(iter))
 		local p = cPoints[iter]
 		pParams.orbitGuide = p
+		
+		--sb.logInfo(vecPrint(createPos) .. vecPrint(p))
 	
 		local projId = world.spawnProjectile(
 			"az-novablitz_swarm",
@@ -462,20 +466,15 @@ function createProjectiles(countIn, circleIn, replaceIn)
 
 		if projId then
 			table.insert(self.projectiles, projId)
-			--world.sendEntityMessage(projId, 
 		end
 	end
 	
-	-- WHY WON'T NEW PROJECTILES ASSUME THE CORRECT POSITION AAAAAAAAAAAAA
-	-- oh I just realized it's because projectiles that spawned at the same time have the same cycle 
-	-- but new ones would of course have a different cycle. im tired but that should be easy to fix tomorrow
-	
-    --adjustProjectiles()
+	adjustProjectiles()
 end
 
 function updateProjectiles(dt)
-
-	checkProjectiles(dt)
+	if self.checkTimer <= 0 then checkProjectiles(dt, true) end
+	self.checkTimer = math.max(self.checkTimer - dt, 0)
 	
 	-- todo: listen instead of polling
 	if #self.projectiles < self.projectileCount then
@@ -495,8 +494,12 @@ function updateProjectiles(dt)
 	self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
 end
 
-function checkProjectiles(dt)
+function checkProjectiles(dt, routine)
 	self.projectiles = self.projectiles or {}
+	local rFlag = routine or false
+	
+	local sufx = rFlag and " (routine)" or ""
+	sb.logInfo("blitz: checking " .. tostring(#self.projectiles) .. " projectiles" .. sufx)
 
 	local newProjectiles = {}
 	for _, projId in pairs(self.projectiles) do
@@ -513,23 +516,42 @@ function checkProjectiles(dt)
 			end
 		end
 	end
+
+	if rFlag then self.checkTimer = self.checkTime end
 	
 	self.projectiles = newProjectiles
 end 
 
-
--- this doesn't work for newly added projectiles because it's messaging them before they finish initializing
--- at least, I think that's why, because it works when a projectile was lost
 function adjustProjectiles()
-	local cPoints = pointsCircle(#self.projectiles, self.projOrbitRadius)
-	
-	for i = 1, #self.projectiles do
-		local id = self.projectiles[i]
-		sb.logInfo("blitz: adjust proj" .. tostring(id) .. " | new pos: " .. vecPrint(cPoints[i])) 
-		world.sendEntityMessage(id, "setOrbitGuide", cPoints[i])
-	end
-	
 	self.pDirty = false
+	
+	if #self.projectiles > 0 then
+		local cPoints = pointsCircle(#self.projectiles, self.projOrbitRadius)
+		
+		--local cycle = 0
+		--local b1 = false
+		
+		--if #self.projectiles > 0 then b1 = world.entityExists(self.projectiles[1]) end
+		
+		local b1 = world.entityExists(self.projectiles[1])
+		local cycle = world.sendEntityMessage(self.projectiles[1], "getCycle")
+		
+		if b1 and cycle:finished() then
+			sb.logInfo("blitz: p[1] exists, aligning " .. tostring(#self.projectiles) .. " projectiles")
+			for i = 1, #self.projectiles do
+				local id = self.projectiles[i]	
+				--sb.logInfo("blitz: adjust proj" .. tostring(id) .. " | new pos: " .. vecPrint(cPoints[i]))
+				world.sendEntityMessage(id, "setOrbitAndCycle", cPoints[i], cycle:result())
+			end
+		elseif not b1 then
+			sb.logInfo("blitz: p[1] missing, defaulting " .. tostring(#self.projectiles) .. " projectiles")
+			for i = 1, #self.projectiles do
+				local id = self.projectiles[i]
+				--sb.logInfo("blitz: adjust proj" .. tostring(id) .. " | new pos: " .. vecPrint(cPoints[i])) 
+				world.sendEntityMessage(id, "setOrbitAndCycle", cPoints[i], 0)
+			end
+		end
+	end
 end
 
 function replaceProjectiles()
@@ -540,29 +562,38 @@ function replaceProjectiles()
 	
 	self.projReplaceTimer = self.projReplaceWait
 	
-	--self.pDirty = true
+	self.pDirty = true
 	--adjustProjectiles()
 end
 
 function killProjectiles()
+	sb.logInfo("blitz: killing " .. tostring(#self.projectiles) .. " projectiles")
 	for _, projId in pairs(self.projectiles) do 
-		sb.logInfo("killing projectile" .. tostring(projId))
+		--sb.logInfo("killing projectile" .. tostring(projId))
 		if world.entityExists(projId) then 
 			world.sendEntityMessage(projId, "kill")
 		end
 	end
 end
 
-function projDead(deadId)
-	sb.logInfo("received death message")
+-- flag is true if projectile was told to die
+function projDead(deadId, flag)
+	if not flag then 
+		sb.logInfo("blitz: death received (" .. tostring(deadId) .. ")")
+	end
+	
 	self.projReplaceTimer = self.projReplaceWait
 	
 	--adjustProjectiles()
 	
-	self.pDirty = true
+	self.pDirty = flag and false or true
 	
 	--for _, projId in pairs(self.projectiles) do
 	--	if projId == deadId then 
+end
+
+function setDirty(bool)
+	if self.pDirty then return else self.pDirty = bool end
 end
 
 function vecPrint(vecIn, decIn)

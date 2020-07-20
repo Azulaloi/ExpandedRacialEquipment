@@ -19,6 +19,8 @@ function init()
 	
 	self.cycle = 0
 	
+	self.kFlag = false
+	
 	initHandlers()
 	
 	util.setDebug(true)
@@ -37,7 +39,7 @@ function initHandlers()
 	end)
 	
 	message.setHandler("kill", function()
-		projectile.die()
+		msgKill()
     end)
 	
 	message.setHandler("setEntityToFollow", function(_, _, entityId)
@@ -50,6 +52,19 @@ function initHandlers()
 	
 	message.setHandler("setOrbitGuide", function(_, _, posIn)
 		self.orbitGuide = posIn
+	end)	
+	
+	message.setHandler("getCycle", function(_, _, posIn)
+		return self.cycle
+	end)	
+	
+	message.setHandler("setCycle", function(_, _, cycleIn)
+		self.cycle = cycleIn
+	end)
+	
+	message.setHandler("setOrbitAndCycle", function(_, _, posIn, cycleIn)
+		self.orbitGuide = posIn
+		self.cycle = cycleIn
 	end)
 end
 
@@ -193,7 +208,12 @@ function processTimedAction(action, dt)
   end
 end
 
-function destroy()	
-	world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id())
-	sb.logInfo("die")
+function destroy()
+	world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id(), self.kFlag)
+	--sb.logInfo("blitzproj: dead")
+end
+
+function msgKill()
+	self.kFlag = true
+	projectile.die()
 end
