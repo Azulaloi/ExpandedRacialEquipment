@@ -48,7 +48,7 @@ function initCommonParameters()
   self.projReplaceWait = 3
   self.projReplaceTimer = self.projReplaceWait
   
-  self.checkTimer = 0
+  self.checkTimer = 3
   self.checkTime = 3
   
   self.pDirty = false
@@ -128,7 +128,7 @@ end
 function drawDebug()
 	local q = 3
 
-	if self.active then
+	--if self.active then
 		--for i = 1, q do
 			--local theta = (2 * math.pi / q) * i
 			--local pPos = { math.sin(theta + (2 * math.pi / q) / 2), 
@@ -150,12 +150,22 @@ function drawDebug()
 		--	world.debugPoint(p, "red")
 		--end
 		
+		local pos = mcontroller.position()
+		
 		world.debugText("dirty: " .. (self.dirty and "true" or "false"), vec2.add(mcontroller.position(), {4, 2}), "green")
 		world.debugText("repCool: " .. round(self.projReplaceTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
 		world.debugText("#proj: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
 		
 		util.debugCircle(mcontroller.position(), self.projOrbitRadius, "red", 8)
-	end
+		
+		world.debugText("Projectiles: ", vec2.add(pos, {8, 2}), "green")
+		
+		for i = 1, #self.projectiles do
+			local pY = 2 - (0.5 * i)
+			world.debugText("[" .. tostring(i) .. "]", vec2.add(pos, {8, pY}), "green")
+			world.debugText(tostring(self.projectiles[i]), vec2.add(pos, {9, pY}), "green")
+		end
+	--end
 end
 
 function round(num, dec)
@@ -384,6 +394,9 @@ function activate()
   tech.setToolUsageSuppressed(true)
   status.setPersistentEffects("movementAbility", {{stat = "activeMovementAbilities", amount = 1}})
   
+  sb.logInfo("blitz: activating")
+	
+ -- checkProjectiles()
   createProjectiles(self.projectileCount, true)
   
   self.active = true
@@ -406,7 +419,11 @@ function deactivate()
   status.clearPersistentEffects("movementAbility")
   self.angle = 0
   
-  killProjectiles()
+  sb.logInfo("blitz: deactivating")
+  killProjectiles(true)
+  
+  -- somehow, checking right after killing makes them not die
+  --checkProjectiles()
   
   self.active = false
 end
@@ -443,13 +460,14 @@ function createProjectiles(countIn, circleIn, replaceIn)
 	pParams.periodicActions[1].specification.color = hextorgb(self.bodyColors[2])
 	pParams.orbitRadius = self.projOrbitRadius
 	
+	sb.logInfo("blitz: creating " .. tostring(projCount) .. " projectiles")
 	for i = 1, projCount do
 		--local p = circleIn and cPoints[i] or {0, 0}
 		local iter = i
 		--if repflag then iter = #self.projectiles + i
 		local iter = repFlag and (#self.projectiles + 1) or i  
 		--sb.logInfo(tostring(repFlag)..tostring(#self.projectiles))
-		sb.logInfo("blitz: creating proj #" .. tostring(iter))
+		--sb.logInfo("blitz: creating proj #" .. tostring(iter))
 		local p = cPoints[iter]
 		pParams.orbitGuide = p
 		
@@ -566,14 +584,34 @@ function replaceProjectiles()
 	--adjustProjectiles()
 end
 
-function killProjectiles()
+function killProjectiles(flag)
 	sb.logInfo("blitz: killing " .. tostring(#self.projectiles) .. " projectiles")
-	for _, projId in pairs(self.projectiles) do 
-		--sb.logInfo("killing projectile" .. tostring(projId))
-		if world.entityExists(projId) then 
-			world.sendEntityMessage(projId, "kill")
-		end
+	
+	-- why does ipairs miss every other entry?
+	
+	for k, v in pairs(self.projectiles) do
+		sb.logInfo("p: " .. tostring(k) .. tostring(v))
+		
+		world.sendEntityMessage(v, "kill")
+		--table.remove(self.projectiles, k)
 	end
+	
+	for i, v in ipairs(self.projectiles) do
+		--sb.logInfo("i: " .. tostring(i) .. tostring(v))
+		
+		--if v then
+		--	sb.logInfo("blitz: killing projectile " .. tostring(v) .. " in slot " .. tostring(i))
+			--sb.logInfo("killing projectile" .. tostring(projId))
+			--if world.entityExists(projId) then 
+				--local msg = 
+				--world.sendEntityMessage(v, "kill")
+			--end
+		
+			--table.remove(self.projectiles, i)
+		--end
+	end
+	
+	if flag then self.projectiles = {} end
 end
 
 -- flag is true if projectile was told to die
@@ -586,14 +624,24 @@ function projDead(deadId, flag)
 	
 	--adjustProjectiles()
 	
-	self.pDirty = flag and false or true
+	markDirty(flag and false or true)
 	
 	--for _, projId in pairs(self.projectiles) do
 	--	if projId == deadId then 
 end
 
-function setDirty(bool)
-	if self.pDirty then return else self.pDirty = bool end
+function tableFind(tabIn, valIn) 
+	for i, v in pairs(tabIn) do
+		if v == valIn then
+			return i
+		end
+	end
+end
+
+-- if boo2, set dirty to boo1. otherwise, set dirty to boo1 only if boo1 is true
+function markDirty(boo1, boo2)
+	if boo2 then self.pDirty = boo1 
+	elseif self.pDirty then return else self.pDirty = boo1 end
 end
 
 function vecPrint(vecIn, decIn)

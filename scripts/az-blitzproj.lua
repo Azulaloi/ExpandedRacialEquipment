@@ -38,7 +38,7 @@ function initHandlers()
 		return entity.id()
 	end)
 	
-	message.setHandler("kill", function()
+	message.setHandler("kill", function(_, _)
 		msgKill()
     end)
 	
