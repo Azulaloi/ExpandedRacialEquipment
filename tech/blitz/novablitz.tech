@@ -43,6 +43,21 @@
 	"gravityMultiplier" : 0.0
   },
   
+  "ballSpeed" : 14,
+
+  "energyCost" : 50,
+
+  "ballRadius" : 1,
+  "ballFrames" : 8,
+  
+  
+
+  "moveSpeed" : 50,
+  "moveForce" : 300,
+  
+  "hoverDistance" : 4,
+  "hoverRepelForce" : 5,
+  
   "projectileParameters" : {
 	"periodicActions" : [
 		{
@@ -71,11 +86,10 @@
 		}
 	]
   },
-
-  "ballSpeed" : 14,
-
-  "energyCost" : 50,
-
-  "ballRadius" : 1,
-  "ballFrames" : 8
+  
+  "projectileType" : "az-novablitz_swarm",
+  "projectileOrbitRadius" : 2.5,
+  "projectileCount" : 5,
+  "projectileRegenTimer" : 3,
+  "fireCooldown" : 0.25
 }

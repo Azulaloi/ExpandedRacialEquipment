@@ -78,7 +78,10 @@ function initHandlers()
 	end)
 	
 	message.setHandler("setMode", function(_, _, modeIn)
-		if modeIn == 2 then mcontroller.applyParameters({collisionEnabled=false}) end
+		if modeIn == 2 then 
+			mcontroller.applyParameters({collisionEnabled=false})
+			--projectile.processAction(projectile.getParameter("actionOnFiredReap"))
+		end
 		self.seekMode = modeIn
 	end)
 end
@@ -129,9 +132,9 @@ function orbitEntity(entityId, dt)
 		local guidePos = self.orbitGuide --or {0, 0}
 		local cycleSpeed = 5
 		
-		local speedMult = 0.1
+		local speedMult = 0.8
 		
-		seekSpeed = seekSpeed * 0.2
+		seekSpeed = seekSpeed * 1
 		targetSpeed = targetSpeed * speedMult
 		cycleSpeed = cycleSpeed * speedMult
 		
@@ -255,6 +258,42 @@ end
 function destroy()
 	if self.seekMode == 1 then
 		world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id(), self.kFlag)
+	end
+	
+	----
+	-- FX
+	----
+	
+	-- look idk why actions aren't working but I would have to do 
+	-- it this way anyway to pass on the color properties
+	if self.seekMode == 3 then
+		world.spawnProjectile(
+			"az-blitz_impact_fire",
+			mcontroller.position(),
+			projectile.sourceEntity() or false,
+			{0, 0},
+			false
+			)
+			
+		--projectile.processAction(projectile.getParameter("actionOnFiredReap"))
+	elseif self.seekMode == 2 then
+		world.spawnProjectile(
+			"az-blitz_impact_return",
+			mcontroller.position(),
+			projectile.sourceEntity() or false,
+			{0, 0},
+			false
+			)
+			
+		--projectile.processAction(projectile.getParameter("actionOnMiscReap"))
+	else
+		world.spawnProjectile(
+			"az-blitz_impact_misc",
+			mcontroller.position(),
+			projectile.sourceEntity() or false,
+			{0, 0},
+			false
+			)
 	end
 
 	--sb.logInfo("blitzproj: dead")

@@ -38,21 +38,27 @@ function initCommonParameters()
   self.forceDeactivateTime = config.getParameter("forceDeactivateTime", 3.0)
   self.forceShakeMagnitude = config.getParameter("forceShakeMagnitude", 0.125)
   
-  self.hoverDist = 4
+  -- movement stuff --
+  self.hoverDist = config.getParameter("hoverDistance", 4)
+  self.hoverRepelForce = config.getParameter("hoverRepelForce", 5)
   
-  self.projOrbitRadius = 2.5
+  self.moveSpeed = config.getParameter("moveSpeed", 50)
+  self.moveForce = config.getParameter("moveForce", 300)
   
-  self.projectileCount = 5
+  -- projectile stuff -- 
+  self.projectileType = config.getParameter("projectileType", "az-novablitz_swarm")
   self.projectileParameters = config.getParameter("projectileParameters") or {}
+  self.projOrbitRadius = config.getParameter("projectileOrbitRadius", 2.5)
+  self.projectileCount = config.getParameter("projectileCount", 5)
   
-  self.projReplaceWait = 3
+  self.projReplaceWait = config.getParameter("projectileRegenTimer", 3)
   self.projReplaceTimer = self.projReplaceWait
   
   self.checkTimer = 3
   self.checkTime = 3
   
   self.fireTimer = 0
-  self.fireTime = 1
+  self.fireTime = config.getParameter("fireCooldown", 0.5)
   
   self.pDirty = false
 end
@@ -183,8 +189,8 @@ end
 
 
 function doControl(args)
-	local fSpeed = 50
-	local cForce = 300
+	local fSpeed = self.moveSpeed
+	local cForce = self.moveForce
 	local xV = 0
 	local yV = 0
 	
@@ -196,6 +202,11 @@ function doControl(args)
 	elseif args.moves["down"] then yV = 0 - fSpeed
 	else yV = 0 end
 	
+	if (args.moves["up"] or args.moves["down"]) and (args.moves["left"] or args.moves["right"]) then
+		xV = (xV / 3) * 2
+		yV = (yV / 3) * 2
+	end
+	
 	mcontroller.controlApproachVelocity({xV, yV}, cForce)
 end
 
@@ -204,7 +215,7 @@ function doHover(args)
 	local hoverSpeed = 55
 	local hoverConForce = 200
 	
-	local hoverForce2 = 5
+	local hoverForce2 = self.hoverRepelForce
 	
 	local currentPos = mcontroller.position()
 	local queryPos = {currentPos[1], currentPos[2] - hoverTo}
@@ -380,7 +391,7 @@ function activate()
   sb.logInfo("blitz: activating")
 	
  -- checkProjectiles()
-  createProjectiles(self.projectileCount, true)
+  createProjectiles(self.projectileCount, true, true)
   
   self.active = true
 end
@@ -422,6 +433,7 @@ function doFire()
 	if self.projectiles[1] then
 		world.sendEntityMessage(self.projectiles[1], "fireAtPos", pos)
 		table.remove(self.projectiles, 1)
+		animator.playSound("fire")
 		markDirty(true)
 	end
 end
@@ -462,7 +474,7 @@ function createProjectiles(countIn, circleIn, replaceIn)
 		--sb.logInfo(vecPrint(createPos) .. vecPrint(p))
 	
 		local projId = world.spawnProjectile(
-			"az-novablitz_swarm",
+			self.projectileType,
 			vec2.add(createPos, p),
 			entity.id(),
 			{0, 0},

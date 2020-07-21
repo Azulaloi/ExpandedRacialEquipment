@@ -7,12 +7,45 @@
 //  "lightColor" : [170, 143, 255],
   "frameNumber" : 4,
   "periodicActions" : [ ],
-  "actionOnReap" : [
-    {
+  
+  "actionOnMiscReap" : {
       "action" : "config",
       "file" : "/projectiles/explosions/elementimpact/electricimpact2.config"
-    }
-  ],
+   },
+  
+  "actionOnFiredReap" : {
+	  "action" : "actions",
+	  "list" : [ 
+	    {
+		  "action" : "loop",
+		  "count" : 10,
+		  "body" : [ {	
+			"action" : "particle",
+			"specification" : {
+			  "type" : "ember",
+			  "size" : 0.6,
+			  "color" : [225, 95, 130, 255],
+			  "fullbright" : true,
+			  "timeToLive" : 0.3,
+			  "destructionAction" : "shrink",
+			  "destructionTime" : 0.2,
+			  "layer" : "front",
+			  "variance" : {
+			  	"position" : [0.5, 0.5],
+			  	"initialVelocity" : [5, 5],
+			  	"size" : 0.3,
+			  	"timeToLive" : 0.15
+			  }
+			}   
+		  } ]
+		},
+		{
+			"action" : "sound",
+			"options" : [ "/sfx/gun/grenadeblast_small1.ogg", "/sfx/gun/grenadeblast_small2.ogg", "/sfx/gun/grenadeblast_small3.ogg" ]
+		}
+	  ]
+  },
+  
   "speed" : 10,
   "power" : 30,
   "damageKind" : "electric",

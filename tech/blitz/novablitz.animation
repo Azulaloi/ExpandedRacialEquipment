@@ -92,8 +92,9 @@
   },
 
   "sounds" : {
-    "activate" : [ "/sfx/tech/tech_sphere_transform.ogg" ],
-    "deactivate" : [ "/sfx/tech/tech_sphere_transform.ogg" ],
-    "forceDeactivate" : [ "/sfx/tech/tech_sonicsphere_charge1.ogg" ]
+    "activate" : [ "/sfx/az-blitz/activate.ogg" ],
+    "deactivate" : [ "/sfx/az-blitz/deactivate.ogg" ],
+    "forceDeactivate" : [ "/sfx/tech/tech_sonicsphere_charge1.ogg" ],
+	"fire" : [ "/sfx/az-blitz/fire1.ogg", "/sfx/az-blitz/fire2.ogg", "/sfx/az-blitz/fire3.ogg" ]
   }
 }

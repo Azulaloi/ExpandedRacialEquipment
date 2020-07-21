@@ -1,0 +1,43 @@
+{
+  "projectileName" : "az-blitz_impact_fire",
+  "image" : "blitz-blank.png",
+  "speed" : 0,
+  "animationLoops" : false,
+  "piercing" : true,
+  "flippable" : true,
+  "damageTeam" : { "type" : "indiscriminate" },
+  "damageKind" : "plasma",
+  "timeToLive" : 0,
+  "actionOnReap" : [ {
+	  "action" : "actions",
+	  "list" : [ 
+	    {
+		  "action" : "loop",
+		  "count" : 10,
+		  "body" : [ {	
+			"action" : "particle",
+			"specification" : {
+			  "type" : "ember",
+			  "size" : 0.6,
+			  "color" : [225, 95, 130, 255],
+			  "fullbright" : true,
+			  "timeToLive" : 0.3,
+			  "destructionAction" : "shrink",
+			  "destructionTime" : 0.2,
+			  "layer" : "front",
+			  "variance" : {
+			  	"position" : [0.5, 0.5],
+			  	"initialVelocity" : [5, 5],
+			  	"size" : 0.3,
+			  	"timeToLive" : 0.15
+			  }
+			}   
+		  } ]
+		},
+		{
+			"action" : "sound",
+			"options" : [ "/sfx/gun/grenadeblast_small1.ogg", "/sfx/gun/grenadeblast_small2.ogg", "/sfx/gun/grenadeblast_small3.ogg" ]
+		}
+	  ]
+  } ]
+}
