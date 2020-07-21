@@ -51,6 +51,9 @@ function initCommonParameters()
   self.checkTimer = 3
   self.checkTime = 3
   
+  self.fireTimer = 0
+  self.fireTime = 1
+  
   self.pDirty = false
 end
 
@@ -116,6 +119,11 @@ function update(args)
 	
 	-- we don't need to update projectiles every frame
 	updateProjectiles(args.dt)
+	
+	self.fireTimer = math.max(self.fireTimer - args.dt, 0)
+	if args.moves["primaryFire"] and (self.fireTimer <= 0) then
+		doFire()
+	end
   end
   
   updateTransformFade(args.dt)
@@ -128,7 +136,7 @@ end
 function drawDebug()
 	local q = 3
 
-	--if self.active then
+	if self.active then
 		--for i = 1, q do
 			--local theta = (2 * math.pi / q) * i
 			--local pPos = { math.sin(theta + (2 * math.pi / q) / 2), 
@@ -152,52 +160,27 @@ function drawDebug()
 		
 		local pos = mcontroller.position()
 		
-		world.debugText("dirty: " .. (self.dirty and "true" or "false"), vec2.add(mcontroller.position(), {4, 2}), "green")
-		world.debugText("repCool: " .. round(self.projReplaceTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
-		world.debugText("#proj: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
+		--world.debugText("dirty: " .. (self.dirty and "true" or "false"), vec2.add(mcontroller.position(), {4, 2}), "green")
+		
+		
+		world.debugText("resTimer: " .. round(self.projReplaceTimer, 2), vec2.add(mcontroller.position(), {4, 2}), "green")
+		world.debugText("fireTimer: " .. round(self.fireTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
+		world.debugText("projCount: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
 		
 		util.debugCircle(mcontroller.position(), self.projOrbitRadius, "red", 8)
 		
-		world.debugText("Projectiles: ", vec2.add(pos, {8, 2}), "green")
 		
-		for i = 1, #self.projectiles do
-			local pY = 2 - (0.5 * i)
-			world.debugText("[" .. tostring(i) .. "]", vec2.add(pos, {8, pY}), "green")
-			world.debugText(tostring(self.projectiles[i]), vec2.add(pos, {9, pY}), "green")
-		end
-	--end
-end
-
-function round(num, dec)
-	return string.format("%." .. (dec or 0) .. "f", num)
-end
-
-function pointsCircle(quant, radius)
-	local points = {}
-	
-	for i = 1, quant do
-		local p = pointCircle(quant, radius, i)
-		points[i] = p
+		--world.debugText("Projectiles: ", vec2.add(pos, {8, 2}), "green")
+		--for i = 1, #self.projectiles do
+		--	local pY = 2 - (0.5 * i)
+		--	world.debugText("[" .. tostring(i) .. "]", vec2.add(pos, {8, pY}), "green")
+		--	world.debugText(tostring(self.projectiles[i]), vec2.add(pos, {9, pY}), "green")
+		--end
 	end
-	
-	return points
 end
 
--- vec2 (int, float, int)
-function pointCircle(quant, radius, iter, thetaIn)
-	--local theta = (2 * math.pi / quant) * iter
-	local theta = thetaIn or (2 * math.pi / quant) * iter 
-	
-	local pPos = { math.sin(theta + (2 * math.pi / quant) / 2), 
-				   math.cos(theta + (2 * math.pi / quant) / 2) }
-				   
-	pPos = vec2.mul(pPos, radius)
-	
-	-- alternatively...
-	--pPos = vec2.rotate({0, radius}, (2 * math.pi/quant) * iter)
-	
-	return pPos
-end
+
+
 
 function doControl(args)
 	local fSpeed = 50
@@ -428,14 +411,19 @@ function deactivate()
   self.active = false
 end
 
-function minY(poly)
-  local lowest = 0
-  for _,point in pairs(poly) do
-    if point[2] < lowest then
-      lowest = point[2]
-    end
-  end
-  return lowest
+----
+-- projectile stuff
+----
+
+function doFire()
+	self.fireTimer = self.fireTime
+	local pos = tech.aimPosition()
+	
+	if self.projectiles[1] then
+		world.sendEntityMessage(self.projectiles[1], "fireAtPos", pos)
+		table.remove(self.projectiles, 1)
+		markDirty(true)
+	end
 end
 
 function createProjectiles(countIn, circleIn, replaceIn)
@@ -468,7 +456,7 @@ function createProjectiles(countIn, circleIn, replaceIn)
 		local iter = repFlag and (#self.projectiles + 1) or i  
 		--sb.logInfo(tostring(repFlag)..tostring(#self.projectiles))
 		--sb.logInfo("blitz: creating proj #" .. tostring(iter))
-		local p = cPoints[iter]
+		local p = repFlag and {0, 0} or cPoints[iter]
 		pParams.orbitGuide = p
 		
 		--sb.logInfo(vecPrint(createPos) .. vecPrint(p))
@@ -498,9 +486,11 @@ function updateProjectiles(dt)
 	if #self.projectiles < self.projectileCount then
 		--sb.logInfo("blitz: proj dirty")
 		--self.pDirty = true
+		
+		self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
 
 		if self.projReplaceTimer <= 0 then
-			replaceProjectiles()
+			replaceProjectiles(1)
 		end
 	end
 	
@@ -508,8 +498,6 @@ function updateProjectiles(dt)
 		checkProjectiles()
 		adjustProjectiles()
 	end
-	
-	self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
 end
 
 function checkProjectiles(dt, routine)
@@ -572,11 +560,11 @@ function adjustProjectiles()
 	end
 end
 
-function replaceProjectiles()
-	local missing = self.projectileCount - #self.projectiles
+function replaceProjectiles(countIn)
+	local toReplace = countIn or (self.projectileCount - #self.projectiles)
+	sb.logInfo("blitz: replacing " .. tostring(toReplace) .. " projectiles")
 	
-	sb.logInfo("blitz: replacing " .. tostring(missing) .. " projectiles")
-	createProjectiles(missing, false, true)
+	createProjectiles(toReplace, false, true)
 	
 	self.projReplaceTimer = self.projReplaceWait
 	
@@ -587,29 +575,16 @@ end
 function killProjectiles(flag)
 	sb.logInfo("blitz: killing " .. tostring(#self.projectiles) .. " projectiles")
 	
-	-- why does ipairs miss every other entry?
-	
 	for k, v in pairs(self.projectiles) do
-		sb.logInfo("p: " .. tostring(k) .. tostring(v))
-		
-		world.sendEntityMessage(v, "kill")
-		--table.remove(self.projectiles, k)
+		--sb.logInfo("p: " .. tostring(k) .. tostring(v))
+		--sb.logInfo("blitz: killing slot " .. tostring(k) .. " (" .. tostring(v) .. ")")
+		--world.sendEntityMessage(v, "kill")
+		world.sendEntityMessage(v, "setMode", 2)
 	end
 	
-	for i, v in ipairs(self.projectiles) do
+	--for i, v in ipairs(self.projectiles) do
 		--sb.logInfo("i: " .. tostring(i) .. tostring(v))
-		
-		--if v then
-		--	sb.logInfo("blitz: killing projectile " .. tostring(v) .. " in slot " .. tostring(i))
-			--sb.logInfo("killing projectile" .. tostring(projId))
-			--if world.entityExists(projId) then 
-				--local msg = 
-				--world.sendEntityMessage(v, "kill")
-			--end
-		
-			--table.remove(self.projectiles, i)
-		--end
-	end
+	--end
 	
 	if flag then self.projectiles = {} end
 end
@@ -622,12 +597,58 @@ function projDead(deadId, flag)
 	
 	self.projReplaceTimer = self.projReplaceWait
 	
-	--adjustProjectiles()
-	
 	markDirty(flag and false or true)
 	
-	--for _, projId in pairs(self.projectiles) do
-	--	if projId == deadId then 
+	--table.remove(self.projectiles, tableFind(self.projectiles, deadId))
+	--adjustProjectiles()
+end
+
+-- if boo2, set dirty to boo1. otherwise, set dirty to boo1 only if boo1 is true
+function markDirty(boo1, boo2)
+	if boo2 then self.pDirty = boo1 
+	elseif self.pDirty then return else self.pDirty = boo1 end
+end
+
+----
+-- util stuff
+----
+
+function pointsCircle(quant, radius)
+	local points = {}
+	
+	for i = 1, quant do
+		local p = pointCircle(quant, radius, i)
+		points[i] = p
+	end
+	
+	return points
+end
+
+-- vec2 (int, float, int)
+function pointCircle(quant, radius, iter, thetaIn)
+	--local theta = (2 * math.pi / quant) * iter
+	local theta = thetaIn or (2 * math.pi / quant) * iter 
+	
+	local pPos = { math.sin(theta + (2 * math.pi / quant) / 2), 
+				   math.cos(theta + (2 * math.pi / quant) / 2) }
+				   
+	pPos = vec2.mul(pPos, radius)
+	
+	-- alternatively...
+	--pPos = vec2.rotate({0, radius}, (2 * math.pi/quant) * iter)
+	
+	return pPos
+end
+
+function round(num, dec)
+	return string.format("%." .. (dec or 0) .. "f", num)
+end
+
+function vecPrint(vecIn, decIn)
+
+	local dec = decIn or 3
+	--return "x" .. tostring(vecIn[1]) .. " : " .. "y" .. tostring(vecIn[2]) 
+	return "x" .. round(vecIn[1], dec) .. " : " .. "y" .. round(vecIn[2], dec) 
 end
 
 function tableFind(tabIn, valIn) 
@@ -638,14 +659,12 @@ function tableFind(tabIn, valIn)
 	end
 end
 
--- if boo2, set dirty to boo1. otherwise, set dirty to boo1 only if boo1 is true
-function markDirty(boo1, boo2)
-	if boo2 then self.pDirty = boo1 
-	elseif self.pDirty then return else self.pDirty = boo1 end
-end
-
-function vecPrint(vecIn, decIn)
-	local dec = decIn or 3
-	--return "x" .. tostring(vecIn[1]) .. " : " .. "y" .. tostring(vecIn[2]) 
-	return "x" .. round(vecIn[1], dec) .. " : " .. "y" .. round(vecIn[2], dec) 
+function minY(poly)
+  local lowest = 0
+  for _,point in pairs(poly) do
+    if point[2] < lowest then
+      lowest = point[2]
+    end
+  end
+  return lowest
 end

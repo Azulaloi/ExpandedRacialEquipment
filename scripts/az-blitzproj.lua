@@ -7,7 +7,10 @@ function init()
 	self.rotationSpeed = 0
 	self.timedActions = config.getParameter("timedActions", {})
 
-	-- 0 seeks aimPos, 1 seeks entity
+	-- 0 seeks aimPos (default unused) 
+	-- 1 orbits entity (orbiting)
+	-- 2 is returning (to die on return)
+	-- 3 is fire and forget
 	self.seekMode = config.getParameter("seekMode", 1)
 	
 	self.aimPosition = mcontroller.position()
@@ -20,6 +23,8 @@ function init()
 	self.cycle = 0
 	
 	self.kFlag = false
+	
+	self.firePos = {0, 0}
 	
 	initHandlers()
 	
@@ -66,11 +71,30 @@ function initHandlers()
 		self.orbitGuide = posIn
 		self.cycle = cycleIn
 	end)
+	
+	message.setHandler("fireAtPos", function(_, _, posIn)
+		self.firePos = posIn
+		self.seekMode = 3
+	end)
+	
+	message.setHandler("setMode", function(_, _, modeIn)
+		if modeIn == 2 then mcontroller.applyParameters({collisionEnabled=false}) end
+		self.seekMode = modeIn
+	end)
 end
 
 function update(dt)
 	if self.seekMode == 1 and self.entityToFollow ~= nil then
 		orbitEntity(self.entityToFollow, dt)
+	elseif self.seekMode == 2 and self.entityToFollow ~= nil then
+		projectile.setTimeToLive(2)
+		returnToEntity(self.entityToFollow, dt)
+	elseif self.seekMode == 3 then
+		--fire and forget behavior
+		
+		local ang = vecFlip(world.distance(mcontroller.position(), self.firePos))
+		mcontroller.approachVelocity(vec2.mul(vec2.norm(ang), 50), 50)
+		world.debugPoint(self.firePos, "red")
 	else
 		if self.aimPosition then
 			if self.controlMovement then
@@ -156,6 +180,26 @@ function orbitEntity(entityId, dt)
 	end
 end
 
+function returnToEntity(entityId, dt)
+	local targetPosition = world.entityPosition(entityId)
+	local vecTo = vecFlip(world.distance(mcontroller.position(), targetPosition))
+	
+	local returnSpeed = 50
+	local returnForce = 100
+	
+	local returnThresh = 1.5
+	
+	local dist = vec2.mag(vecTo)
+	
+	mcontroller.approachVelocity(vec2.mul(vec2.norm(vecTo), returnSpeed), returnForce)
+	if dist <= returnThresh then
+		-- maybe do a sound or something
+		projectile.die()
+	end	
+	
+	--world.debugText(tostring(dist), vec2.add(mcontroller.position(), {2, 4}), "green")
+end
+
 function control(direction)
   mcontroller.approachVelocity(vec2.mul(vec2.norm(direction), self.controlMovement.maxSpeed), self.controlMovement.controlForce)
 end
@@ -209,11 +253,18 @@ function processTimedAction(action, dt)
 end
 
 function destroy()
-	world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id(), self.kFlag)
+	if self.seekMode == 1 then
+		world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id(), self.kFlag)
+	end
+
 	--sb.logInfo("blitzproj: dead")
 end
 
 function msgKill()
 	self.kFlag = true
 	projectile.die()
+end
+
+function vecFlip(vec)
+	return {-vec[1], -vec[2]}
 end
