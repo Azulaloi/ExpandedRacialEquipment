@@ -46,6 +46,125 @@
 	  ]
   },
   
+  "parametersFiredReap" : {
+	"actionOnReap" : [ {
+		"action" : "actions",
+		"list" : [ 
+			{
+			"action" : "loop",
+			"count" : 24,
+			"body" : [ {	
+				"action" : "particle",
+				"specification" : {
+				"type" : "ember",
+				"size" : 1.0,
+				"color" : [225, 95, 130, 255],
+				"fullbright" : true,
+				"timeToLive" : 0.3,
+				"destructionAction" : "shrink",
+				"destructionTime" : 0.2,
+				"layer" : "front",
+				"variance" : {
+					"position" : [0.5, 0.5],
+					"initialVelocity" : [5, 5],
+					"size" : 0.4,
+					"timeToLive" : 0.15
+				}
+				}   
+			} ]
+			},
+			{
+				"action" : "sound",
+				"options" : [ "/sfx/projectiles/blast_small_fire1.ogg", "/sfx/projectiles/blast_small_fire2.ogg", "/sfx/projectiles/blast_small_fire3.ogg" ]
+			}
+		]
+	} ]
+  },
+  
+  "parametersReturnReap" : {
+	"actionOnReap" : [ {
+		"action" : "actions",
+		"list" : [ 
+		    {
+			"action" : "loop",
+			"count" : 3,
+			"body" : [ 
+				{
+				"action" : "particle",
+				"specification" : {
+					"type" : "animated",
+					"animation" : "/animations/sparkles/sparkle6.animation",
+					"position" : [0, 0],
+					"finalVelocity" : [0, 0],
+					"approach" : [50, 50],
+					"destructionAction" : "shrink",
+					"destructionTime" : 0.5,
+					"fade" : 1,
+					"size" : 1,
+					"layer" : "back",
+					"timeToLive" : 0.6,
+					"variance" : {
+						"finalVelocity" : [4, 4],
+						"position" : [1, 1]
+					}
+				  }
+				},
+				{
+				"action" : "particle",
+				"specification" : {
+					"type" : "animated",
+					"looping" : true,
+					"animation" : "/animations/statuseffects/electricalburn/electricalburn.animation",
+					"position" : [0, 0],
+					"finalVelocity" : [0, 0],
+					"approach" : [50, 50],
+					"destructionAction" : "shrink",
+					"destructionTime" : 0.425,
+					"fade" : 1,
+					"light" : [170, 143, 255],
+					"size" : 0.5,
+					"layer" : "middle",
+					"timeToLive" : 0.6,
+					"variance" : {
+						"finalVelocity" : [3, 3],
+						"position" : [1, 1]
+					}
+				  }
+				},
+				{
+				"action" : "particle",
+				"specification" : {
+					"type" : "ember",
+					"size" : 1.0,
+					"color" : [298, 50, 68, 255],
+					"position" : [0, 0],
+					"fade" : 0.9,
+					"initialVelocity" : [0, 0],
+					"finalVelocity" : [0, 0],
+					"approach" : [20, 20],
+					"light" : [170, 143, 255],
+					"destructionTime" : 0.8,
+					"layer" : "back",
+					"variance" : {
+						"finalVelocity" : [5, 5],
+						"position" : [1, 1],
+						"size" : 0.5
+					}
+				  }
+				}
+			] }, 
+			{
+				"action" : "sound",
+				"options" : [ "/sfx/projectiles/flame_burn.ogg" ]
+			}
+			
+			//in the jungle
+			//the mighty jungle
+			//the linter sleeps tonight
+		]
+	} ]
+  },
+  
   "speed" : 10,
   "power" : 30,
   "damageKind" : "electric",

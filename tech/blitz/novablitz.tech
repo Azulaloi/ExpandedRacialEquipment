@@ -89,7 +89,8 @@
   
   "projectileType" : "az-novablitz_swarm",
   "projectileOrbitRadius" : 2.5,
+  "projectileOrbitClockwise" : true,
   "projectileCount" : 5,
-  "projectileRegenTimer" : 3,
+  "projectileRegenTimer" : 2.5,
   "fireCooldown" : 0.25
 }

@@ -5,8 +5,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projectiles/az-novablitz/blitz-swarm.projectile" beforeDir="false" afterPath="$PROJECT_DIR$/projectiles/az-novablitz/blitz-swarm.projectile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/az-blitzproj.lua" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/az-blitzproj.lua" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tech/blitz/novablitz.animation" beforeDir="false" afterPath="$PROJECT_DIR$/tech/blitz/novablitz.animation" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tech/blitz/novablitz.lua" beforeDir="false" afterPath="$PROJECT_DIR$/tech/blitz/novablitz.lua" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tech/blitz/novablitz.tech" beforeDir="false" afterPath="$PROJECT_DIR$/tech/blitz/novablitz.tech" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -444,10 +444,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state width="254" height="198" key="ShowFilterAction_Filter_Popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1592963080834" />
-    <state x="708" y="399" width="871" height="801" key="find.popup" timestamp="1595293161706">
+    <state x="708" y="399" width="871" height="801" key="find.popup" timestamp="1595359521008">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="708" y="399" width="871" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1595293161706" />
+    <state x="708" y="399" width="871" height="801" key="find.popup/0.0.2560.1400/-1920.544.1920.1040@0.0.2560.1400" timestamp="1595359521008" />
     <state x="752" y="477" width="1099" height="673" key="new project wizard" timestamp="1593687688102">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>

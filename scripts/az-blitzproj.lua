@@ -14,17 +14,17 @@ function init()
 	self.seekMode = config.getParameter("seekMode", 1)
 	
 	self.aimPosition = mcontroller.position()
-	
+
 	self.entityToFollow = projectile.sourceEntity() or nil
-	
+	self.tone = config.getParameter("tone", {0, 0, 0})
 	self.orbitRadius = config.getParameter("orbitRadius", 2.5)
 	self.orbitGuide = config.getParameter("orbitGuide", {0, self.orbitRadius})
+	self.orbitClockwise = config.getParameter("orbitClockwise", true)
 	
 	self.cycle = 0
-	
-	self.kFlag = false
-	
 	self.firePos = {0, 0}
+	self.kFlag = false
+	self.readyToRelease = false
 	
 	initHandlers()
 	
@@ -88,16 +88,22 @@ end
 
 function update(dt)
 	if self.seekMode == 1 and self.entityToFollow ~= nil then
-		orbitEntity(self.entityToFollow, dt)
+		-- ORBITING
+		orbitEntity(self.entityToFollow, dt, false)
 	elseif self.seekMode == 2 and self.entityToFollow ~= nil then
+		-- RETURNING
 		projectile.setTimeToLive(2)
 		returnToEntity(self.entityToFollow, dt)
 	elseif self.seekMode == 3 then
-		--fire and forget behavior
-		
-		local ang = vecFlip(world.distance(mcontroller.position(), self.firePos))
-		mcontroller.approachVelocity(vec2.mul(vec2.norm(ang), 50), 50)
-		world.debugPoint(self.firePos, "red")
+		-- FIRING
+		if self.readyToRelease then
+			local ang = vecFlip(world.distance(mcontroller.position(), self.firePos))
+			mcontroller.approachVelocity(vec2.mul(vec2.norm(ang), 50), 50)
+			world.debugPoint(self.firePos, "red")
+		else 
+			projectile.setTimeToLive(5)
+			orbitEntity(self.entityToFollow, dt, true)
+		end
 	else
 		if self.aimPosition then
 			if self.controlMovement then
@@ -117,9 +123,9 @@ function update(dt)
 	--world.debugText(tostring(entity.id()), vec2.add(mcontroller.position(), {1, 1}), "green")
 end
 
-function orbitEntity(entityId, dt)
+function orbitEntity(entityId, dt, primingIn)
 	if world.entityExists(entityId) then
-		--projectile.setTimeToLive(5)
+		local priming = primingIn or false
 	
 		local targetPosition = world.entityPosition(entityId)
 		local targetDistance = self.orbitRadius
@@ -128,26 +134,24 @@ function orbitEntity(entityId, dt)
 		
 		local currentPosition = mcontroller.position()
 		
-		local flipDir = false
+		local flipDir = self.orbitClockwise
 		local guidePos = self.orbitGuide --or {0, 0}
 		local cycleSpeed = 5
 		
-		local speedMult = 0.8
+		local primeMult = 2.4
+		local speedMult = 0.8 * (priming and primeMult or 1) 
 		
 		seekSpeed = seekSpeed * 1
 		targetSpeed = targetSpeed * speedMult
 		cycleSpeed = cycleSpeed * speedMult
 		
-		
 		self.cycle = self.cycle + ( ((dt * cycleSpeed) % 360) * (flipDir and 1 or -1) ) 
 		guidePos = vec2.add(targetPosition, vec2.rotate(guidePos, self.cycle))
-		
 		
 		-- find closest position at the edge of the orbit
 		local toCenterVector = vec2.sub(currentPosition, targetPosition)
 		--local edgePosition = vec2.add(targetPosition, vec2.mul(vec2.norm(toCenterVector), targetDistance))
 		local edgePosition = guidePos
-		
 		
 		-- get normalized direction to that position
 		local toEdgeVector = vec2.sub(edgePosition, currentPosition)
@@ -165,22 +169,50 @@ function orbitEntity(entityId, dt)
 		-- move zig
 		mcontroller.approachVelocity(vec2.mul(targetDirection, math.abs(targetSpeed)), 5000)
 		
-
-		
+		--	PRIMING --
+		local anchor = 1.5708
+		local ancThresh = 0.7854
+	
+		if priming then
+			local flag = false
+			local toFirePos = vec2.sub(targetPosition, self.firePos)
+			local toFireAng = math.atan(toFirePos[2], toFirePos[1])
+			
+			local angle = math.atan(toCenterVector[2], toCenterVector[1]) 
+			
+			local anchorVec = {0,0}			
+			if not flipDir then
+				anchorVec = vec2.rotate(vec2.withAngle(-anchor, 4), toFireAng)
+				--flag = (angle >= (anchor - ancThresh) and angle <= (anchor + ancThresh))
+				flag = angleWithin(angle, math.atan(anchorVec[2], anchorVec[1]), ancThresh)
+			else
+				anchorVec = vec2.rotate(vec2.withAngle(anchor, 4), toFireAng)
+				--flag = (angle >= -(anchor + ancThresh) and angle <= -(anchor - ancThresh))
+				flag = angleWithin(angle, math.atan(anchorVec[2], anchorVec[1]), ancThresh)
+			end
+			
+			if flag then self.readyToRelease = true end
+			
+			local col = flag and "green" or "white"
+			world.debugLine(targetPosition, vec2.add(targetPosition, vec2.withAngle(angle, 3)), col)
+			world.debugLine(targetPosition, vec2.add(targetPosition, anchorVec), "blue")
+			--world.debugLine(targetPosition, self.firePos, "green")
+			--world.debugText(tostring(angle), vec2.add(targetPosition, {4, 6}), "green")
+		end
 		
 		-- DEBUG -- 
-		
 		world.debugPoint(guidePos, "green")
 		world.debugLine(currentPosition, guidePos, "green")
-		--world.debugText(tostring(self.cycle), vec2.add(targetPosition, {4, 1}), "green")
-		
-		
-		--util.debugCircle(targetPosition, targetDistance, "red", 8)
 		world.debugLine(currentPosition, vec2.add(currentPosition, vec2.mul(targetDirection, math.abs(targetSpeed) / 3)), "blue")
 		world.debugLine(currentPosition, edgePosition, "red")
-		
+		--util.debugCircle(targetPosition, targetDistance, "red", 8)
 		--world.debugText(tostring(edgeMixFactor), vec2.add(mcontroller.position(), {1, 1}), "green")
+		--world.debugText(tostring(self.cycle), vec2.add(targetPosition, {4, 1}), "green")
 	end
+end
+
+function angleWithin(angle, anchor, thresh)
+	return (angle >= (anchor - thresh) and angle <= (anchor + thresh))
 end
 
 function returnToEntity(entityId, dt)
@@ -264,29 +296,48 @@ function destroy()
 	-- FX
 	----
 	
+	local pParams = {}
+	--table.insert(pParams, config.getParameter("actionFireReap"))
+	
 	-- look idk why actions aren't working but I would have to do 
 	-- it this way anyway to pass on the color properties
+	
 	if self.seekMode == 3 then
+		-- FIRED
+		
+		pParams = copy(config.getParameter("parametersFiredReap")) 
+		
+		pParams.actionOnReap[1].list[1].body[1].specification.color = self.tone
 		world.spawnProjectile(
 			"az-blitz_impact_fire",
 			mcontroller.position(),
 			projectile.sourceEntity() or false,
 			{0, 0},
-			false
+			false,
+			pParams
 			)
 			
 		--projectile.processAction(projectile.getParameter("actionOnFiredReap"))
 	elseif self.seekMode == 2 then
+		-- RETURNING
+		
+		pParams = copy(config.getParameter("parametersReturnReap"))
+		
+		pParams.actionOnReap[1].list[1].body[3].specification.color = self.tone
+		
 		world.spawnProjectile(
 			"az-blitz_impact_return",
 			mcontroller.position(),
 			projectile.sourceEntity() or false,
 			{0, 0},
-			false
+			false,
+			pParams
 			)
 			
 		--projectile.processAction(projectile.getParameter("actionOnMiscReap"))
 	else
+		--MISC
+		
 		world.spawnProjectile(
 			"az-blitz_impact_misc",
 			mcontroller.position(),
@@ -306,4 +357,15 @@ end
 
 function vecFlip(vec)
 	return {-vec[1], -vec[2]}
+end
+
+function vecPrint(vecIn, decIn)
+
+	local dec = decIn or 3
+	--return "x" .. tostring(vecIn[1]) .. " : " .. "y" .. tostring(vecIn[2]) 
+	return "x" .. round(vecIn[1], dec) .. " : " .. "y" .. round(vecIn[2], dec) 
+end
+
+function round(num, dec)
+	return string.format("%." .. (dec or 0) .. "f", num)
 end

@@ -49,6 +49,7 @@ function initCommonParameters()
   self.projectileType = config.getParameter("projectileType", "az-novablitz_swarm")
   self.projectileParameters = config.getParameter("projectileParameters") or {}
   self.projOrbitRadius = config.getParameter("projectileOrbitRadius", 2.5)
+  self.projOrbitClockwise = config.getParameter("projectileOrbitClockwise", true)
   self.projectileCount = config.getParameter("projectileCount", 5)
   
   self.projReplaceWait = config.getParameter("projectileRegenTimer", 3)
@@ -184,9 +185,6 @@ function drawDebug()
 		--end
 	end
 end
-
-
-
 
 function doControl(args)
 	local fSpeed = self.moveSpeed
@@ -455,10 +453,13 @@ function createProjectiles(countIn, circleIn, replaceIn)
 		end
 	end
 	
+	local tone = hextorgb(self.bodyColors[2])
 	local pParams = copy(self.projectileParameters)
 	pParams.processing = "?" .. self.directives
-	pParams.periodicActions[1].specification.color = hextorgb(self.bodyColors[2])
+	pParams.periodicActions[1].specification.color = tone
+	pParams.tone = tone
 	pParams.orbitRadius = self.projOrbitRadius
+	pParams.orbitClockwise = self.projOrbitClockwise
 	
 	sb.logInfo("blitz: creating " .. tostring(projCount) .. " projectiles")
 	for i = 1, projCount do
