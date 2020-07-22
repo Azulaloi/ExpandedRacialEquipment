@@ -2,13 +2,23 @@ require "/scripts/vec2.lua"
 require "/scripts/util.lua"
 require "/scripts/colorutil.lua"
 
+-- TODO: shift + activate for alt mode
+-- TODO: multiple rings of projectiles?
+-- TODO: impact effects (particles when u smack into things)
+-- TODO: light rays like the nova staff 
+-- TODO: stop spinning. maybe lean away from x vel? or rotate oppo of vel like a meteor
+-- TODO: dash?
+
 function init()
 	self.projectiles = self.projectiles or {}
 
 	initCommonParameters()
-	initColorator()
+	--initColorator()
 	initProjectiles()
+	initTrailDefaults()
 	initHandlers()
+	
+	self.coloratorInitalized = false
 	
 	util.setDebug(true)
 end
@@ -79,13 +89,13 @@ function initColorator()
 	
 	if id then
 		self.bodyColors = extractTone(id)
-		dexed = hextorgb(self.bodyColors[2])
-		hsl = rgbtohsl(dexed)
+		self.dexed = hextorgb(self.bodyColors[2])
+		hsl = rgbtohsl(self.dexed)
 		hsl[2] = 0.7
 		hsl[3] = 0.45
 		prepGlow = hsltorgb(hsl)
 		
-		sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
+		--sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
 		
 		
 		local extDir = extractDirectives(id)
@@ -93,7 +103,9 @@ function initColorator()
 		self.directives = string.sub(extDir, 1, 63)
 		
 		animator.setGlobalTag("novaTone", self.directives)
-		sb.logInfo(tostring(self.directives))
+		--sb.logInfo(tostring(self.directives))
+		
+		self.coloratorInitalized = true
 	end
 end
 
@@ -103,6 +115,11 @@ function uninit()
 end
 
 function update(args)
+  if not self.coloratorInitalized then
+	-- extractTone doesn't work in init
+	initColorator()
+  end
+
   restoreStoredPosition()
 
   if not self.specialLast and args.moves["special1"] then
@@ -115,6 +132,9 @@ function update(args)
   end
 
   if self.active then
+	local lv = self.mnum * vec2.mag(mcontroller.velocity())
+	spawnTrail(mcontroller.position(), mcontroller.velocity(), lv, false, true)
+  
     mcontroller.controlParameters(self.transformedMovementParameters)
 	--mcontroller.controlParameters({gravityMultiplier = 0})
     status.setResourcePercentage("energyRegenBlock", 1.0)
@@ -140,6 +160,8 @@ function update(args)
 		replaceProjectiles(1)
 		self.altTimer = self.altTime
 	end
+	
+	
   end
   
   updateTransformFade(args.dt)
@@ -632,6 +654,73 @@ function markDirty(boo1, boo2)
 	elseif self.pDirty then return else self.pDirty = boo1 end
 end
 
+-- trail stuff --
+
+function initTrailDefaults()
+	self.mnum = 0.1339
+
+	default = {}
+	default.thiccness = 2.5
+	default.lifeTime = 0.4
+	default.destTime = 0.4
+	default.destAction = "shrink"
+	default.fullbright = true
+	default.layer = "back"
+	default.color = {190, 190, 190, 200}
+	
+	default.thiccVar = 0
+	default.colorVar = {0, 0, 0, 0}
+end
+
+function spawnTrail(posIn, velIn, lengthIn, destBool, velBool)
+	local param = {}
+
+	useVel = velBool or true
+	local v = {0, 0}
+	
+	if useVel and not destBool then 		
+		v = alongAngle({0, 0}, mcontroller.velocity(), {0, 0})
+	end
+
+	local trailColor = default.color
+	if self.coloratorInitalized then
+		trailColor = self.dexed
+		trailColor[4] = 200
+	end
+	
+	return world.spawnProjectile("azdebug", posIn, 0, {0, 0}, false, {
+	timeToLive = 0.0,
+	actionOnReap = {
+	{
+		action = "particle",
+		specification = {
+		  type = "streak",
+          layer = param.layer or default.layer,
+          fullbright = param.fullbright or default.fullbright,
+          destructionAction = param.destAction or default.destAction,
+          size = param.thiccness or default.thiccness,
+          color = trailColor,
+          collidesForeground = false,
+          length = lengthIn,
+          position = v,
+          timeToLive = param.lifeTime or default.lifeTime,
+          destructionTime = param.destTime or default.destTime,
+          initialVelocity = vec2.mul(vec2.norm(velIn), 0.1),
+		  --fade = 1,
+          variance = {
+            size = param.thiccVar or default.thiccVar,
+			color = param.colorVar or default.colorVar,
+            --destructionTime = 0.55,
+		    initialVelocity = {0, 0},
+            length = 0
+          }
+		}
+	  }
+	}
+	})
+end
+
+
 ----
 -- util stuff
 ----
@@ -690,4 +779,10 @@ function minY(poly)
     end
   end
   return lowest
+end
+
+function alongAngle(pos, angle, dist)
+	local u = vec2.norm(angle)
+	local du = vec2.mul(u, dist)
+	return vec2.add(pos, du)
 end

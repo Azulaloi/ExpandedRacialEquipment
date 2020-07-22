@@ -135,6 +135,8 @@ end
 -- TODO: reimplement adjustment along orbit... how can we have the projectile know when it was displaced from seeking or spacing?
 -- maybe once it reaches a threshold from the edge, it will seek to its guide until close enough, then resume normal adjustment on orbit behavior
 
+-- TODO: delete the unused action projectiles, dum dum
+
 function orbitEntity(entityId, dt, primingIn)
 	if world.entityExists(entityId) then
 		local priming = primingIn or false
