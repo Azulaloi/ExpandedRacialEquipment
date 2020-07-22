@@ -61,6 +61,9 @@ function initCommonParameters()
   self.fireTimer = 0
   self.fireTime = config.getParameter("fireCooldown", 0.5)
   
+  self.altTimer = 0
+  self.altTime = 0.2
+  
   self.pDirty = false
 end
 
@@ -130,6 +133,12 @@ function update(args)
 	self.fireTimer = math.max(self.fireTimer - args.dt, 0)
 	if args.moves["primaryFire"] and (self.fireTimer <= 0) then
 		doFire()
+	end
+	
+	self.altTimer = math.max(self.altTimer - args.dt, 0)
+	if args.moves["altFire"] and (self.altTimer <= 0) then
+		replaceProjectiles(1)
+		self.altTimer = self.altTime
 	end
   end
   
@@ -503,7 +512,8 @@ function updateProjectiles(dt)
 		self.projReplaceTimer = math.max(self.projReplaceTimer - dt, 0) 
 
 		if self.projReplaceTimer <= 0 then
-			replaceProjectiles(1)
+		-- disabled for testing
+		--	replaceProjectiles(1)
 		end
 	end
 	
