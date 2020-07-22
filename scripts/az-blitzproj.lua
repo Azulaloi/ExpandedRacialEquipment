@@ -23,6 +23,7 @@ function init()
 	self.orbitRadius = config.getParameter("orbitRadius", 2.5)
 	self.orbitGuide = config.getParameter("orbitGuide", {0, self.orbitRadius})
 	self.orbitClockwise = config.getParameter("orbitClockwise", true)
+	self.loopsToDo = config.getParameter("loops", 3)
 	
 	self.cycle = 0
 	self.firePos = {0, 0}
@@ -30,6 +31,8 @@ function init()
 	self.readyToRelease = false
 	self.loopedOnce = false
 	self.primeTimer = 1
+	self.loops = 0
+	self.loopBool = false
 	
 	initHandlers()
 	
@@ -236,10 +239,20 @@ function orbitEntity(entityId, dt, primingIn)
 			anchorVec = vec2.rotate(vec2.withAngle(flipdir and -anchor or anchor, 4), toFireAng)
 			flag = angleWithin(orbitAngle, math.atan(anchorVec[2], anchorVec[1]), ancThresh)
 			
-			if not flag then self.loopedOnce = true end
 			if shouldLoop then 
-				if flag and self.loopedOnce then self.readyToRelease = true end
-			else if flag then self.readyToRelease = true end end
+				if not flag then
+					self.loopBool = true
+				end
+			
+				if flag then
+					if self.loopBool then
+						self.loops = self.loops + 1
+						self.loopBool = false
+					end
+				
+					if self.loops >= self.loopsToDo then self.readyToRelease = true end
+				end
+			elseif flag then self.readyToRelease = true end
 			
 			local col = flag and "green" or "white"
 			world.debugLine(targetPosition, vec2.add(targetPosition, vec2.withAngle(orbitAngle, 3)), col)
@@ -256,6 +269,7 @@ function orbitEntity(entityId, dt, primingIn)
 		
 		--world.debugText("diff: " .. round(shortRot, 3), vec2.add(targetPosition, {4, 5}), "green")
 		--world.debugText("oAng: " .. round(orbitAngle, 3), vec2.add(targetPosition, {4, 6}), "green")
+		world.debugText("loops: " .. tostring(self.loops), vec2.add(targetPosition, {4, 6}), "green")
 		
 		--util.debugCircle(targetPosition, targetDistance, "red", 8)
 		--world.debugText(tostring(edgeMixFactor), vec2.add(mcontroller.position(), {1, 1}), "green")

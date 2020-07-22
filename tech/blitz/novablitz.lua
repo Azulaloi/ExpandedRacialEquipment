@@ -541,6 +541,7 @@ function createProjectiles(countIn, circleIn, replaceIn)
 	pParams.tone = tone
 	pParams.orbitRadius = self.projOrbitRadius
 	pParams.orbitClockwise = self.projOrbitClockwise
+	pParams.loops = 3
 	
 	sb.logInfo("blitz: creating " .. tostring(projCount) .. " projectiles")
 	for i = 1, projCount do
