@@ -8,6 +8,28 @@
   "frameNumber" : 4,
   "periodicActions" : [ ],
   
+  "speed" : 10,
+  "power" : 30,
+  "damageKind" : "electric",
+  "damagePoly" : [ [-6, 0], [-4, -4], [0, -6], [4, -4], [6, 0], [4, 4], [0, 6], [-4, 4] ],
+  "statusEffects" : [ "electrified" ],
+
+  "fullbright" : true,
+//  "emitters" : [ "electricplasmapurple" ],
+
+  "bounces" : 0,
+
+  "scripts" : [ "/scripts/az-blitzproj.lua" ],
+
+  "controlMovement" : {
+    "maxSpeed" : 60,
+    "controlForce" : 40
+  },
+  
+
+  // ACTION PARAMETERS
+
+  
   "actionOnMiscReap" : {
       "action" : "config",
       "file" : "/projectiles/explosions/elementimpact/electricimpact2.config"
@@ -46,7 +68,7 @@
 	  ]
   },
   
-  "parametersFiredReap" : {
+  "parametersFiredImpact" : {
 	"actionOnReap" : [ {
 		"action" : "actions",
 		"list" : [ 
@@ -165,21 +187,7 @@
 	} ]
   },
   
-  "speed" : 10,
-  "power" : 30,
-  "damageKind" : "electric",
-  "damagePoly" : [ [-6, 0], [-4, -4], [0, -6], [4, -4], [6, 0], [4, 4], [0, 6], [-4, 4] ],
-  "statusEffects" : [ "electrified" ],
-
-  "fullbright" : true,
-//  "emitters" : [ "electricplasmapurple" ],
-
-  "bounces" : 0,
-
-  "scripts" : [ "/scripts/az-blitzproj.lua" ],
-
-  "controlMovement" : {
-    "maxSpeed" : 60,
-    "controlForce" : 40
+  "parametersMiscReap" : {
+  
   }
 }

@@ -1,0 +1,11 @@
+{
+  "projectileName" : "az-blitz_action",
+  "image" : "blitz-blank.png",
+  "speed" : 0,
+  "animationLoops" : false,
+  "piercing" : true,
+  "flippable" : true,
+  "damageTeam" : { "type" : "indiscriminate" },
+  "damageKind" : "plasma",
+  "timeToLive" : 0
+}

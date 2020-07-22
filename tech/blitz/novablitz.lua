@@ -771,7 +771,6 @@ function spawnTrail(posIn, velIn, lengthIn, destBool, velBool)
 	})
 end
 
-
 ----
 -- util stuff
 ----

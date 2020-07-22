@@ -141,8 +141,6 @@ end
 -- TODO: reimplement adjustment along orbit... how can we have the projectile know when it was displaced from seeking or spacing?
 -- maybe once it reaches a threshold from the edge, it will seek to its guide until close enough, then resume normal adjustment on orbit behavior
 
--- TODO: delete the unused action projectiles, dum dum
-
 function orbitEntity(entityId, dt, primingIn)
 	if world.entityExists(entityId) then
 		local priming = primingIn or false
@@ -277,44 +275,6 @@ function orbitEntity(entityId, dt, primingIn)
 	end
 end
 
-function shortestOrbit(curIn, tarIn, radIn)
-	local radBool = radIn or false
-	
-	local cur = radBool and (curIn * 180/math.pi) or curIn
-	local tar = radBool and (tarIn * 180/math.pi) or tarIn
-
-	local a = tar - cur
-	local b = tar - cur + 360
-	local y = tar - cur - 360
-	
-	local tab = {a, b, y}
-	
-	local ind, val = 1, tab[1]
-	for k, v in ipairs(tab) do
-		if math.abs(tab[k]) < math.abs(val) then
-			ind, val = k, v
-		end
-	end
-	
-	--sb.logInfo("motion: " .. tostring(tab[ind]))
-	return tab[ind]
-end
-
-function angleDifference(alpha, beta, radIn)
-	local a = radBool and (alpha * 180/math.pi) or alpha
-	local b = radBool and (beta * 180/math.pi) or beta
-
-	local rawDiff = (a > b) and (a - b) or (b - a)
-	local modDiff = rawDiff % 360
-	
-	--return 180 - math.abs(modDiff-180)
-	return modDiff
-end
-
-function angleWithin(angle, anchor, thresh)
-	return (angle >= (anchor - thresh) and angle <= (anchor + thresh))
-end
-
 function returnToEntity(entityId, dt)
 	local targetPosition = world.entityPosition(entityId)
 	local vecTo = vecFlip(world.distance(mcontroller.position(), targetPosition))
@@ -392,59 +352,16 @@ function destroy()
 		world.sendEntityMessage(projectile.sourceEntity(), "projDead", entity.id(), self.kFlag)
 	end
 	
-	----
 	-- FX
-	----
-	
-	local pParams = {}
-	--table.insert(pParams, config.getParameter("actionFireReap"))
-	
-	-- look idk why actions aren't working but I would have to do 
-	-- it this way anyway to pass on the color properties
-	
 	if self.seekMode == 3 then
 		-- FIRED
-		
-		pParams = copy(config.getParameter("parametersFiredReap")) 
-		
-		pParams.actionOnReap[1].list[1].body[1].specification.color = self.tone
-		world.spawnProjectile(
-			"az-blitz_impact_fire",
-			mcontroller.position(),
-			projectile.sourceEntity() or false,
-			{0, 0},
-			false,
-			pParams
-			)
-			
-		--projectile.processAction(projectile.getParameter("actionOnFiredReap"))
+		actionSwitch("firedImpact", 1)
 	elseif self.seekMode == 2 then
 		-- RETURNING
-		
-		pParams = copy(config.getParameter("parametersReturnReap"))
-		
-		pParams.actionOnReap[1].list[1].body[3].specification.color = self.tone
-		
-		world.spawnProjectile(
-			"az-blitz_impact_return",
-			mcontroller.position(),
-			projectile.sourceEntity() or false,
-			{0, 0},
-			false,
-			pParams
-			)
-			
-		--projectile.processAction(projectile.getParameter("actionOnMiscReap"))
+		actionSwitch("return", 1)
 	else
 		--MISC
-		
-		world.spawnProjectile(
-			"az-blitz_impact_misc",
-			mcontroller.position(),
-			projectile.sourceEntity() or false,
-			{0, 0},
-			false
-			)
+		actionSwitch("misc", 1)
 	end
 
 	--sb.logInfo("blitzproj: dead")
@@ -453,6 +370,88 @@ end
 function msgKill()
 	self.kFlag = true
 	projectile.die()
+end
+
+-- who knew you could put functions in a table
+function actionSwitch(case, countIn)
+	local count = countIn or 1
+	local tab = {
+		["firedImpact"] = function() 
+			local params = copy(config.getParameter("parametersFiredImpact"))
+				
+			params.actionOnReap[1].list[1].body[1].specification.color = self.tone
+			
+			return params
+		end,
+		
+		["return"] = function()
+			local params = copy(config.getParameter("parametersReturnReap"))
+				
+			params.actionOnReap[1].list[1].body[3].specification.color = self.tone
+			
+			return params
+		end,
+		
+		["misc"] = function()
+			local params = copy(config.getParameter("parametersReturnReap"))
+				
+			params.actionOnReap[1].list[1].body[3].specification.color = self.tone
+			
+			return params
+		end
+	}
+	
+	pParams = type(tab[case]) == "function" and tab[case]() or {}
+	
+	for i = 1, count do
+		world.spawnProjectile(
+			"az-blitz_action",
+			mcontroller.position(),
+			projectile.sourceEntity() or false,
+			{0, 0},
+			false,
+			pParams )
+	end
+end
+
+-- UTIL -- 
+
+function shortestOrbit(curIn, tarIn, radIn)
+	local radBool = radIn or false
+	
+	local cur = radBool and (curIn * 180/math.pi) or curIn
+	local tar = radBool and (tarIn * 180/math.pi) or tarIn
+
+	local a = tar - cur
+	local b = tar - cur + 360
+	local y = tar - cur - 360
+	
+	local tab = {a, b, y}
+	
+	local ind, val = 1, tab[1]
+	for k, v in ipairs(tab) do
+		if math.abs(tab[k]) < math.abs(val) then
+			ind, val = k, v
+		end
+	end
+	
+	--sb.logInfo("motion: " .. tostring(tab[ind]))
+	return tab[ind]
+end
+
+function angleDifference(alpha, beta, radIn)
+	local a = radBool and (alpha * 180/math.pi) or alpha
+	local b = radBool and (beta * 180/math.pi) or beta
+
+	local rawDiff = (a > b) and (a - b) or (b - a)
+	local modDiff = rawDiff % 360
+	
+	--return 180 - math.abs(modDiff-180)
+	return modDiff
+end
+
+function angleWithin(angle, anchor, thresh)
+	return (angle >= (anchor - thresh) and angle <= (anchor + thresh))
 end
 
 function vecFlip(vec)
