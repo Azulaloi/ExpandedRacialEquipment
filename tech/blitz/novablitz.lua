@@ -103,10 +103,60 @@ function initColorator()
 		self.directives = string.sub(extDir, 1, 63)
 		
 		animator.setGlobalTag("novaTone", self.directives)
-		--sb.logInfo(tostring(self.directives))
+		
+		
+		
+		-- this is a brute force method, don't ship this
+		-- instead, put the specific tones present in the final sprites into a table
+		glowTable = {"FDE03F", "FEE03F", "FEE03E"} 
+		local glowTone = self.directives
+		for i = 1, 255 do 
+			for k, v in ipairs(glowTable) do
+				local alpha = string.format("%x", tostring(i))
+				if #alpha == 1 then alpha = alpha .. 0 end
+				local str = ";" .. string.lower(v) .. alpha .. "=" .. 
+					tostring(self.bodyColors[2]) .. alpha  
+				glowTone = glowTone .. str
+			end
+		end
+		
+		animator.setGlobalTag("glowTone", glowTone)
+		--sb.logInfo(tostring(glowTone))
+		
+		
+		--local portrait = world.entityPortrait(id, "full")
+
+		--for k,v in ipairs(portrait) do
+		--	sb.logInfo(tostring(k))
+		--end
+		--sb.logInfo(sb.printJson(portrait))
+		
+		local brand = extractImage(id, "/humanoid/novakid/brand/")
+		brand = sb.printJson(brand)
+		brand = brand:sub(2)
+		brand = brand:sub(0, #brand-1)
+		sb.logInfo("brand: " .. brand)
+		animator.setGlobalTag("brandImage", brand) 
 		
 		self.coloratorInitalized = true
 	end
+end
+
+function extractImage(pid, str)
+    --local directives = ""
+	local image = nil
+	
+    local portrait = world.entityPortrait(pid, "full")
+
+    for k, v in pairs(portrait) do
+        if string.find(portrait[k].image, str) then
+            image = portrait[k].image
+            --local directive_location = string.find(body_image, "replace")
+            --directives = string.sub(body_image,directive_location)
+        end
+    end
+	
+	return image
 end
 
 function uninit()
@@ -142,8 +192,8 @@ function update(args)
 	doControl(args)
 	doHover(args)
 
-    updateAngularVelocity(args.dt)
-    updateRotationFrame(args.dt)
+    --updateAngularVelocity(args.dt)
+    --updateRotationFrame(args.dt)
 
     checkForceDeactivate(args.dt)
 	

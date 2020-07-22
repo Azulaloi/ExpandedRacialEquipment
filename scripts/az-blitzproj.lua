@@ -1,6 +1,9 @@
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 
+
+-- TODO: effect on prime + effect on release
+
 function init()
 	self.controlMovement = config.getParameter("controlMovement")
 	self.controlRotation = config.getParameter("controlRotation")

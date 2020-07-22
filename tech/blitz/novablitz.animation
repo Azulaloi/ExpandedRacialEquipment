@@ -2,7 +2,9 @@
   "globalTagDefaults" : {
     "rotationFrame" : "0",
     "ballDirectives" : "",
-	"novaTone" : ""
+	"novaTone" : "",
+	"glowTone" : "",
+	"brandImage" : ""
   },
 
   "animatedParts" : {
@@ -38,9 +40,9 @@
           "ballState" : {
             "on" : {
               "properties" : {
-                "zLevel" : 1,
+                //"zLevel" : 1,
                 "fullbright" : true,
-                "image" : "<partImage>:<rotationFrame><ballDirectives>?<novaTone>"
+                "image" : "<partImage><ballDirectives>?<glowTone>"
               }
             }
           }
@@ -55,26 +57,48 @@
           "ballState" : {
             "deactivate" : {
               "properties" : {
+				"zLevel" : 1,
                 "offset" : [0, 0],
                 "fullbright" : true,
-                "image" : "transform.png:deactivate.<frame>"
+                "image" : "transform.png:deactivate.<frame>?<novaTone>"
               }
             },
             "activate" : {
               "properties" : {
+				"zLevel" : 1,
                 "offset" : [0, 1.5],
                 "fullbright" : true,
-                "image" : "transform.png:activate.<frame>"
+                "image" : "transform.png:activate.<frame>?<novaTone>"
               }
             },
             "on" : {
               "properties" : {
+				"zLevel" : 1,
+				"fullbright" : true,
                 "image" : "<partImage>:<rotationFrame><ballDirectives>?<novaTone>"
               }
             }
           }
         }
-      }
+      },
+	  "brand" : {
+		"properties" : {
+		  "zLevel" : 2,
+		  "transformationGroups" : [ "ball" ],
+		  "centered" : true
+		},
+		"partStates" : {
+          "ballState" : {
+            "on" : {
+              "properties" : { 
+				"offset" : [-0.25, -0.5],
+                "fullbright" : true,
+                "image" : "<brandImage>"
+              }
+            }
+          }
+		}
+	  }
     }
   },
 
