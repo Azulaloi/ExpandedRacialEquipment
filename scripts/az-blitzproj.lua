@@ -1,9 +1,6 @@
 require "/scripts/util.lua"
 require "/scripts/vec2.lua"
 
-
--- TODO: effect on prime + effect on release
-
 function init()
 	self.controlMovement = config.getParameter("controlMovement")
 	self.controlRotation = config.getParameter("controlRotation")
@@ -25,6 +22,8 @@ function init()
 	self.orbitClockwise = config.getParameter("orbitClockwise", true)
 	self.loopsToDo = config.getParameter("loops", 3)
 	
+	self.releaseActionTimer = 0.1
+	
 	self.cycle = 0
 	self.firePos = {0, 0}
 	self.kFlag = false
@@ -33,6 +32,11 @@ function init()
 	self.primeTimer = 1
 	self.loops = 0
 	self.loopBool = false
+	self.releaseActioned = false
+	
+	self.fireReleasePos = false
+	self.fireVector = false
+	self.fireSourcePos = false
 	
 	initHandlers()
 	
@@ -82,13 +86,13 @@ function initHandlers()
 	
 	message.setHandler("fireAtPos", function(_, _, posIn)
 		self.firePos = posIn
+		actionSwitch("prime", 1)
 		self.seekMode = 3
 	end)
 	
 	message.setHandler("setMode", function(_, _, modeIn)
 		if modeIn == 2 then 
 			mcontroller.applyParameters({collisionEnabled=false})
-			--projectile.processAction(projectile.getParameter("actionOnFiredReap"))
 		end
 		self.seekMode = modeIn
 	end)
@@ -105,9 +109,18 @@ function update(dt)
 	elseif self.seekMode == 3 then
 		-- FIRING
 		if self.readyToRelease then
-			local ang = vecFlip(world.distance(mcontroller.position(), self.firePos))
-			mcontroller.approachVelocity(vec2.mul(vec2.norm(ang), 50), 50)
-			world.debugPoint(self.firePos, "red")
+			if not self.fireSourcePos then
+				self.fireSourcePos = world.entityPosition(self.entityToFollow)
+				self.fireReleasePos = mcontroller.position()
+				self.fireVector = vecFlip(world.distance(self.fireSourcePos, self.firePos))
+			end
+			fireVec()
+			
+			self.releaseActionTimer = self.releaseActionTimer - dt
+			if self.releaseActionTimer <= 0 and not self.releaseActioned then
+				self.releaseActioned = true
+				actionSwitch("release", 1) 
+			end
 		else 
 			projectile.setTimeToLive(5)
 			orbitEntity(self.entityToFollow, dt, true)
@@ -132,7 +145,6 @@ function update(dt)
 end
 
 -- TODO: slow initial emergence from player
--- TODO: stop homing on the firepos
 -- TODO: cycle speed increases with primeTimer 
 
 -- TODO: guide speed should not be applied to seek direction, as it's applying the guide speed as long as we are within the circle
@@ -248,9 +260,13 @@ function orbitEntity(entityId, dt, primingIn)
 						self.loopBool = false
 					end
 				
-					if self.loops >= self.loopsToDo then self.readyToRelease = true end
+					if (self.loops >= self.loopsToDo) and not self.readyToRelease then 
+						self.readyToRelease = true 
+					end
 				end
-			elseif flag then self.readyToRelease = true end
+			elseif flag and not self.readyToRelease then
+				self.readyToRelease = true 
+			end
 			
 			local col = flag and "green" or "white"
 			world.debugLine(targetPosition, vec2.add(targetPosition, vec2.withAngle(orbitAngle, 3)), col)
@@ -293,6 +309,41 @@ function returnToEntity(entityId, dt)
 	end	
 	
 	--world.debugText(tostring(dist), vec2.add(mcontroller.position(), {2, 4}), "green")
+end
+
+function fireVec()
+	local pPos = mcontroller.position()
+	
+	--local ang = vecFlip(world.distance(pPos, self.firePos))
+	--mcontroller.approachVelocity(vec2.mul(vec2.norm(ang), 50), 50)
+	
+	local distFromSource = world.distance(pPos, self.fireReleasePos)
+	
+	
+	local alignVector = closestPointOnVector(self.fireSourcePos, self.fireVector, pPos)
+	local toAlignVec = world.distance(pPos, alignVector)
+	local distAlign = vec2.mag(toAlignVec)
+	local aMixMult = 5
+	local alignMixFactor = math.min(1, math.max(0, (distAlign / aMixMult)))
+	
+	
+	-- mix in direction to fireVector depending on how far we are from it and the source
+	
+	local targetDirection = vec2.add(vec2.mul(vec2.norm(vecFlip(toAlignVec)), distAlign / 2), 
+									 --vec2.mul(vec2.norm(self.fireVector), math.max(0 - alignMixFactor, 0)))
+									 vec2.mul(vec2.norm(self.fireVector), 1)) 
+	mcontroller.approachVelocity(vec2.mul(vec2.norm(targetDirection), 50), 150) -- should adjust the control force depending on how far we are
+	
+	
+	local targetPosition = world.entityPosition(self.entityToFollow)
+	local segEnd = alongAngle(self.fireSourcePos, self.fireVector, 30)
+	world.debugLine(self.fireSourcePos, segEnd, "white")
+	--world.debugLine(pPos, closestPoint2(self.fireSourcePos, segEnd, pPos), "green")
+	world.debugLine(pPos, alignVector, "red")
+	world.debugPoint(self.firePos, "red")
+	
+	world.debugText("distAlign: " .. tostring(distAlign), vec2.add(targetPosition, {4, 5}), "green")
+	world.debugText("alignMix: " .. tostring(alignMixFactor), vec2.add(targetPosition, {4, 4}), "green")
 end
 
 function control(direction)
@@ -398,6 +449,22 @@ function actionSwitch(case, countIn)
 			params.actionOnReap[1].list[1].body[3].specification.color = self.tone
 			
 			return params
+		end,
+		
+		["prime"] = function()
+			local params = copy(config.getParameter("parametersPrime"))
+				
+			params.actionOnReap[1].list[1].body[1].specification.color = self.tone
+			
+			return params
+		end,
+		
+		["release"] = function()
+			local params = copy(config.getParameter("parametersPrimeRelease"))
+				
+			params.actionOnReap[1].list[1].body[1].specification.color = self.tone
+			
+			return params
 		end
 	}
 	
@@ -467,4 +534,50 @@ end
 
 function round(num, dec)
 	return string.format("%." .. (dec or 0) .. "f", num)
+end
+
+-- problems with this one
+-- it just points to the closest end
+function closestPointOnLine(a, b, p)
+	local ap = world.distance(p, a)
+	local ab = world.distance(b, a)
+	
+	local abMag = vec2.mag(ab)
+	local product = vec2.dot(ap, ab)
+	local dist = product / abMag
+	
+	if (dist < 0) then return a
+	elseif (dist > 1) then return b
+	--else return vec2.mul(vec2.add(a, ab), dist) end
+	else return vec2.add(a, vec2.mul(ab, dist)) end
+end
+
+-- problems here too...
+-- it seems to stretch into infinity or something but works when p is close to a
+function closestPoint2(a, b, p)
+	ap = {p[1] - a[1], p[2] - a[2]}
+	ab = {b[1] - a[1], b[2] - a[2]}
+	
+	abMag = (ab[1] * 2) + (ab[2] * 2)
+	dot = (ap[1] * ab[1]) + (ap[2] * ab[2])
+	
+	t = dot / abMag
+	
+	--return {a[1] + ab[1] * t, a[2] + ab[2] * t}
+	return {a[1] + (ab[1] * t), a[2] + (ab[2] * t)}
+end
+
+-- this one works! it's for vectors/rays rather than segments but that's fine 
+function closestPointOnVector(origin, angleVector, point)
+	local dir = vec2.norm(angleVector)
+	local a = world.distance(point, origin)
+	
+	local dot = vec2.dot(a, dir)
+	return vec2.add(origin, vec2.mul(dir, dot))
+end
+
+function alongAngle(pos, angle, dist)
+	local u = vec2.norm(angle)
+	local du = vec2.mul(u, dist)
+	return vec2.add(pos, du)
 end
