@@ -1,0 +1,19 @@
+{
+  "projectileName" : "azblitztraildebug",
+  "image" : "blank.png",
+  "speed" : 0,
+  "animationLoops" : false,
+  "piercing" : true,
+  "flippable" : true,
+  "damageTeam" : { "type" : "indiscriminate" },
+  "damageKind" : "default",
+  "bounces" : -1,
+  "renderLayer" : "ForegroundEntity",
+  "timeToLive" : 10,
+  "actionOnReap" : [
+
+  ],
+  
+  "scripts" : [ "/scripts/blitztraildebug.lua" ]
+}
+

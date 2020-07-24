@@ -15,7 +15,7 @@ function init()
 	initCommonParameters()
 	--initColorator()
 	initProjectiles()
-	initTrailDefaults()
+	initTrails()
 	initHandlers()
 	
 	self.coloratorInitalized = false
@@ -75,6 +75,8 @@ function initCommonParameters()
   self.altTime = 0.2
   
   self.pDirty = false
+  
+  self.doTrails = config.getParameter("doTrails", true)
 end
 
 function initHandlers()
@@ -182,8 +184,7 @@ function update(args)
   end
 
   if self.active then
-	local lv = self.mnum * vec2.mag(mcontroller.velocity())
-	spawnTrail(mcontroller.position(), mcontroller.velocity(), lv, false, true)
+	if self.doTrails then updateTrail() end
   
     mcontroller.controlParameters(self.transformedMovementParameters)
 	--mcontroller.controlParameters({gravityMultiplier = 0})
@@ -210,8 +211,6 @@ function update(args)
 		replaceProjectiles(1)
 		self.altTimer = self.altTime
 	end
-	
-	
   end
   
   updateTransformFade(args.dt)
@@ -707,9 +706,18 @@ end
 
 -- trail stuff --
 
-function initTrailDefaults()
+function initTrails()
 	self.mnum = 0.1339
+	self.trailLastPos = mcontroller.position()
+	self.trailLastVel = mcontroller.velocity()
+	
+	-- trailRes = ticks between trail spawns
+	self.trailRes = 5
+	self.trailTimer = self.trailRes
+	
+	self.trailInterpSteps = 1
 
+	-- defaults --
 	default = {}
 	default.thiccness = 2.5
 	default.lifeTime = 0.4
@@ -723,20 +731,69 @@ function initTrailDefaults()
 	default.colorVar = {0, 0, 0, 0}
 end
 
-function spawnTrail(posIn, velIn, lengthIn, destBool, velBool)
+function updateTrail()
+	self.trailTimer = self.trailTimer - 1
+	
+	if self.trailTimer < 1 then
+		local pos = mcontroller.position()
+		local vel = mcontroller.velocity()
+		
+		local lv = self.mnum * vec2.mag(vel)
+		
+		local steps = 2
+		local trail = false
+
+		trail = spawnTrail(pos, vel, lv, false, true, false)
+	
+		if trail then
+			local points = lerp(self.trailLastPos, pos, steps)
+			local velPoints = lerp(self.trailLastVel, vel, steps)
+			
+			-- idea: use lerpVel and place the next segment on that vector, to construct a curve?
+			-- but the length of the curve would become longer... 
+			-- I guess I could keep adding segments to fill the curve until it reaches pos
+			-- will also need to truncate the final segment
+			
+			for i = 1, steps do
+				if points[i] then -- should I bother checking?
+					--spawnTrail(points[i], vel, lv, false, true, true)
+					--spawnTrail(points[i], velPoints[i], lv, false, true, true)
+					--spawnDebug(points[i], i, pos, self.trailLastPos)
+				end
+			end
+			
+			--spawnTrail(vecMid(self.trailLastPos, pos), vel, lv, false, true, true)
+			
+			spawnDebug(pos, points, self.trailLastPos)
+		
+			self.trailLastPos = pos
+			self.trailLastVel = vel
+			
+			self.trailTimer = self.trailRes
+		end
+	end
+end
+
+function spawnTrail(posIn, velIn, lengthIn, destBool, velBool, intBool)
 	local param = {}
 
 	useVel = velBool or true
 	local v = {0, 0}
 	
 	if useVel and not destBool then 		
-		v = alongAngle({0, 0}, mcontroller.velocity(), {0, 0})
+		--v = alongAngle({0, 0}, mcontroller.velocity(), {0, 0})
 	end
 
+	local interp = intBool or false
 	local trailColor = default.color
 	if self.coloratorInitalized then
-		trailColor = self.dexed
+		trailColor = self.dexed 
 		trailColor[4] = 200
+		if interp then 
+			--set interp trails to red for debug
+			--sb.logInfo("blitz: spawnTrail interp")
+			trailColor = {255, 0, 0, 200} 
+		end 
 	end
 	
 	return world.spawnProjectile("azdebug", posIn, 0, {0, 0}, false, {
@@ -768,6 +825,60 @@ function spawnTrail(posIn, velIn, lengthIn, destBool, velBool)
 		}
 	  }
 	}
+	})
+end
+
+function lerp(pA, pB, steps)
+	-- lerp(a, b, t) = a + (t * (b - a))
+
+	--local delta = world.distance(pA, pB)
+	local delta = {pA[1] - pB[1], pA[2] - pB[2]}
+	delta = vecFlip(delta)
+	
+	local inter = {delta[1] / (steps + 1), delta[2] / (steps + 1)}
+	
+	local points = {}
+	for i = 1, steps do
+		local m = vec2.mul(inter, i)
+		--p = {pA[1] + (inter[1] * i), pA[2] + (inter[2] * i)}
+		p = {pA[1] + m[1], pA[2] + m[2]}
+		table.insert(points, p)
+	end
+	
+	return points
+end
+
+function lerpCos(pA, pB, steps)
+	-- cosine(a, b, t) = lerp (a, b, (-(math.cosine(math.pi * t) / 2) + 0.5))
+
+end
+
+function vecMid(pA, pB)
+	return {(pA[1] + pB[1]) / 2, (pA[2] + pB[2]) / 2}
+end
+
+-- not finished
+-- might not actually need this, not sure yet
+function vecPerp(pA, pBin)
+	local pB = pBin or vec2.withAngle(pA, 1)
+	
+	local dot = vec2.dot(pA, pB)
+	
+	
+end
+
+function spawnDebug(posIn, pointsIn, pos1)
+	--[[--return world.spawnProjectile("azblitztraildebug", posIn, 0, {0, 0}, false, {
+		timeToLive = 6.0,
+		iter = step,
+		curPos = pos1,
+		lastPos = pos2
+	})]]
+	
+	return world.spawnProjectile("azblitztraildebug", posIn, 0, {0, 0}, false, {
+		timeToLive = 6.0,
+		points = pointsIn,
+		lastPos = pos1
 	})
 end
 
@@ -832,7 +943,12 @@ function minY(poly)
 end
 
 function alongAngle(pos, angle, dist)
+
 	local u = vec2.norm(angle)
 	local du = vec2.mul(u, dist)
 	return vec2.add(pos, du)
+end
+
+function vecFlip(vec)
+	return {-vec[1], -vec[2]}
 end
