@@ -92,5 +92,9 @@
   "projectileOrbitClockwise" : true,
   "projectileCount" : 1,
   "projectileRegenTimer" : 2.5,
-  "fireCooldown" : 0.25
+  "fireCooldown" : 0.25,
+  
+  "swirlGroups" : [
+	"swirl1"
+  ]
 }

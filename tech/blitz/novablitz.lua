@@ -20,6 +20,8 @@ function init()
 	
 	self.coloratorInitalized = false
 	
+	animInit()
+	
 	util.setDebug(true)
 end
 
@@ -211,6 +213,8 @@ function update(args)
 		replaceProjectiles(1)
 		self.altTimer = self.altTime
 	end
+	
+	animUpdate(args.dt)
   end
   
   updateTransformFade(args.dt)
@@ -254,7 +258,7 @@ function drawDebug()
 		world.debugText("fireTimer: " .. round(self.fireTimer, 2), vec2.add(mcontroller.position(), {4, 1.5}), "green")
 		world.debugText("projCount: " .. tostring(#self.projectiles), vec2.add(mcontroller.position(), {4, 1}), "green")
 		
-		util.debugCircle(mcontroller.position(), self.projOrbitRadius, "red", 8)
+		--util.debugCircle(mcontroller.position(), self.projOrbitRadius, "red", 8)
 		
 		
 		--world.debugText("Projectiles: ", vec2.add(pos, {8, 2}), "green")
@@ -460,6 +464,7 @@ function activate()
     self.angularVelocity = 0
     self.angle = 0
     self.transformFadeTimer = self.transformFadeTime
+	activateSwirls(true)
   end
   tech.setParentHidden(true)
   tech.setParentOffset({0, positionOffset()})
@@ -490,6 +495,7 @@ function deactivate()
   tech.setToolUsageSuppressed(false)
   status.clearPersistentEffects("movementAbility")
   self.angle = 0
+  activateSwirls(false)
   
   sb.logInfo("blitz: deactivating")
   killProjectiles(true)
@@ -764,7 +770,7 @@ function updateTrail()
 			
 			--spawnTrail(vecMid(self.trailLastPos, pos), vel, lv, false, true, true)
 			
-			spawnDebug(pos, points, self.trailLastPos)
+			--spawnDebug(pos, points, self.trailLastPos)
 		
 			self.trailLastPos = pos
 			self.trailLastVel = vel
@@ -880,6 +886,114 @@ function spawnDebug(posIn, pointsIn, pos1)
 		points = pointsIn,
 		lastPos = pos1
 	})
+end
+
+----
+-- anim stuff
+----
+
+function activateSwirls(bool)
+	local str = ""
+	--if bool then str = "front" else str = "off" end
+	local str = bool and "front" or "off"
+	local iter = 1
+	for i, v in pairs(self.swirlForms) do
+		animator.setAnimationState("swirlState" .. tostring(iter), str)
+		iter = iter + 1
+	end
+end
+
+function animInit()
+	self.swirlForms = {}
+
+	self.swirlSmooth = 10
+
+	self.swirlDefault = {
+		position = {0, 0},
+		tPosition = {0, 0},
+		oscPoint = {3, 0},
+		front = true
+	}
+	
+	for i, v in pairs(config.getParameter("swirlGroups")) do
+		self.swirlForms[v] = {}
+	end
+	
+	for i, v in pairs (self.swirlForms) do
+		for key, val in pairs(self.swirlDefault) do
+			sb.logInfo("blitz: swirldDefault - " .. tostring(key) .. " : " .. tostring(val))
+			if self.swirlForms[i][key] == nil then
+				self.swirlForms[i][key] = val
+			end
+		end
+		
+		self.swirlForms[i].tPosition = self.swirlForms[i].oscPoint
+	end
+	
+	self.cycle = 0
+	self.swirlSpeed = 5 
+	self.tRad = 3
+end
+
+function animUpdate(dt)
+	sb.logInfo("current: " .. animator.animationState("swirlState1"))
+	self.cycle = self.cycle + ((dt * self.swirlSpeed) % 360)
+
+	for i, v in pairs(self.swirlForms) do
+		local aPos = circlePos(self.cycle, self.tRad)
+		aPos[2] = aPos[2]*0.1
+		self.swirlForms[i].position = aPos
+		
+		if (aPos[2] > 0) then
+			animator.setAnimationState("swirlState1", "back")
+			--animator.setPartTag("swirl1", "swirlZ", 3)
+		else 
+			animator.setAnimationState("swirlState1", "front")
+		end
+		
+		--self.swirlForms[i].position[1] = animLerp(v.position[1], v.tPosition[1], (self.swirlSmooth / (speedFactor)) / (dt * 60))
+	
+		--if withinThresh(v.position[1], v.tPosition[1], 0.2) then
+		--if (math.abs(v.position[1]) > math.abs(v.tPosition[1])) then
+		
+			--local p = v.tPosition[1]
+			--sb.logInfo("blitz: swirlflip - " .. tostring(p))
+			--self.swirlForms[i].tPosition[1] = -self.swirlForms[i].oscPoint[1]
+			--self.swirlForms[i].tPosition[1] = -p
+		--end
+	
+		if animator.hasTransformationGroup(i) then
+			animator.resetTransformationGroup(i)
+			animator.translateTransformationGroup(i, v.position)
+		end
+	end
+end
+
+function circleTest(dt)
+	aPos = circlePos(self.cycle, self.tRad)
+	aPos[2] = aPos[2]*0.1
+	
+	world.debugPoint(vec2.add(mcontroller.position(), aPos), "blue")
+	util.debugCircle(mcontroller.position(), self.tRad, "red", 16)
+end
+
+function circlePos(angle, radius)
+	--local sin = math.sin(angle)
+	--local cos = math.cos(angle)
+	
+	return vec2.rotate({radius, 0}, angle)
+end
+
+function animLerp(v, t, s)
+	return v + ((t - v)/s)
+end
+
+function withinThresh(a, b, t)
+	return (math.abs(a - b) < t)
+end
+
+function within(a, b)
+	return (a < b)
 end
 
 ----

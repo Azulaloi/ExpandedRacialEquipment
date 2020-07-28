@@ -27,7 +27,15 @@
           },
           "on" : { }
         }
-      }
+      },
+	  "swirlState1" : {
+		"default" : "off",
+		"states" : {
+		  "off" : {},
+		  "front" : {},
+		  "back" : {}
+		}
+	  }
     },
 
     "parts" : {
@@ -98,12 +106,40 @@
             }
           }
 		}
+	  },
+	  "swirl1" : {
+	    "properties" : {
+		  "transformationGroups" : [ "swirl1" ],
+		  "centered" : true
+		},
+		"partStates" : {
+		  "swirlState1" : {
+		    "off" : {
+			  "properties" : {
+			    "image" : ""
+			  }
+			},
+		    "front" : {
+			  "properties" : {
+			    "image" : "swirl.png?<glowTone>",
+			    "zLevel" : 2.1
+			  }
+			},
+			"back" : {
+			  "properties" : {
+			    "image" : "swirl.png?<glowTone>",
+			    "zLevel" : -1
+			  }
+			}
+		  }
+		}
 	  }
     }
   },
 
   "transformationGroups" : {
-    "ball" : { "interpolated" : true }
+    "ball" : { "interpolated" : true },
+	"swirl1" : {}
   },
 
   "particleEmitters" : {
