@@ -29,6 +29,8 @@ function init()
     end)
 
   animator.setAnimationState("dashing", "off")
+
+  self.hasQueried = false
 end
 
 function initDashParameters()
@@ -45,6 +47,14 @@ function uninit()
 end
 
 function update(args)
+  if not self.hasQueried then
+	sb.logInfo("novadash has not queried")
+	local msg = world.sendEntityMessage(entity.id(), "az-checkMessage")
+	if msg:result() then 
+		messageParameters()
+	end
+  end
+  
   if args.moves["special2"] then
 	sb.logInfo("novadash: special2")
   end
@@ -70,6 +80,19 @@ function update(args)
   if self.dashTimer > 0 then
 	doDash(args)
   end
+end
+
+function messageParameters()
+	local msgGender = world.sendEntityMessage(entity.id(), "az-key_getGender")
+	sb.logInfo("novadash-testmsg: playerGender = " .. tostring(msgGender:result()))
+	
+	local msgSpecies = world.sendEntityMessage(entity.id(), "az-key_getSpecies")
+	sb.logInfo("novadash-testmsg: playerSpecies = " .. tostring(msgSpecies:result()))	
+	
+	local msgProperty = world.sendEntityMessage(entity.id(), "az-key_getProperty", "az-message-test")
+	sb.logInfo("novadash-testmsg: playerTestProperty = " .. tostring(msgProperty:result()))
+
+	self.hasQueried = true
 end
 
 function doDash(args)

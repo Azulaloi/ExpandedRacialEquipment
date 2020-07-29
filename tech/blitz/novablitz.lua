@@ -938,7 +938,7 @@ function animInit()
 end
 
 function animUpdate(dt)
-	sb.logInfo("current: " .. animator.animationState("swirlState1"))
+	--sb.logInfo("current: " .. animator.animationState("swirlState1"))
 	self.cycle = self.cycle + ((dt * self.swirlSpeed) % 360)
 
 	for i, v in pairs(self.swirlForms) do

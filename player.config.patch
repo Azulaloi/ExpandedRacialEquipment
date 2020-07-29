@@ -1,0 +1,7 @@
+[    
+    {
+        "op": "add",
+        "path": "/genericScriptContexts/az-depmessage",
+        "value": "/scripts/az-depmessage.lua"
+    }
+]
