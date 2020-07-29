@@ -718,7 +718,7 @@ function initTrails()
 	self.trailLastVel = mcontroller.velocity()
 	
 	-- trailRes = ticks between trail spawns
-	self.trailRes = 5
+	self.trailRes = 1
 	self.trailTimer = self.trailRes
 	
 	self.trailInterpSteps = 1
@@ -912,7 +912,9 @@ function animInit()
 		position = {0, 0},
 		tPosition = {0, 0},
 		oscPoint = {3, 0},
-		front = true
+		front = true,
+		angleOffset = 0,
+		cycleOffset = 0
 	}
 	
 	for i, v in pairs(config.getParameter("swirlGroups")) do
@@ -940,16 +942,19 @@ function animUpdate(dt)
 	self.cycle = self.cycle + ((dt * self.swirlSpeed) % 360)
 
 	for i, v in pairs(self.swirlForms) do
-		local aPos = circlePos(self.cycle, self.tRad)
+		local aPos = circlePos(self.cycle + v.cycleOffset, self.tRad)
 		aPos[2] = aPos[2]*0.1
-		self.swirlForms[i].position = aPos
-		
+
 		if (aPos[2] > 0) then
 			animator.setAnimationState("swirlState1", "back")
 			--animator.setPartTag("swirl1", "swirlZ", 3)
 		else 
 			animator.setAnimationState("swirlState1", "front")
 		end
+		
+		aPos = vec2.rotate(aPos, v.angleOffset)
+		self.swirlForms[i].position = aPos
+		self.swirlForms[i].angleOffset = v.angleOffset + (dt * 2)
 		
 		--self.swirlForms[i].position[1] = animLerp(v.position[1], v.tPosition[1], (self.swirlSmooth / (speedFactor)) / (dt * 60))
 	
