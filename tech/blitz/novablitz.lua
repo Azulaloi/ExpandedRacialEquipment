@@ -2,6 +2,10 @@ require "/scripts/vec2.lua"
 require "/scripts/util.lua"
 require "/scripts/colorutil.lua"
 
+-- TODO: disallow activation until full init completion
+
+-- older todos
+
 -- TODO: shift + activate for alt mode
 -- TODO: multiple rings of projectiles?
 -- TODO: impact effects (particles when u smack into things)
@@ -10,19 +14,29 @@ require "/scripts/colorutil.lua"
 -- TODO: dash?
 
 function init()
+	self.verbosity = 100
+	azLog("init start")
+	
+	util.setDebug(true)
+	
+	self.initFlags = {
+		complete = false,
+		playParams = false,
+		colorator = false,
+		msgReady = false,
+		novaTone = false,
+		glowTone = false,
+		brand = false
+	}
+	self.playParams = {} 
 	self.projectiles = self.projectiles or {}
 
 	initCommonParameters()
-	--initColorator()
-	initProjectiles()
+	--initProjectiles()
 	initTrails()
 	initHandlers()
 	
-	self.coloratorInitalized = false
-	
 	animInit()
-	
-	util.setDebug(true)
 end
 
 function initProjectiles()
@@ -64,6 +78,7 @@ function initCommonParameters()
   self.projOrbitClockwise = config.getParameter("projectileOrbitClockwise", true)
   self.projectileCount = config.getParameter("projectileCount", 5)
   
+  -- timers -- 
   self.projReplaceWait = config.getParameter("projectileRegenTimer", 3)
   self.projReplaceTimer = self.projReplaceWait
   
@@ -92,59 +107,106 @@ function initColorator()
 	self.bodyColors = {0, 0, 0}
 	
 	if id then
-		self.bodyColors = extractTone(id)
-		self.dexed = hextorgb(self.bodyColors[2])
-		hsl = rgbtohsl(self.dexed)
-		hsl[2] = 0.7
-		hsl[3] = 0.45
-		prepGlow = hsltorgb(hsl)
-		
-		--sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
-		
-		
-		local extDir = extractDirectives(id)
-		--directives = string.sub(directives, 65, -1)
-		self.directives = string.sub(extDir, 1, 63)
-		
-		animator.setGlobalTag("novaTone", self.directives)
-		
-		
-		
-		-- this is a brute force method, don't ship this
-		-- instead, put the specific tones present in the final sprites into a table
-		glowTable = {"FDE03F", "FEE03F", "FEE03E"} 
-		local glowTone = self.directives
-		for i = 1, 255 do 
-			for k, v in ipairs(glowTable) do
-				local alpha = string.format("%x", tostring(i))
-				if #alpha == 1 then alpha = alpha .. 0 end
-				local str = ";" .. string.lower(v) .. alpha .. "=" .. 
-					tostring(self.bodyColors[2]) .. alpha  
-				glowTone = glowTone .. str
+		if (not self.initFlags.novaTone) then
+			local novaTone = generateNovaTone(id)
+			if novaTone then
+				self.directives = novaTone
+				animator.setGlobalTag("novaTone", novaTone)
+				self.initFlags.novaTone = true
+				azLog("novaTone set", 2)
 			end
 		end
 		
-		animator.setGlobalTag("glowTone", glowTone)
-		--sb.logInfo(tostring(glowTone))
+		if (not self.initFlags.glowTone) then
+			local glowTone = generateGlowTones()
+			if glowTone then
+				-- disabled until I need it elsewhere (for projectiles maybe?)
+				--self.glowTone = glowTone
+				animator.setGlobalTag("glowTone", glowTone)	
+				self.initFlags.glowTone = true
+				azLog("glowTones generated", 2)
+				azLog(glowTone, 101)
+			end
+		end
 		
+		if (not self.initFlags.brand) then
+			local brand = extractBrand(id)
+			if brand then
+				-- disabled until I need it elsewhere
+				--self.brandImage = brand
+				animator.setGlobalTag("brandImage", brand)
+				self.initFlags.brand = true
+				azLog("brand extracted", 2)
+				azLog("brandImage - " .. brand, 3)
+			end
+		end
 		
-		--local portrait = world.entityPortrait(id, "full")
-
-		--for k,v in ipairs(portrait) do
-		--	sb.logInfo(tostring(k))
-		--end
-		--sb.logInfo(sb.printJson(portrait))
-		
-		local brand = extractImage(id, "/humanoid/novakid/brand/")
-		brand = sb.printJson(brand)
-		brand = brand:sub(2)
-		brand = brand:sub(0, #brand-1)
-		sb.logInfo("brand: " .. brand)
-		animator.setGlobalTag("brandImage", brand) 
-		
-		self.coloratorInitalized = true
+		if self.initFlags.novaTone and
+		   self.initFlags.glowTone and
+		   self.initFlags.brand then
+		   
+		    azLog("colorator initialized", 1)
+			self.initFlags.colorator = true
+		else
+			azLog("colorator failed to init! checking components...", 0, 2)
+			local tab = {"novaTone", "glowTone", "brand"}
+			for i, v in ipairs(tab) do
+				if self.initFlags[v] == false then
+					azLog("colorator component <" .. tostring(tab[v]) .. "> failed!", 0, 2)
+				end
+			end
+		end
 	end
 end
+
+function generateNovaTone(playerId)
+	self.bodyColors = extractTone(playerId)
+	self.dexed = hextorgb(self.bodyColors[2])
+	hsl = rgbtohsl(self.dexed)
+	hsl[2] = 0.7
+	hsl[3] = 0.45
+	prepGlow = hsltorgb(hsl)
+	
+	--sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
+	
+	
+	local extDir = extractDirectives(playerId)
+	--directives = string.sub(directives, 65, -1)
+	return string.sub(extDir, 1, 63)
+end
+
+function generateGlowTones()
+	-- this is a brute force method, don't ship this
+	-- instead, put the specific tones present in the final sprites into a table
+	glowTable = {"FDE03F", "FEE03F", "FEE03E"} 
+	local glowTone = self.directives
+	for i = 1, 255 do 
+		for k, v in ipairs(glowTable) do
+			local alpha = string.format("%x", tostring(i))
+			if #alpha == 1 then alpha = alpha .. 0 end
+			local str = ";" .. string.lower(v) .. alpha .. "=" .. 
+				tostring(self.bodyColors[2]) .. alpha  
+			glowTone = glowTone .. str
+		end
+	end
+		
+	return glowTone
+end
+
+-- TODO: remove masking before returning
+function extractBrand(playerId)
+	local brand = extractImage(playerId, "/humanoid/novakid/brand/")
+	brand = sb.printJson(brand)
+	brand = brand:sub(2)
+	brand = brand:sub(0, #brand-1)
+	
+	return brand
+end
+
+-- TODO: 
+-- getBrandType(playerId)
+-- 	return just the image name (1, 2, 3, etc)
+-- end
 
 function extractImage(pid, str)
     --local directives = ""
@@ -163,15 +225,63 @@ function extractImage(pid, str)
 	return image
 end
 
+function initPlayerParameters()
+	if not self.msgCheck then self.msgCheck = world.sendEntityMessage(entity.id(), "az-key_checkMessage") end
+	if self.msgCheck:result() then
+		-- msgReady ensures isn't this func isn't called again while params are being set
+		self.initFlags.msgReady = true 
+		
+		local quantity = 0
+		local pPrefix = "az-ere_blitz-"
+		local pList = { "quantity", "radius" }
+		for i, v in ipairs(pList) do
+			local msg = world.sendEntityMessage(entity.id(), "az-key_getProperty", pPrefix .. v)
+			if msg:result() then
+				self.playParams[v] = msg:result()
+				quantity = quantity + 1
+			end
+		end
+		
+		local iter = 1
+		for i, v in pairs(self.playParams) do
+			azLog("playerParam #" .. tostring(iter) .. " - " .. tostring(i) .. " : " .. tostring(v), 3)
+			iter = iter + 1
+		end
+		
+		if quantity ~= iter then
+			azLog("playerParams quantity mismatch! init count " .. 
+					"(" .. tostring(quantity) .. ")" .. 
+					" ~= array length " .. 
+					"(" .. tostring(iter) .. ")", 0.5)
+		end
+		
+		-- initComplete is not true until all params are set
+		self.initFlags.playParams = true
+		azLog("playParams initialized (" .. tostring(quantity) .. ")", 2)
+	end
+end
+
 function uninit()
   storePosition()
   deactivate()
 end
 
 function update(args)
-  if not self.coloratorInitalized then
+  if (not self.initFlags.playParams) and (not self.initFlags.msgReady) then
+	initPlayerParameters()
+  end
+
+  if not self.initFlags.colorator then
 	-- extractTone doesn't work in init
 	initColorator()
+  end
+  
+  if (not self.initFlags.complete) and
+     self.initFlags.playParams and
+	 self.initFlags.colorator then
+	
+	self.initFlags.complete = true
+	azLog("initialization complete", 0.1)
   end
 
   restoreStoredPosition()
@@ -326,25 +436,27 @@ function doHover(args)
 end
 
 function attemptActivation()
-  if not self.active
-      and not tech.parentLounging()
-      and not status.statPositive("activeMovementAbilities")
-      and status.overConsumeResource("energy", self.energyCost) then
-
-    local pos = transformPosition()
-    if pos then
-      mcontroller.setPosition(pos)
-      activate()
-    end
-  elseif self.active then
-    local pos = restorePosition()
-    if pos then
-      mcontroller.setPosition(pos)
-      deactivate()
-    elseif not self.forceTimer then
-      animator.playSound("forceDeactivate", -1)
-      self.forceTimer = 0
-    end
+  if self.initFlags.complete then
+     if not self.active
+         and not tech.parentLounging()
+         and not status.statPositive("activeMovementAbilities")
+         and status.overConsumeResource("energy", self.energyCost) then
+     
+       local pos = transformPosition()
+       if pos then
+         mcontroller.setPosition(pos)
+         activate()
+       end
+     elseif self.active then
+       local pos = restorePosition()
+       if pos then
+         mcontroller.setPosition(pos)
+         deactivate()
+       elseif not self.forceTimer then
+         animator.playSound("forceDeactivate", -1)
+         self.forceTimer = 0
+       end
+     end
   end
 end
 
@@ -792,7 +904,7 @@ function spawnTrail(posIn, velIn, lengthIn, destBool, velBool, intBool)
 
 	local interp = intBool or false
 	local trailColor = default.color
-	if self.coloratorInitalized then
+	if self.initFlags.colorator then
 		trailColor = self.dexed 
 		trailColor[4] = 200
 		if interp then 
@@ -1004,6 +1116,32 @@ end
 ----
 -- util stuff
 ----
+
+-- string, float, int
+-- 
+-- priorities: 
+--   0 is for critical errors
+--   1 is for basic stuff
+--   2 is for lots of detail
+--   3 is for stuff like printing tables
+--
+-- this system is probably a bad idea (because of how arbitrary priority is)
+-- but it's kind of neat so im gonna do it anyway
+function azLog(str, priorityIn, levelIn, prefixIn)
+	--local priority = ((priorityIn ~= nil) and priorityIn) or 1
+	local priority = priorityIn and priorityIn or 1
+	local level = levelIn or 0
+	local prefix = prefixIn and prefixIn or "blitz: "
+	if self.verbosity >= priority then
+		if level < 1 then
+			sb.logInfo(prefix .. str)
+		elseif level < 2 then
+			sb.logWarn(prefix .. str)
+		elseif level < 3 then
+			sb.logError(prefix .. str)
+		end
+	end
+end
 
 function pointsCircle(quant, radius)
 	local points = {}

@@ -1,0 +1,12 @@
+[
+	{
+		"op": "add",
+    	"path": "/normal/-",
+    	"value": { "label" : "Weapon Upgrade", "pane" : "/interface/scripted/weaponupgrade/weaponupgradegui.config", "icon" : "/interface/scripted/weaponupgrade/weaponupgradeicon.png" }
+    },	
+	{
+		"op": "add",
+    	"path": "/normal/-",
+    	"value": { "label" : "Blitz", "pane" : "/interface/blitzpane/blitzpane.config", "icon" : "/interface/blitzpane/icon.png" }
+    }
+]
