@@ -2,7 +2,14 @@ require "/scripts/vec2.lua"
 require "/scripts/util.lua"
 require "/scripts/colorutil.lua"
 
--- TODO: disallow activation until full init completion
+-- todo now
+-- TODO: fix missing frame errors
+-- TODO: use playerParameters over commonParameters
+
+-- todo future
+-- TODO: arbitrary number of projectile types (for multiple rings, or different projectiles with different behavior)
+-- TODO: shields?
+-- TODO: flight height limit (smooth transition)
 
 -- older todos
 
@@ -94,6 +101,8 @@ function initCommonParameters()
   self.pDirty = false
   
   self.doTrails = config.getParameter("doTrails", true)
+  
+  azLog("common parameters initialized", 2)
 end
 
 function initHandlers()
@@ -242,7 +251,7 @@ function initPlayerParameters()
 			end
 		end
 		
-		local iter = 1
+		local iter = 0
 		for i, v in pairs(self.playParams) do
 			azLog("playerParam #" .. tostring(iter) .. " - " .. tostring(i) .. " : " .. tostring(v), 3)
 			iter = iter + 1

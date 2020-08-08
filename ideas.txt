@@ -1,0 +1,41 @@
+
+
+
+
+ideas that could become systems for core
+
+linked item entities {
+	an item that while in the inventory becomes an entity in the world 
+	basically a player script that on init checks if there is an item in the inv
+	then spawns that entity into the world
+	and when the item inits, it tells the player to tell the entity to return
+	and when the entity returns the player tells the item to display/function/activate
+	ex. a sword item that follows you until you equip it, then it comes to your hand
+	
+	!! an item that is two items, that can switch between
+	ie a sword with a floating gun, right click, then gun returns and sword emerges, and vice versa
+	and depending on which mode, item behaves as sword or gun
+	
+	the item should do empty stances until the sword gets close, then sort of reach towards where its coming from
+	then transition to the stance position, maybe with a little flourish
+}
+
+linked status entities {
+	a status that while active summons one or more entities in the world
+	alternatively, can summon/control projectiles
+	could control them in different ways, like dark souls magic orbs that fire at enemies
+	or orbiting entities like dnd ioun stones (not sure how to set z level)
+	it would be pretty annoying if their health bars got in the way constantly
+}
+
+entity chains {
+	basically worms like terraria
+	a head entity with segment entities that chain and communicate/share damage
+	optionally can come apart and make new head segments
+	for non-separating worms, each segment would need to copy the main healthbars,
+	and keep 1 hp and only die when told by the head
+	might also need custom loot drop management 
+	separating worms would have health per segment
+	and those segments should be able to display damage visually to make them easier to target
+	
+}

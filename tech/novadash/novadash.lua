@@ -49,7 +49,7 @@ end
 function update(args)
   if not self.hasQueried then
 	sb.logInfo("novadash has not queried")
-	local msg = world.sendEntityMessage(entity.id(), "az-checkMessage")
+	local msg = world.sendEntityMessage(entity.id(), "az-key_checkMessage")
 	if msg:result() then 
 		messageParameters()
 	end
@@ -83,6 +83,8 @@ function update(args)
 end
 
 function messageParameters()
+	self.hasQueried = true
+
 	local msgGender = world.sendEntityMessage(entity.id(), "az-key_getGender")
 	sb.logInfo("novadash-testmsg: playerGender = " .. tostring(msgGender:result()))
 	
@@ -91,8 +93,6 @@ function messageParameters()
 	
 	local msgProperty = world.sendEntityMessage(entity.id(), "az-key_getProperty", "az-message-test")
 	sb.logInfo("novadash-testmsg: playerTestProperty = " .. tostring(msgProperty:result()))
-
-	self.hasQueried = true
 end
 
 function doDash(args)
