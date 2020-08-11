@@ -1,8 +1,16 @@
 require "/scripts/vec2.lua"
 require "/scripts/util.lua"
-require "/scripts/colorutil.lua"
+--require "/scripts/colorutil.lua"
+
+require "/scripts/az-key-core/util/colourutil.lua"
+require "/scripts/az-key-core/util/portraitutil.lua"
 
 -- todo now
+-- IN PROGRESS: move to portraitutil/colourutil
+-- 		before using utils, linecount is 1220
+--		after using utils, linecount is... 1205 + (2 new utils totalling 330 lines)
+--		now that's what I call programming! (ok there's a lot of comments in the utils but still)
+-- 
 -- TODO: fix missing frame errors
 -- TODO: use playerParameters over commonParameters
 
@@ -113,11 +121,28 @@ end
 
 function initColorator()
 	local id = entity.id()
-	self.bodyColors = {0, 0, 0}
+	
+	self.bodyTonesRaw = {{},{},{},{}}
+	self.bodyTonesHex = {{},{},{},{}}
+	self.bodyTonesRGB = {{},{},{},{}}
 	
 	if id then
+		self.portrait = prt.extractPortrait(id)
+	
+		self.bodyTonesRaw = prt.extractTones(self.portrait, true) -- array of 4 6-length hex strings
+		self.bodyTonesHex = col.hexArraySplit(self.bodyTonesRaw) -- array of 4 3-length arrays of 2-length hex strings
+		self.bodyTonesRGB = col.hexArrayToNum(self.bodyTonesHex) -- array of 4 3-length arays of 3-length rgb numbers
+		
+		azLog("blitz: bodyTonesRaw = " .. sb.printJson(self.bodyTonesRaw), 3)
+		azLog("blitz: bodyTonesHex = " .. sb.printJson(self.bodyTonesHex), 3)
+		azLog("blitz: bodyTonesRGB = " .. sb.printJson(self.bodyTonesRGB), 3)
+	
+		self.directives = string.sub(prt.extractDirectives(self.portrait, true), 1, 63)
+	
+		self.bodyColors = {0, 0, 0}
+	
 		if (not self.initFlags.novaTone) then
-			local novaTone = generateNovaTone(id)
+			local novaTone = string.sub(prt.extractDirectives(self.portrait, true), 1, 63)
 			if novaTone then
 				self.directives = novaTone
 				animator.setGlobalTag("novaTone", novaTone)
@@ -139,14 +164,14 @@ function initColorator()
 		end
 		
 		if (not self.initFlags.brand) then
-			local brand = extractBrand(id)
+			local brand = prt.extractBrand(self.portrait, true)
 			if brand then
 				-- disabled until I need it elsewhere
 				--self.brandImage = brand
 				animator.setGlobalTag("brandImage", brand)
 				self.initFlags.brand = true
-				azLog("brand extracted", 2)
-				azLog("brandImage - " .. brand, 3)
+				azLog("brand extracted (type = " .. prt.getBrandType(brand, false, true) .. ")", 2)
+				--azLog("brandImage - " .. brand, 3)
 			end
 		end
 		
@@ -168,20 +193,14 @@ function initColorator()
 	end
 end
 
+-- this will be retooled for adjusting the directives on the fly
+-- todo: colors -> directives format function
 function generateNovaTone(playerId)
-	self.bodyColors = extractTone(playerId)
-	self.dexed = hextorgb(self.bodyColors[2])
-	hsl = rgbtohsl(self.dexed)
+	local hsl = col.rgbToHSL(self.bodyTonesRGB[2])
 	hsl[2] = 0.7
 	hsl[3] = 0.45
-	prepGlow = hsltorgb(hsl)
-	
+	local prepGlow = col.hslToRGB(hsl)
 	--sb.logInfo("NovaBlitz RGB: " .. "R" .. tostring(prepGlow[1]) .. "G" .. tostring(prepGlow[2]) .. "B" .. tostring(prepGlow[3]))
-	
-	
-	local extDir = extractDirectives(playerId)
-	--directives = string.sub(directives, 65, -1)
-	return string.sub(extDir, 1, 63)
 end
 
 function generateGlowTones()
@@ -194,44 +213,12 @@ function generateGlowTones()
 			local alpha = string.format("%x", tostring(i))
 			if #alpha == 1 then alpha = alpha .. 0 end
 			local str = ";" .. string.lower(v) .. alpha .. "=" .. 
-				tostring(self.bodyColors[2]) .. alpha  
+				tostring(self.bodyTonesRaw[2]) .. alpha  
 			glowTone = glowTone .. str
 		end
 	end
 		
 	return glowTone
-end
-
--- TODO: remove masking before returning
-function extractBrand(playerId)
-	local brand = extractImage(playerId, "/humanoid/novakid/brand/")
-	brand = sb.printJson(brand)
-	brand = brand:sub(2)
-	brand = brand:sub(0, #brand-1)
-	
-	return brand
-end
-
--- TODO: 
--- getBrandType(playerId)
--- 	return just the image name (1, 2, 3, etc)
--- end
-
-function extractImage(pid, str)
-    --local directives = ""
-	local image = nil
-	
-    local portrait = world.entityPortrait(pid, "full")
-
-    for k, v in pairs(portrait) do
-        if string.find(portrait[k].image, str) then
-            image = portrait[k].image
-            --local directive_location = string.find(body_image, "replace")
-            --directives = string.sub(body_image,directive_location)
-        end
-    end
-	
-	return image
 end
 
 function initPlayerParameters()
@@ -660,7 +647,8 @@ function createProjectiles(countIn, circleIn, replaceIn)
 		end
 	end
 	
-	local tone = hextorgb(self.bodyColors[2])
+	--local tone = hextorgb(self.bodyColors[2])
+	local tone = self.bodyTonesRGB[2]
 	local pParams = copy(self.projectileParameters)
 	pParams.processing = "?" .. self.directives
 	pParams.periodicActions[1].specification.color = tone
@@ -914,7 +902,7 @@ function spawnTrail(posIn, velIn, lengthIn, destBool, velBool, intBool)
 	local interp = intBool or false
 	local trailColor = default.color
 	if self.initFlags.colorator then
-		trailColor = self.dexed 
+		trailColor = self.bodyTonesRGB[2] 
 		trailColor[4] = 200
 		if interp then 
 			--set interp trails to red for debug
@@ -1042,20 +1030,25 @@ function animInit()
 		self.swirlForms[v] = {}
 	end
 	
+	local iter = 0
+	
 	for i, v in pairs (self.swirlForms) do
 		for key, val in pairs(self.swirlDefault) do
-			sb.logInfo("blitz: swirldDefault - " .. tostring(key) .. " : " .. tostring(val))
+			azLog("swirldDefault - " .. tostring(key) .. " : " .. tostring(val), 101)
 			if self.swirlForms[i][key] == nil then
 				self.swirlForms[i][key] = val
 			end
 		end
 		
 		self.swirlForms[i].tPosition = self.swirlForms[i].oscPoint
+		iter = iter + 1
 	end
 	
 	self.cycle = 0
 	self.swirlSpeed = 5 
 	self.tRad = 3
+	
+	azLog("swirls initialized (" .. tostring(iter) .. ")", 2)
 end
 
 function animUpdate(dt)

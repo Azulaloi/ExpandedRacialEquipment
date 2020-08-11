@@ -1,6 +1,8 @@
 
 
 
+a boomerang that u can explode and have it return like warframe glaives
+
 
 ideas that could become systems for core
 
@@ -39,3 +41,4 @@ entity chains {
 	and those segments should be able to display damage visually to make them easier to target
 	
 }
+

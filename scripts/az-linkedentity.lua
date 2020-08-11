@@ -7,7 +7,7 @@ function init()
 	-- add some feature to the item that lets u turn off deployment
 	if player.hasItem({name = "az-linkedblade"}) then
 		--if #entityIds >= 1 then 
-			deployEntity() 
+			--deployEntity() 
 		--end
 	end
 end
@@ -41,7 +41,7 @@ function deployEntity()
 	--entityParameters.attackMode
 	--entityParameters.movementMode == 
 
-	local entity = world.spawnMonster("az-linkedblade", mcontroller.position(), entityParameters)
+	--local entity = world.spawnMonster("az-linkedblade", mcontroller.position(), entityParameters)
 	if entity then table.insert(entityIds, entity) end
 end
 
@@ -77,8 +77,8 @@ function update()
 		local handItem = player.primaryHandItem()
 
 		if (handItem == nil) or (handItem.name ~= "az-linkedblade")then 
-			sb.logInfo("az-linkedentity player: handitem wrong")
-			sb.logInfo(sb.printJson(handItem))
+			--sb.logInfo("az-linkedentity player: handitem wrong")
+			--sb.logInfo(sb.printJson(handItem))
 			--returnEntity() 
 			if not entityIds[1] then deployEntity() end
 		end
